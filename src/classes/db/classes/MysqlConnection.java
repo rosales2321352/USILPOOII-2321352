@@ -26,9 +26,9 @@ public class MysqlConnection implements IDb {
     }
 
     public Connection connection() throws SQLException{
-        String user = "root";
-        String pass = "Admin@1234";
-        String url  = "jdbc:mysql://localhost:3306/test_mysql?useTimezone=true&serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true";
+        String user = "usil_root";
+        String pass = "675&mF{~D-P=";
+        String url  = "jdbc:mysql://usilpooii.mysql.database.azure.com:3306/usilpooii_db?useTimezone=true&serverTimezone=UTC&useSSL=true&allowPublicKeyRetrieval=true";
         DriverManager.registerDriver(new Driver());
         Connection conn = DriverManager.getConnection(url,user,pass);
         return conn;
