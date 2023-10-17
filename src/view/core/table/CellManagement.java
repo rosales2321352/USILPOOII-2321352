@@ -1,4 +1,4 @@
-package view.core;
+package view.core.table;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -7,7 +7,6 @@ import java.awt.*;
 public class CellManagement extends DefaultTableCellRenderer {
 
     private String type = "text";
-
     private Font normal = new Font("Verdana",Font.PLAIN,12);
     private Font bold = new Font("Verdana",Font.BOLD,12);
     public CellManagement(){

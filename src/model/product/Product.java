@@ -16,47 +16,38 @@ import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 public class Product {
-    
+    private Integer product_id;
     private String name;
 
     public Product(){
     }
-    public Product(String name){
+    public Product(Integer product_id, String name){
+        this.product_id = product_id;
         this.name = name;
     }
 
+    public Integer getProductId() { return  this.product_id; }
     public String getName(){
         return this.name;
     }
 
     public List<Product> getListProducts(){
-        MysqlConnection conn = null;
-        Statement statement = null;
-        ResultSet result = null;
+
         try {
-            String sql = "SELECT name FROM product LIMIT 50 OFFSET 0";
-            conn = new MysqlConnection();
-            statement = conn.connection().createStatement();
-            result = statement.executeQuery(sql);
+            String sql = "SELECT * FROM product LIMIT 50 OFFSET 0";
+            ResultSet result = Db.executeQuery(sql);
             List<Product> products = new ArrayList<>();
             while (result.next()){
-                products.add(new Product(result.getString("name")));
+                products.add(new Product(
+                        result.getInt("product_id"),
+                        result.getString("name")
+                ));
             }
+            result.getStatement().close();
+            result.close();
             return products;
         }catch (Exception e){
-            e.printStackTrace();
             return new ArrayList<>();
-        }finally {
-            try {
-                result.close();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-            try {
-                statement.close();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
         }
     }
 

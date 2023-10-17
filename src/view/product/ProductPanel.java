@@ -1,14 +1,11 @@
 package view.product;
 
 import controller.product.ProductController;
-import model.product.Product;
-import view.core.TableModel;
+import view.core.table.TableModel;
 
 import javax.swing.*;
-import javax.swing.plaf.DimensionUIResource;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.util.List;
 
 public class ProductPanel extends JPanel {
     public DefaultTableModel model = null;
@@ -21,24 +18,21 @@ public class ProductPanel extends JPanel {
         this.setDoubleBuffered(true);
         this.setFocusable(true);*/
         this.setLayout(new GridBagLayout());
-
         ProductController p = new ProductController(this);
         this.table_ = new JTable();
-        p.loadDataAsync();
         this.DrawControls();
+        p.loadDataAsync();
+
         //
 
     }
 
     public void DrawControls() {
-        //model = new DefaultTableModel();
-        //table = new JTable(model);
-        //model.addColumn("Nombre del Producto");
-
         JScrollPane listScrollPane = new JScrollPane(table_);
         listScrollPane.setPreferredSize(new Dimension(500, 500));
         JButton button = new JButton("Haz Click");
-        JButton button2 = new JButton("Haz Click1");
+        button.setName("btnBuscar");
+
         JTextField txtBuscador = new JTextField();
         txtBuscador.setPreferredSize(new Dimension(200, 30));
 
@@ -62,9 +56,4 @@ public class ProductPanel extends JPanel {
         add(listScrollPane, gbc);
     }
 
-
-
-    public void update() {
-
-    }
 }

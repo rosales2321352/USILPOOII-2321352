@@ -1,4 +1,4 @@
-package view.core;
+package view.core.table;
 
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
