@@ -1,5 +1,7 @@
 package view.core.table;
 
+import view.core.panel.ActionPanel;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
@@ -7,8 +9,8 @@ import java.awt.*;
 public class CellManagement extends DefaultTableCellRenderer {
 
     private String type = "text";
-    private Font normal = new Font("Verdana",Font.PLAIN,12);
-    private Font bold = new Font("Verdana",Font.BOLD,12);
+    private Font normal = new Font("Arial",Font.PLAIN,12);
+    private Font bold = new Font("Arial",Font.BOLD,12);
     public CellManagement(){
 
     }
@@ -19,7 +21,7 @@ public class CellManagement extends DefaultTableCellRenderer {
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
         Color backgroundColor = null;
-        Color backgroundColorDefactut = new Color(192,192,192);
+        Color backgroundColorDefault = new Color(192,192,192);
         Color backgroundColorSelected = new Color(140,140,140);
 
         if(isSelected){
@@ -31,14 +33,20 @@ public class CellManagement extends DefaultTableCellRenderer {
             if(hasFocus){
                 backgroundColor = backgroundColorSelected;
             }else{
-                backgroundColor = backgroundColorDefactut;
+                backgroundColor = backgroundColorDefault;
             }
             this.setHorizontalAlignment(JLabel.LEFT);
-            this.setText((String) value);
+            if(value instanceof String) {
+                this.setText((String) value);
+            }
             this.setFont(normal);
             this.setForeground(Color.BLACK);
             this.setBackground((isSelected)?backgroundColor:Color.WHITE);
             return this;
+        }
+        if(type.equals("actions")){
+            ActionPanel actions = new ActionPanel();
+            return  actions;
         }
         /*if(type.equals("number")){
             if(hasFocus){

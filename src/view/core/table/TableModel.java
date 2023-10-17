@@ -17,7 +17,7 @@ public class TableModel  extends DefaultTableModel {
 
     @Override
     public boolean isCellEditable(int row,int column){
-        return true;
+        return column == getColumnCount() - 1;
     }
 
 }

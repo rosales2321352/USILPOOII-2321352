@@ -1,37 +1,30 @@
 package view.product;
 
 import controller.product.ProductController;
-import view.core.table.TableModel;
+import view.core.table.*;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 
 public class ProductPanel extends JPanel {
-    public DefaultTableModel model = null;
-    public TableModel model_ = null;
-    public JTable table_ = null;
-    JTable table = null;
+    ProductController p = null;
+    public TableModel model = null;
+    public JTable table = null;
     public ProductPanel(){
-        /*this.setPreferredSize(new DimensionUIResource(768,576));
-        this.setBackground(Color.WHITE);
-        this.setDoubleBuffered(true);
-        this.setFocusable(true);*/
         this.setLayout(new GridBagLayout());
-        ProductController p = new ProductController(this);
-        this.table_ = new JTable();
+        p = new ProductController(this);
         this.DrawControls();
         p.loadDataAsync();
-
-        //
-
     }
 
     public void DrawControls() {
-        JScrollPane listScrollPane = new JScrollPane(table_);
+        this.table = new JTable();
+        JScrollPane listScrollPane = new JScrollPane(table);
         listScrollPane.setPreferredSize(new Dimension(500, 500));
         JButton button = new JButton("Haz Click");
-        button.setName("btnBuscar");
 
         JTextField txtBuscador = new JTextField();
         txtBuscador.setPreferredSize(new Dimension(200, 30));
@@ -54,6 +47,26 @@ public class ProductPanel extends JPanel {
         gbc.weightx = 1.0;
         gbc.fill = GridBagConstraints.BOTH;
         add(listScrollPane, gbc);
+    }
+
+    public void makeTable(Object[][] information, String[] titles){
+        model = new TableModel(information,titles);
+        table.setModel(model);
+        table.getColumnModel().getColumn(0).setCellRenderer(new CellManagement("text"));
+        table.getColumnModel().getColumn(1).setCellRenderer(new CellManagement("text"));
+        table.getColumnModel().getColumn(2).setCellRenderer(new CellManagement("actions"));
+
+        table.getTableHeader().setReorderingAllowed(false);
+        table.setRowHeight(25);
+        table.setGridColor(new java.awt.Color(0,0,0));
+        table.getColumnModel().getColumn(0).setPreferredWidth(10);
+        table.getColumnModel().getColumn(1).setPreferredWidth(130);
+
+        //ButtonColumn buttonColumn = new ButtonColumn(table,2);
+
+        JTableHeader jTableHeader = table.getTableHeader();
+        jTableHeader.setDefaultRenderer(new ManageTableHeader());
+        table.setTableHeader(jTableHeader);
     }
 
 }

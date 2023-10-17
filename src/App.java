@@ -5,12 +5,15 @@ import view.product.ProductPanel;
 import javax.swing.*;
 import java.awt.*;
 import java.sql.SQLException;
+import java.util.*;
 import java.util.List;
-
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import java.util.Random;
 public class App {
 
     public static void main (String[] args){
-        SwingUtilities.invokeLater(() -> {
+       SwingUtilities.invokeLater(() -> {
             JFrame window = new JFrame();
 
             window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -25,6 +28,7 @@ public class App {
             window.setLocationRelativeTo(null);
             window.setVisible(true);
         });
+
     }
 
 }
