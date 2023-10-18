@@ -6,6 +6,7 @@ import view.core.table.ManageTableHeader;
 import view.core.table.TableModel;
 import view.product.ProductPanel;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
@@ -32,10 +33,12 @@ public class ProductController {
             protected void done() {
                 try {
                     List<Product> p =get();
+                    Image e = ImageIO.read(getClass().getResource("/res/icons/ss.png"));
                     Object[][] information = p.stream()
                             .map(product -> new Object[]{
                                     String.valueOf(product.getProductId()),
                                     product.getName(),
+                                    e
                             })
                             .toArray(Object[][]::new);
 
