@@ -63,4 +63,9 @@ public class CellManagement extends DefaultTableCellRenderer {
         return  this;
     }
 
+    protected void setValue(Object value) {
+        System.out.println("Hola Mundo");
+        setText((value == null) ? "" : value.toString());
+    }
+
 }

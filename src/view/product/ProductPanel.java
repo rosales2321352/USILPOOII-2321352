@@ -3,11 +3,13 @@ package view.product;
 import controller.product.ProductController;
 import view.core.table.*;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 import java.awt.*;
+import java.io.IOException;
 
 public class ProductPanel extends JPanel {
     ProductController p = null;
@@ -24,7 +26,14 @@ public class ProductPanel extends JPanel {
         this.table = new JTable();
         JScrollPane listScrollPane = new JScrollPane(table);
         listScrollPane.setPreferredSize(new Dimension(500, 500));
-        JButton button = new JButton("Haz Click");
+        JButton button = new JButton();
+        try {
+            Image i = ImageIO.read(getClass().getResource("/res/icons/ss.png"));
+            button.setIcon(new ImageIcon(i));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
 
         JTextField txtBuscador = new JTextField();
         txtBuscador.setPreferredSize(new Dimension(200, 30));
@@ -54,7 +63,7 @@ public class ProductPanel extends JPanel {
         table.setModel(model);
         table.getColumnModel().getColumn(0).setCellRenderer(new CellManagement("text"));
         table.getColumnModel().getColumn(1).setCellRenderer(new CellManagement("text"));
-        table.getColumnModel().getColumn(2).setCellRenderer(new CellManagement("actions"));
+       // table.getColumnModel().getColumn(2).setCellRenderer(new CellManagement("actions"));
 
         table.getTableHeader().setReorderingAllowed(false);
         table.setRowHeight(25);
@@ -62,11 +71,17 @@ public class ProductPanel extends JPanel {
         table.getColumnModel().getColumn(0).setPreferredWidth(10);
         table.getColumnModel().getColumn(1).setPreferredWidth(130);
 
-        //ButtonColumn buttonColumn = new ButtonColumn(table,2);
+
+        ButtonColumn buttonColumn = new ButtonColumn(table,2);
 
         JTableHeader jTableHeader = table.getTableHeader();
         jTableHeader.setDefaultRenderer(new ManageTableHeader());
         table.setTableHeader(jTableHeader);
+
+        if(1==1){
+
+            String s = "HOla";
+        }
     }
 
 }
