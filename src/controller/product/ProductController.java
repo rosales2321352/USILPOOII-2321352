@@ -10,7 +10,7 @@ import java.util.Objects;
 
 public class ProductController {
     final private ProductPanel panel;
-    final String[] COLUMN_NAMES = { "Id", "Name", "Actiones"};
+    final String[] COLUMN_NAMES = { "Id", "SUNAT", "Referencia", "TA", "Descripción", "Aciones"};
     public ProductController(ProductPanel panel){
         this.panel = panel;
         this.initEvents();
@@ -31,6 +31,9 @@ public class ProductController {
                     Object[][] information = p.stream()
                             .map(product -> new Object[]{
                                     String.valueOf(product.getProductId()),
+                                    product.getProductIdSunat(),
+                                    product.getReference(),
+                                    product.getTypeAffectationId(),
                                     product.getName()
                             })
                             .toArray(Object[][]::new);

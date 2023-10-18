@@ -44,27 +44,10 @@ public class ManageGeneralCells extends DefaultTableCellRenderer {
             this.setBackground((isSelected)?backgroundColor:Color.WHITE);
             return this;
         }
-        if(type.equals("actions")){
-            ActionPanel actions = new ActionPanel();
-            return  actions;
-        }
-        /*if(type.equals("number")){
-            if(hasFocus){
-                backgroundColor = backgroundColorSelected;
-            }else{
-                backgroundColor = backgroundColorDefactut;
-            }
-            this.setHorizontalAlignment(JLabel.LEFT);
-            this.setText((String) value);
-            this.setBackground((isSelected)?backgroundColor:Color.WHITE);
-            return this;
-        }*/
-
         return  this;
     }
 
     protected void setValue(Object value) {
-        System.out.println("Hola Mundo");
         setText((value == null) ? "" : value.toString());
     }
 
