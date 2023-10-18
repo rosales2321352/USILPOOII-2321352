@@ -6,15 +6,15 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
 
-public class CellManagement extends DefaultTableCellRenderer {
+public class ManageGeneralCells extends DefaultTableCellRenderer {
 
     private String type = "text";
     private Font normal = new Font("Arial",Font.PLAIN,12);
     private Font bold = new Font("Arial",Font.BOLD,12);
-    public CellManagement(){
+    public ManageGeneralCells(){
 
     }
-    public CellManagement(String type){
+    public ManageGeneralCells(String type){
         this.type = type;
     }
 

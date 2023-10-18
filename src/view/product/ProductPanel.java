@@ -1,15 +1,12 @@
 package view.product;
 
 import controller.product.ProductController;
+import view.core.panel.ActionPanel;
 import view.core.table.*;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
-import javax.swing.table.TableCellRenderer;
 import java.awt.*;
-import java.io.IOException;
 
 public class ProductPanel extends JPanel {
     ProductController p = null;
@@ -26,14 +23,7 @@ public class ProductPanel extends JPanel {
         this.table = new JTable();
         JScrollPane listScrollPane = new JScrollPane(table);
         listScrollPane.setPreferredSize(new Dimension(500, 500));
-        JButton button = new JButton();
-        try {
-            Image i = ImageIO.read(getClass().getResource("/res/icons/ss.png"));
-            button.setIcon(new ImageIcon(i));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
+        JButton button = new JButton("Hola");
 
         JTextField txtBuscador = new JTextField();
         txtBuscador.setPreferredSize(new Dimension(200, 30));
@@ -61,18 +51,25 @@ public class ProductPanel extends JPanel {
     public void makeTable(Object[][] information, String[] titles){
         model = new TableModel(information,titles);
         table.setModel(model);
-        table.getColumnModel().getColumn(0).setCellRenderer(new CellManagement("text"));
-        table.getColumnModel().getColumn(1).setCellRenderer(new CellManagement("text"));
+        table.getColumnModel().getColumn(0).setCellRenderer(new ManageGeneralCells("text"));
+        table.getColumnModel().getColumn(1).setCellRenderer(new ManageGeneralCells("text"));
        // table.getColumnModel().getColumn(2).setCellRenderer(new CellManagement("actions"));
 
         table.getTableHeader().setReorderingAllowed(false);
         table.setRowHeight(25);
         table.setGridColor(new java.awt.Color(0,0,0));
-        table.getColumnModel().getColumn(0).setPreferredWidth(10);
-        table.getColumnModel().getColumn(1).setPreferredWidth(130);
+        table.getColumnModel().getColumn(0).setMaxWidth(50);
+        table.getColumnModel().getColumn(0).setResizable(false);
+        //table.getColumnModel().getColumn(0).setMinWidth(50);
 
+        ManageCellsActionButtons actionsButtons =
+                new ManageCellsActionButtons(table,
+                        2,
+                        new ActionPanel(),
+                        new ActionPanel());
 
-        ButtonColumn buttonColumn = new ButtonColumn(table,2);
+        table.getColumnModel().getColumn(2).setMaxWidth(100);
+        table.getColumnModel().getColumn(2).setMinWidth(100);
 
         JTableHeader jTableHeader = table.getTableHeader();
         jTableHeader.setDefaultRenderer(new ManageTableHeader());
