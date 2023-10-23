@@ -1,4 +1,4 @@
-package view.core.table;
+package views.core.table;
 
 import javax.swing.*;
 import javax.swing.table.TableCellRenderer;

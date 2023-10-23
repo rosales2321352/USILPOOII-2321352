@@ -1,19 +1,18 @@
-package controller.product;
+package controllers.product;
 
-import model.product.Product;
-import view.product.ProductPanel;
-import javax.imageio.ImageIO;
+import models.product.Product;
+import views.product.ProductView;
+import views.product.partials.ProductList;
+
 import javax.swing.*;
-import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.util.List;
-import java.util.Objects;
 
 public class ProductController {
-    final private ProductPanel panel;
+    final private ProductView panel;
     final String[] COLUMN_NAMES = { "Id", "SUNAT", "Referencia", "TA", "Descripción", "Aciones"};
-    public ProductController(ProductPanel panel){
+    public ProductController(ProductView panel){
         this.panel = panel;
-        this.initEvents();
     }
 
 
@@ -38,7 +37,7 @@ public class ProductController {
                             })
                             .toArray(Object[][]::new);
 
-                    panel.makeTable(information, COLUMN_NAMES);
+                    panel.productList.makeTable(information, COLUMN_NAMES);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -47,10 +46,22 @@ public class ProductController {
         worker.execute();
     }
 
-    public void initEvents(){
-
-
+    public void onClickBtnNew(ActionEvent e){
+        this.switchTab((JButton) e.getSource());
     }
 
+    public void onClickDeleteAction(ActionEvent e){
+        this.switchTab((JButton) e.getSource());
+    }
+
+    public void onClickEditAction(ActionEvent e){ this.switchTab((JButton) e.getSource()); }
+
+    public void onClickSaveAction(ActionEvent e) { this.switchTab((JButton) e.getSource()); }
+    public void onClickCancelAction(ActionEvent e) { this.switchTab((JButton) e.getSource()); }
+
+    public void switchTab(JButton button){
+        String command = button.getName();
+        panel.cardLayout.show(panel.tabContent,command);
+    }
 
 }

@@ -1,6 +1,4 @@
-package view.core.table;
-
-import view.core.panel.ActionPanel;
+package views.core.table;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -9,8 +7,8 @@ import java.awt.*;
 public class ManageGeneralCells extends DefaultTableCellRenderer {
 
     private String type = "text";
-    private Font normal = new Font("Arial",Font.PLAIN,12);
-    private Font bold = new Font("Arial",Font.BOLD,12);
+    private Font normal = new Font("Open Sans",Font.PLAIN,12);
+    private Font bold = new Font("Open Sans",Font.BOLD,12);
     public ManageGeneralCells(){
 
     }
