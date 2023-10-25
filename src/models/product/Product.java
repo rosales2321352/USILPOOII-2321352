@@ -20,16 +20,7 @@ public class Product {
     private String type_affectation_id;
     private Integer outstanding;
 
-    public Product(){
-    }
-
-    public Product(Integer product_id, String product_id_sunat, String reference, String type_affectation_id, String name) {
-        this.product_id = product_id;
-        this.product_id_sunat = product_id_sunat;
-        this.reference = reference;
-        this.type_affectation_id = type_affectation_id;
-        this.name = name;
-    }
+    public Product(){}
 
     public Integer getProductId() { return  this.product_id; }
     public String getProductIdSunat(){ return this.product_id_sunat; }
@@ -38,27 +29,65 @@ public class Product {
     public String getName(){
         return this.name;
     }
+    public Integer getCategoryId(){ return this.category_id; }
+    public Integer getUnityId(){ return this.unity_id; }
+    public Integer getOutstanding(){ return this.outstanding; }
 
+    public void setProductId(Integer product_id) { this.product_id = product_id; }
+    public void setProductIdSunat(String product_id_sunat) { this.product_id_sunat = product_id_sunat; }
+    public void setCategoryId(Integer category_id) { this.category_id = category_id; }
+    public void setUnityId(Integer unity_id) { this.unity_id = unity_id; }
+    public void setReference(String reference) { this.reference = reference; }
+    public void setName(String name) { this.name = name; }
 
+    public void setType_affectation_id(String type_affectation_id) {
+        this.type_affectation_id = type_affectation_id;
+    }
+
+    public void setOutstanding(Integer outstanding) {
+        this.outstanding = outstanding;
+    }
 
     public List<Product> getListProducts(){
         try {
-            ResultSet result = Db.executeQuery(ModelSQL.SQL_STMT_GET_PRODUCTS);
+            var result = Db.executeQuery(ModelSQL.SQL_STMT_GET_PRODUCTS);
             List<Product> products = new ArrayList<>();
             while (result.next()){
-                products.add(new Product(
-                        result.getInt("product_id"),
-                        result.getString("product_id_sunat"),
-                        result.getString("reference"),
-                        result.getString("type_affectation_id"),
-                        result.getString("name")
-                ));
+                var product = new Product();
+                product.setProductId(result.getInt("product_id"));
+                product.setProductIdSunat(result.getString("product_id_sunat"));
+                product.setReference(result.getString("reference"));
+                product.setType_affectation_id(result.getString("type_affectation_id"));
+                product.setName(result.getString("name"));
+                products.add(product);
             }
             result.getStatement().close();
             result.close();
             return products;
         }catch (Exception e){
             return new ArrayList<>();
+        }
+    }
+
+    public Product getProduct(int product_id){
+        try{
+            var result = Db.executeQuery(ModelSQL.SQL_STMT_GET_PRODUCT,new Parameter[]{
+                    new Parameter<>(1,product_id)
+            });
+            Product product = new Product();
+            while(result.next()){
+                product.setProductId(result.getInt("product_id"));
+                product.setProductIdSunat(result.getString("product_id_sunat"));
+                product.setCategoryId(result.getInt("category_id"));
+                product.setUnityId(result.getInt("unity_id"));
+                product.setReference(result.getString("reference"));
+                product.setName(result.getString("name"));
+                product.setType_affectation_id(result.getString("type_affectation_id"));
+                product.setOutstanding(result.getInt("outstanding"));
+            }
+            return product;
+        }catch (Exception e){
+            return new Product();
         }
     }
 

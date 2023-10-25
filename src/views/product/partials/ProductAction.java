@@ -41,7 +41,9 @@ public class ProductAction extends JPanel implements IActionPanel {
             throw new RuntimeException(e);
         }
 
-        btnEdit.addActionListener(controller::onClickEditAction);
+        btnEdit.addActionListener((e) -> {
+            controller.onClickEditAction(e,id_product);
+        });
         btnDelete.addActionListener(controller::onClickDeleteAction);
 
         this.add(btnEdit);

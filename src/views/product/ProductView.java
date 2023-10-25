@@ -29,12 +29,11 @@ public class ProductView extends JPanel {
         EmptyBorder paddingBorder = new EmptyBorder(paddingSize, paddingSize, paddingSize, paddingSize);
         this.setBorder(paddingBorder);
 
-        tabContent.add(this.productEditor, "Action");
         tabContent.add(this.productList, "List");
-
+        tabContent.add(this.productEditor, "Action");
 
         this.add(tabContent, BorderLayout.CENTER);
-        this.controller.loadDataAsync();
+        this.controller.loadDataTableAsync();
 
     }
 
