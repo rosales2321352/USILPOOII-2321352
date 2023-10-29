@@ -1,17 +1,51 @@
-import views.login.ViewLogin;
-
+import classes.db.Db;
+import model.product.Product;
+import view.product.ProductPanel;
+import view.login.ViewLogin;
+import view.admin.AdminView;
 import javax.swing.*;
-import javax.swing.text.View;
-
+import java.awt.*;
+import java.sql.SQLException;
+import java.util.*;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import java.util.Random;
 public class App {
 
-
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                ViewLogin view = new ViewLogin();
-                view.setVisible(true);
-            }
+
+        SwingUtilities.invokeLater(() -> {
+            ViewLogin view = new ViewLogin();
+            view.setVisible(true);
+
         });
     }
 }
+
+
+
+        /*
+        SwingUtilities.invokeLater(() -> {
+            JFrame window = new JFrame();
+
+            window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            window.setSize(768, 576);
+            window.setMinimumSize(new Dimension(768,576));
+            window.setResizable(true);
+            window.setTitle("Sistema de Ventas");
+
+            ProductPanel panel = new ProductPanel();
+
+            window.add(panel);
+            window.setLocationRelativeTo(null);
+            window.setVisible(true);
+        });
+        */
+
+
+
+
+
+
+

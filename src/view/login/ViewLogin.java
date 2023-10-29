@@ -1,6 +1,6 @@
-package views.login;
+package view.login;
 
-import controllers.controller.Controller;
+import controller.login.LoginController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -86,7 +86,7 @@ public class ViewLogin extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String usuario = usuarioField.getText();
                 char[] contrasena = contrasenaField.getPassword();
-                Controller controller = new Controller();
+                LoginController controller = new LoginController();
                 boolean resultado = controller.iniciarSesion(usuario, String.valueOf(contrasena));
                 if (resultado) {
                     errorLabel.setText("Inicio de sesión exitoso.");
