@@ -94,13 +94,13 @@ public class Product {
     public int insert(){
         try{
             var parameters = new Parameter[]{
-                    new Parameter<>(0, product_id_sunat),
-                    new Parameter<>(1,category_id),
-                    new Parameter<>(2,unity_id),
-                    new Parameter<>(3,reference),
-                    new Parameter<>(4,name),
-                    new Parameter<>(5,type_affectation_id),
-                    new Parameter<>(6,outstanding),
+                    new Parameter<>(1,this.product_id_sunat),
+                    new Parameter<>(2,this.category_id),
+                    new Parameter<>(3,this.unity_id),
+                    new Parameter<>(4,this.reference),
+                    new Parameter<>(5,this.name),
+                    new Parameter<>(6,this.type_affectation_id),
+                    new Parameter<>(7,this.outstanding)
             };
 
             return Db.executeUpdate(ModelSQL.SQL_STMT_INSERT_PRODUCT,parameters);

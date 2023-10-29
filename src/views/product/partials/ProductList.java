@@ -76,6 +76,18 @@ public class ProductList extends JPanel {
         add(listScrollPane, gbc);
     }
 
+    public void makeTableHeader(String[] titles){
+        Object[][] objects = new Object[25][];
+        for (int i = 0; i < objects.length; i++) {
+            objects[i] = new Object[]{""};
+        }
+        model = new TableModel(objects,titles);
+        table.setModel(model);
+        table.getTableHeader().setReorderingAllowed(false);
+        JTableHeader jTableHeader = table.getTableHeader();
+        jTableHeader.setDefaultRenderer(new ManageTableHeader());
+        table.setTableHeader(jTableHeader);
+    }
     public void makeTable(Object[][] information, String[] titles){
         model = new TableModel(information,titles);
         table.setModel(model);

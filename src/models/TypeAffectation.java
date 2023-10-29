@@ -10,7 +10,7 @@ import java.util.List;
 
 public class TypeAffectation implements IComboBox {
 
-    private int type_affectation_id;
+    private String type_affectation_id;
     private String name;
     private int free;
     private int tax_id;
@@ -18,7 +18,7 @@ public class TypeAffectation implements IComboBox {
     public TypeAffectation(){
 
     }
-    public TypeAffectation(int type_affectation_id,String name, int free, int tax_id){
+    public TypeAffectation(String type_affectation_id,String name, int free, int tax_id){
         this.type_affectation_id = type_affectation_id;
         this.name = name;
         this.free = free;
@@ -31,7 +31,7 @@ public class TypeAffectation implements IComboBox {
             List<TypeAffectation> typesAffectation = new ArrayList<>();
             while (result.next()){
                 typesAffectation.add(new TypeAffectation(
-                        result.getInt("type_affectation_id"),
+                        result.getString("type_affectation_id"),
                         result.getString("name"),
                         result.getInt("free"),
                         result.getInt("tax_id")

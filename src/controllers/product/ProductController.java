@@ -2,6 +2,7 @@ package controllers.product;
 
 import models.ProductSunat;
 import models.TypeAffectation;
+import models.Unity;
 import models.category.Category;
 import models.combobox.UnityComboBox;
 import models.product.Product;
@@ -10,6 +11,7 @@ import views.product.ProductView;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
+import java.lang.reflect.Type;
 import java.util.List;
 import java.util.concurrent.*;
 
@@ -18,6 +20,10 @@ public class ProductController {
     final String[] COLUMN_NAMES = { "Id", "SUNAT", "Referencia", "TA", "Descripción", "Aciones"};
     public ProductController(ProductView panel){
         this.panel = panel;
+    }
+
+    public void renderObjects(){
+        this.panel.productList.makeTableHeader(COLUMN_NAMES);
     }
 
     public void loadDataTableAsync(){
@@ -57,6 +63,26 @@ public class ProductController {
         }));
     }
 
+    public Integer addNewProduct(){
+        String name = panel.productEditor.txtName.getText();
+        Category category = (Category) panel.productEditor.cmbCategory.getSelectedItem();
+        TypeAffectation typeAffectation = (TypeAffectation) panel.productEditor.cmbTypeAffectation.getSelectedItem();
+        ProductSunat productSunat = (ProductSunat) panel.productEditor.cmbProductSunat.getSelectedItem();
+        Unity unity = (Unity) panel.productEditor.cmbUnity.getSelectedItem();
+        String reference = panel.productEditor.txtReference.getText();
+
+        Product product = new Product();
+        product.setName(name);
+        product.setCategoryId((int) category.getId());
+        product.setProductIdSunat((String) productSunat.getId());
+        product.setType_affectation_id((String) typeAffectation.getId());
+        product.setUnityId((int) unity.getUnityId());
+        product.setReference(reference);
+        product.setOutstanding(0);
+
+        return product.insert();
+    }
+
     public void onClickBtnNew(ActionEvent e){
         this.switchTab((JButton) e.getSource());
     }
@@ -72,11 +98,17 @@ public class ProductController {
             panel.productEditor.cmbProductSunat.setSelectedItemById(product.getProductIdSunat());
             panel.productEditor.cmbTypeAffectation.setSelectedItemById(product.getTypeAffectationId());
             panel.productEditor.cmbUnity.setSelectedItemById(product.getCategoryId());
+            panel.productEditor.txtName.setText(product.getName());
+            panel.productEditor.txtReference.setText(product.getReference());
         }));
         this.switchTab((JButton) e.getSource());
     }
 
-    public void onClickSaveAction(ActionEvent e) { this.switchTab((JButton) e.getSource()); }
+    public void onClickSaveAction(ActionEvent e) {
+        Integer rowsAffected = addNewProduct();
+
+        this.switchTab((JButton) e.getSource());
+    }
     public void onClickCancelAction(ActionEvent e) { this.switchTab((JButton) e.getSource()); }
 
     public void switchTab(JButton button){
