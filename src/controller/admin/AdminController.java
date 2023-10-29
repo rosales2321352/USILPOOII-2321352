@@ -7,6 +7,7 @@ import view.admin.AdminView; // Ejemplo de vista para "Productos"
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+// VISTA AAAAAAAAAAAAAAAAAAA
 public class AdminController {
     private AdminView adminView;
 

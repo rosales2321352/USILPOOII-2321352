@@ -1,4 +1,4 @@
-package view.core.layout;
+package views.core.layout;
 
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicScrollBarUI;

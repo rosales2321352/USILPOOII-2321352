@@ -24,17 +24,44 @@ public class Db {
         return null;
     }
 
+    public static int executeUpdate(String sql, Parameter[] params) throws SQLException{
+        Connection connection = Db.getInstance();
+        assert connection != null;
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        for (var param : params) {
+            setParameter(preparedStatement,param.getIndex(),param.getValue());
+        }
+
+        return preparedStatement.executeUpdate();
+    }
+
+    public static int executeUpdate(String sql) throws SQLException{
+        return executeUpdate(sql,new Parameter[0]);
+    }
+
     public static ResultSet executeQuery(String sql, Parameter[] params) throws SQLException{
         Connection connection = Db.getInstance();
         assert connection != null;
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        for (Parameter param : params) {
-            preparedStatement.setString(param.key_, param.value_);
+        for (var param : params) {
+            setParameter(preparedStatement,param.getIndex(),param.getValue());
         }
         return preparedStatement.executeQuery();
     }
 
     public static ResultSet executeQuery(String sql) throws SQLException{
         return  executeQuery(sql,new Parameter[0]);
+    }
+
+    public static void setParameter(PreparedStatement preparedStatement, int index, Object value) throws SQLException {
+        if (value instanceof String) {
+            preparedStatement.setString(index, (String) value);
+        } else if (value instanceof Integer) {
+            preparedStatement.setInt(index, (Integer) value);
+        } else if (value instanceof Double) {
+            preparedStatement.setDouble(index, (Double) value);
+        } else {
+
+        }
     }
 }
