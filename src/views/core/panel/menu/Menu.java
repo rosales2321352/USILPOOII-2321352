@@ -1,5 +1,6 @@
 package views.core.panel.menu;
 
+import views.category.CategoryView;
 import views.product.ProductView;
 
 import javax.swing.*;
@@ -25,6 +26,12 @@ public class Menu extends JMenuBar {
         JMenu productPrice = new JMenu("Productos y Precios");
         maintenance.add(productPrice);
 
+        JMenuItem categories = new JMenuItem("Categorias");
+        productPrice.add(categories);
+
+        JMenuItem productSunat = new JMenuItem("Código SUNAT");
+        productPrice.add(productSunat);
+
         JMenuItem product = new JMenuItem("Productos");
         productPrice.add(product);
 
@@ -32,18 +39,26 @@ public class Menu extends JMenuBar {
             System.exit(0);
         });
 
-        product.addActionListener((e) -> {
-            final JFrame parentFrame = this.main;
+        categories.addActionListener((e) -> {
             SwingUtilities.invokeLater(() -> {
-                /*ProductPanel panel3 = new ProductPanel();*/
-                ProductView productView = new ProductView();
-                JDialog dialog = new JDialog(parentFrame, "Administración de Productos", true); // El "true" indica que es modal
-                dialog.setMinimumSize(new Dimension(768, 576));
-                dialog.setLocationRelativeTo(parentFrame);
-                dialog.add(productView);
-                dialog.setVisible(true);
+                run(new CategoryView(),"Administración de Categorías",400, 400);
             });
         });
+
+        product.addActionListener((e) -> {
+            SwingUtilities.invokeLater(() -> {
+                run(new ProductView(),"Administración de Productos",768, 576);
+            });
+        });
+
+    }
+
+    public void run(JPanel panel,String title,int width,int height){
+        JDialog dialog = new JDialog(this.main, title, true);
+        dialog.setMinimumSize(new Dimension(width, height));
+        dialog.setLocationRelativeTo(this.main);
+        dialog.add(panel);
+        dialog.setVisible(true);
     }
 
 }

@@ -12,7 +12,7 @@ import java.awt.event.ActionListener;
 
 public class ProductView extends JPanel {
 
-    ProductController controller = null;
+    ProductController controller;
     public CardLayout cardLayout;
     public ProductList productList;
     public ProductEditor productEditor;

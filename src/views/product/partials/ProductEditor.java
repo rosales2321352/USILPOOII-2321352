@@ -10,6 +10,8 @@ import views.core.combobox.CustomComboBox;
 import views.core.combobox.CustomComboBoxModel;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
@@ -20,14 +22,14 @@ import java.text.NumberFormat;
 public class ProductEditor extends JPanel{
 
     private int id_product;
-    private ProductController controller;
+    private final ProductController controller;
     public CustomComboBox<Category> cmbCategory;
     public CustomComboBox<TypeAffectation> cmbTypeAffectation;
     public CustomComboBox<ProductSunat> cmbProductSunat;
     public CustomComboBox<UnityComboBox> cmbUnity;
     public JTextField txtReference;
     public JTextField txtName;
-    public JCheckBox jCheckBox2;
+    public JFormattedTextField txtquantity;
 
     public ProductEditor(ProductController controller) {
         this.controller = controller;
@@ -43,6 +45,7 @@ public class ProductEditor extends JPanel{
         JPanel titlePanel = new JPanel();
         titlePanel.setLayout(new FlowLayout(FlowLayout.LEFT));
         JLabel lblTitle = new JLabel("Editar Producto");
+        lblTitle.setFont(new Font("Arial", Font.BOLD,24));
         titlePanel.add(lblTitle);
 
         this.add(titlePanel,BorderLayout.PAGE_START);
@@ -54,108 +57,124 @@ public class ProductEditor extends JPanel{
         JLabel lblTipAfect = new JLabel("Tipo de Afectación:");
         JLabel lblReference = new JLabel("Referencia:");
         JLabel lblUnity = new JLabel("Unidad de Medida:");
-        JLabel lblQuantity = new JLabel("Stock");
+        JLabel lblQuantity = new JLabel("Stock:");
 
 
         txtName = new JTextField();
         txtName.setPreferredSize(new Dimension(200,30));
+        txtName.setBorder(BorderFactory.createLineBorder(new Color(100, 100, 100)));
         cmbCategory = new CustomComboBox<>();
         cmbCategory.setPreferredSize(new Dimension(200,30));
+
+
         cmbProductSunat = new CustomComboBox<>();
         cmbProductSunat.setPreferredSize(new Dimension(200,30));
+        cmbProductSunat.setBorder(BorderFactory.createLineBorder(new Color(100, 100, 100)));
         cmbTypeAffectation = new CustomComboBox<>();
         cmbTypeAffectation.setPreferredSize(new Dimension(200,30));
+        cmbTypeAffectation.setBorder(BorderFactory.createLineBorder(new Color(100, 100, 100)));
         cmbUnity = new CustomComboBox<>();
         cmbUnity.setPreferredSize(new Dimension(200,30));
+        cmbUnity.setBorder(BorderFactory.createLineBorder(new Color(100, 100, 100)));
         txtReference = new JTextField();
         txtReference.setPreferredSize(new Dimension(200,30));
-        cmbCategory.setPreferredSize(new Dimension(200,30));
-        cmbCategory.setPreferredSize(new Dimension(200,30));
+        txtReference.setBorder(BorderFactory.createLineBorder(new Color(100, 100, 100)));
 
         NumberFormat numberFormat = NumberFormat.getNumberInstance();
         numberFormat.setMaximumFractionDigits(2);
-
-        JFormattedTextField txtquantity = new JFormattedTextField(numberFormat);
+        txtquantity = new JFormattedTextField(numberFormat);
         txtquantity.setValue(0);
-
-        jCheckBox2 = new javax.swing.JCheckBox();
+        txtquantity.setPreferredSize(new Dimension(200,30));
+        txtquantity.setBorder(BorderFactory.createLineBorder(new Color(100, 100, 100)));
 
         GroupLayout layout = new GroupLayout(controlsPanel);
         controlsPanel.setLayout(layout);
 
+        layout.setAutoCreateGaps(true);
+        layout.setAutoCreateContainerGaps(true);
+
         layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
                         .addGroup(layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(lblName, javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(lblCategory, javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(lblCodSunat, javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(lblReference, javax.swing.GroupLayout.Alignment.TRAILING))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                        .addGroup(layout.createSequentialGroup()
-                                                                .addGap(208, 208, 208)
-                                                                .addComponent(lblUnity))
-                                                        .addComponent(txtReference, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                        .addComponent(jCheckBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(cmbUnity, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                        .addComponent(cmbProductSunat, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(cmbCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                .addGap(6, 6, 6)
-                                                .addComponent(lblTipAfect)
-                                                .addGap(16, 16, 16)
-                                                .addComponent(cmbTypeAffectation, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(lblName)
+                            .addComponent(txtName)
+                            .addComponent(lblCategory)
+                            .addComponent(cmbCategory)
+                        )
+                    )
+                    .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(lblQuantity)
+                            .addComponent(txtquantity)
+                            .addComponent(lblTipAfect)
+                            .addComponent(cmbTypeAffectation)
+                        )
+                    )
+                    .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(lblReference)
+                            .addComponent(txtReference)
+                            .addComponent(lblUnity)
+                            .addComponent(cmbUnity)
+                        )
+                    )
+                    .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(lblCodSunat)
+                            .addComponent(cmbProductSunat)
+                        )
+                    )
+                )
         );
+
         layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(lblName))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(lblCategory)
-                                        .addComponent(lblCodSunat)
-                                        .addComponent(cmbCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(cmbTypeAffectation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(lblTipAfect)
-                                        .addComponent(lblUnity)
-                                        .addComponent(cmbProductSunat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(cmbUnity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(lblReference)
-                                        .addComponent(txtReference, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jCheckBox2))
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblName)
+                    .addComponent(txtName)
+                    .addComponent(lblCategory)
+                    .addComponent(cmbCategory)
+                )
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblQuantity)
+                    .addComponent(txtquantity)
+                    .addComponent(lblTipAfect)
+                    .addComponent(cmbTypeAffectation)
+                )
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblReference)
+                    .addComponent(txtReference)
+                    .addComponent(lblUnity)
+                    .addComponent(cmbUnity)
+                )
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblCodSunat)
+                    .addComponent(cmbProductSunat)
+                )
         );
 
         this.add(controlsPanel,BorderLayout.CENTER);
 
         JPanel buttonsPanel = new JPanel();
-        buttonsPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-
-        JButton btnCancel = new JButton("Cancelar");
-        btnCancel.setName("List");
-        btnCancel.addActionListener(controller::onClickCancelAction);
-        buttonsPanel.add(btnCancel,FlowLayout.LEFT);
+        buttonsPanel.setLayout(new FlowLayout(FlowLayout.LEADING));
 
         JButton btnSave = new JButton("Guardar");
+        btnSave.setBackground(new Color(0,123,255));
+        btnSave.setBorder((BorderFactory.createMatteBorder(6,20,6,20,new java.awt.Color(0,123,255))));
+        btnSave.setForeground(Color.WHITE);
         btnSave.setName("List");
         btnSave.addActionListener(controller::onClickSaveAction);
         buttonsPanel.add(btnSave,FlowLayout.LEFT);
+
+        JButton btnCancel = new JButton("Cancelar");
+        btnCancel.setBackground(new Color(146, 154, 167));
+        btnCancel.setBorder((BorderFactory.createMatteBorder(6,20,6,20,new java.awt.Color(146, 154, 167))));
+        btnCancel.setForeground(Color.WHITE);
+        btnCancel.setName("List");
+        btnCancel.addActionListener(controller::onClickCancelAction);
+        buttonsPanel.add(btnCancel,FlowLayout.LEFT);
 
         this.add(buttonsPanel,BorderLayout.PAGE_END);
 
