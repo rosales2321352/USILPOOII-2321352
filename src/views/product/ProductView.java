@@ -34,7 +34,7 @@ public class ProductView extends JPanel {
 
         this.add(tabContent, BorderLayout.CENTER);
         this.controller.renderObjects();
-        this.controller.loadDataTableAsync();
+        this.controller.loadDataTableAsync("");
 
     }
 

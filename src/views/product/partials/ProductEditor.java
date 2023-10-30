@@ -10,7 +10,12 @@ import views.core.combobox.CustomComboBox;
 import views.core.combobox.CustomComboBoxModel;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.awt.*;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.text.NumberFormat;
 
 public class ProductEditor extends JPanel{
 
@@ -28,6 +33,7 @@ public class ProductEditor extends JPanel{
         this.controller = controller;
         this.drawControlls();
         this.controller.loadDataComboBoxAsync();
+        this.eventFocus();
     }
 
     public void drawControlls(){
@@ -42,13 +48,13 @@ public class ProductEditor extends JPanel{
         this.add(titlePanel,BorderLayout.PAGE_START);
 
         JPanel controlsPanel = new JPanel();
-
         JLabel lblName = new JLabel("Nombre:");
         JLabel lblCategory = new JLabel("Categoría:");
         JLabel lblCodSunat = new JLabel("Cod. SUNAT:");
         JLabel lblTipAfect = new JLabel("Tipo de Afectación:");
         JLabel lblReference = new JLabel("Referencia:");
         JLabel lblUnity = new JLabel("Unidad de Medida:");
+        JLabel lblQuantity = new JLabel("Stock");
 
 
         txtName = new JTextField();
@@ -65,6 +71,12 @@ public class ProductEditor extends JPanel{
         txtReference.setPreferredSize(new Dimension(200,30));
         cmbCategory.setPreferredSize(new Dimension(200,30));
         cmbCategory.setPreferredSize(new Dimension(200,30));
+
+        NumberFormat numberFormat = NumberFormat.getNumberInstance();
+        numberFormat.setMaximumFractionDigits(2);
+
+        JFormattedTextField txtquantity = new JFormattedTextField(numberFormat);
+        txtquantity.setValue(0);
 
         jCheckBox2 = new javax.swing.JCheckBox();
 
@@ -149,12 +161,27 @@ public class ProductEditor extends JPanel{
 
     }
 
-    public int getIdProduct(){
-        return  this.id_product;
-    }
 
-    public void setIdProduct(int id_product){
-        this.id_product = id_product;
+
+    public void eventFocus(){
+        txtName.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+
+            }
+            @Override
+            public void focusLost(FocusEvent e) {
+                JTextField textField = (JTextField) e.getSource();
+                if(textField.getText().trim().isEmpty()){
+                    JOptionPane.showMessageDialog(
+                            null,
+                            "El nombre del producto no puede ser nulo o vacio.",
+                            "Atención",
+                            JOptionPane.INFORMATION_MESSAGE);
+                    textField.requestFocus();
+                }
+            }
+        });
     }
 
 

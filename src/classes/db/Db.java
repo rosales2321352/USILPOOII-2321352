@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Db {
     final static String ConnectionType = "Mysql";
@@ -24,7 +26,7 @@ public class Db {
         return null;
     }
 
-    public static int executeUpdate(String sql, Parameter[] params) throws SQLException{
+    public static int executeUpdate(String sql, List<Parameter> params) throws SQLException{
         Connection connection = Db.getInstance();
         assert connection != null;
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -36,10 +38,10 @@ public class Db {
     }
 
     public static int executeUpdate(String sql) throws SQLException{
-        return executeUpdate(sql,new Parameter[0]);
+        return executeUpdate(sql,new ArrayList<>());
     }
 
-    public static ResultSet executeQuery(String sql, Parameter[] params) throws SQLException{
+    public static ResultSet executeQuery(String sql, List<Parameter> params) throws SQLException{
         Connection connection = Db.getInstance();
         assert connection != null;
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -50,7 +52,7 @@ public class Db {
     }
 
     public static ResultSet executeQuery(String sql) throws SQLException{
-        return  executeQuery(sql,new Parameter[0]);
+        return  executeQuery(sql,new ArrayList<>());
     }
 
     public static void setParameter(PreparedStatement preparedStatement, int index, Object value) throws SQLException {
