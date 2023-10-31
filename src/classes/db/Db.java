@@ -55,7 +55,7 @@ public class Db {
         return  executeQuery(sql,new ArrayList<>());
     }
 
-    public static void setParameter(PreparedStatement preparedStatement, int index, Object value) throws SQLException {
+    private static void setParameter(PreparedStatement preparedStatement, int index, Object value) throws SQLException {
         if (value instanceof String) {
             preparedStatement.setString(index, (String) value);
         } else if (value instanceof Integer) {
