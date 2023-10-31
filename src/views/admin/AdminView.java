@@ -1,4 +1,4 @@
-package view.admin;
+package views.admin;
 
 import javax.swing.*;
 import java.awt.*;

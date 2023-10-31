@@ -1,4 +1,4 @@
-package model.login;
+package models.login;
 
 import classes.db.Db;
 import classes.db.classes.Parameter;

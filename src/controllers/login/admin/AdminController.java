@@ -1,8 +1,7 @@
 // AdminController.java
-package controller.admin;
+package controllers.login.admin;
 
-import view.admin.AdminView;
-import view.admin.AdminView; // Ejemplo de vista para "Productos"
+import views.admin.AdminView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

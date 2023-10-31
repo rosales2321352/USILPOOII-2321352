@@ -1,7 +1,7 @@
-package controller.login;
+package controllers.login;
 
-import model.login.Authenticate;
-import view.admin.AdminView;
+import models.login.Authenticate;
+import views.admin.AdminView;
 
 public class LoginController {
     private Authenticate authenticate;

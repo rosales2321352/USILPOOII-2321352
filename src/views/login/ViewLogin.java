@@ -1,6 +1,6 @@
-package view.login;
+package views.login;
 
-import controller.login.LoginController;
+import controllers.login.LoginController;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,9 +1,7 @@
-package view.admin;
+package views.admin;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class EmployeeAdminView extends JPanel {
     public EmployeeAdminView(CardLayout cardLayout, JPanel contentPanel) {
