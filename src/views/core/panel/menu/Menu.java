@@ -1,5 +1,6 @@
 package views.core.panel.menu;
 
+import views.admin.EmployeeAdminView;
 import views.category.CategoryView;
 import views.product.ProductView;
 
@@ -23,6 +24,12 @@ public class Menu extends JMenuBar {
         JMenuItem exitItem = new JMenuItem("Salir");
         fileMenu.add(exitItem);
 
+        JMenu userperson = new JMenu("Personas y Usuarios");
+        maintenance.add(userperson);
+
+        JMenuItem user = new JMenuItem("Usuarios");
+        userperson.add(user);
+
         JMenu productPrice = new JMenu("Productos y Precios");
         maintenance.add(productPrice);
 
@@ -38,6 +45,13 @@ public class Menu extends JMenuBar {
         exitItem.addActionListener((e) -> {
             System.exit(0);
         });
+        /*
+        user.addActionListener((e) -> {
+            SwingUtilities.invokeLater(() -> {
+               run(new EmployeeAdminView(), "Configuración de Empleados", 400, 400);
+            });
+        });
+         */
 
         categories.addActionListener((e) -> {
             SwingUtilities.invokeLater(() -> {

@@ -5,6 +5,8 @@ import classes.db.classes.Parameter;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Authenticate {
 
@@ -14,10 +16,11 @@ public class Authenticate {
         try {
             // Consulta SQL para buscar el usuario y la contraseña en la base de datos
             String sql = "SELECT * FROM user WHERE username = ? AND password = ?";
-            Parameter[] params = new Parameter[]{
-                    new Parameter(1, user), // Valor para username
-                    new Parameter(2, password) // Valor para password
-            };
+            List<Parameter> params = new ArrayList<>();
+
+                    params.add (new Parameter(1, user)); // Valor para username
+                    params.add (new Parameter(2, password)); // Valor para password
+
 
             ResultSet resultSet = Db.executeQuery(sql, params);
 
