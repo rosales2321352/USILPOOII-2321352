@@ -4,8 +4,10 @@ import classes.db.Db;
 import classes.db.classes.Parameter;
 import models.ModelSQL;
 
+import java.sql.Array;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -48,9 +50,21 @@ public class Product {
         this.outstanding = outstanding;
     }
 
-    public List<Product> getListProducts(){
+    public List<Product> getListProducts(String query){
         try {
-            var result = Db.executeQuery(ModelSQL.SQL_STMT_GET_PRODUCTS);
+            String sql = query.trim().isEmpty()?ModelSQL.SQL_STMT_GET_PRODUCTS:ModelSQL.SQL_STMT_GET_PRODUCTS_BY_LIKE;
+            ResultSet result;
+            if(query.trim().isEmpty()) {
+                result = Db.executeQuery(sql);
+            }else{
+                query = "%"+query+"%";
+                result = Db.executeQuery(sql, Arrays.asList(
+                        new Parameter<>(1,query),
+                        new Parameter<>(2,query),
+                        new Parameter<>(3,query)
+                ));
+            }
+
             List<Product> products = new ArrayList<>();
             while (result.next()){
                 var product = new Product();
@@ -71,9 +85,9 @@ public class Product {
 
     public Product getProduct(int product_id){
         try{
-            var result = Db.executeQuery(ModelSQL.SQL_STMT_GET_PRODUCT,new Parameter[]{
-                    new Parameter<>(1,product_id)
-            });
+            var result = Db.executeQuery(ModelSQL.SQL_STMT_GET_PRODUCT, List.of(
+                    new Parameter<>(1, product_id)
+            ));
             Product product = new Product();
             while(result.next()){
                 product.setProductId(result.getInt("product_id"));
@@ -91,19 +105,33 @@ public class Product {
         }
     }
 
-    public int insert(){
-        try{
-            var parameters = new Parameter[]{
-                    new Parameter<>(1,this.product_id_sunat),
-                    new Parameter<>(2,this.category_id),
-                    new Parameter<>(3,this.unity_id),
-                    new Parameter<>(4,this.reference),
-                    new Parameter<>(5,this.name),
-                    new Parameter<>(6,this.type_affectation_id),
-                    new Parameter<>(7,this.outstanding)
-            };
 
-            return Db.executeUpdate(ModelSQL.SQL_STMT_INSERT_PRODUCT,parameters);
+
+    public int save(){
+        try{
+            String query = this.product_id==0 ? ModelSQL.SQL_STMT_INSERT_PRODUCT:ModelSQL.SQL_STMT_UPDATE_PRODUCT;
+            List<Parameter> parameters = new ArrayList<>();
+            parameters.add(new Parameter<>(1,this.product_id_sunat));
+            parameters.add(new Parameter<>(2,this.category_id));
+            parameters.add(new Parameter<>(3,this.unity_id));
+            parameters.add(new Parameter<>(4,this.reference));
+            parameters.add(new Parameter<>(5,this.name));
+            parameters.add(new Parameter<>(6,this.type_affectation_id));
+            parameters.add(new Parameter<>(7,this.outstanding));
+            if(this.product_id != 0) parameters.add(new Parameter<>(8,this.product_id));
+            return Db.executeUpdate(query,parameters);
+        }catch (Exception e){
+            Logger.getLogger(Product.class.getName()).log(Level.SEVERE,null,e);
+            return 0;
+        }
+    }
+
+    public int delete(){
+        try{
+            List<Parameter> parameters = List.of(
+                    new Parameter<>(1, this.product_id)
+            );
+            return Db.executeUpdate(ModelSQL.SQL_STMT_DELETE_PRODUCT,parameters);
         }catch (Exception e){
             Logger.getLogger(Product.class.getName()).log(Level.SEVERE,null,e);
             return 0;

@@ -10,8 +10,10 @@ import java.awt.*;
 
 public class ProductList extends JPanel {
 
-    public TableModel model = null;
-    public JTable table = null;
+    public TableModel model;
+    public JTable table;
+    public JButton btnSearch;
+    public JTextField txtQuery;
     ProductController controller;
 
     public ProductList(ProductController controller){
@@ -39,14 +41,15 @@ public class ProductList extends JPanel {
         flowPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
         panelOptions.add(flowPanel,BorderLayout.LINE_END);
 
-        JTextField txtBuscador = new JTextField();
-        txtBuscador.setPreferredSize(new Dimension(250, 30));
-        flowPanel.add(txtBuscador);
+        txtQuery = new JTextField();
+        txtQuery.setPreferredSize(new Dimension(250, 30));
+        flowPanel.add(txtQuery);
 
-        JButton btnSearch = new JButton("Buscar");
+        btnSearch = new JButton("Buscar");
         btnSearch.setBackground(new Color(0,123,255));
         btnSearch.setBorder((BorderFactory.createMatteBorder(6,20,6,20,new java.awt.Color(0,123,255))));
         btnSearch.setForeground(Color.WHITE);
+        btnSearch.addActionListener(controller::onClickSearchProduct);
         flowPanel.add(btnSearch);
 
         JButton addNew = new JButton("Nuevo");

@@ -12,7 +12,7 @@ import java.awt.event.ActionListener;
 
 public class ProductView extends JPanel {
 
-    ProductController controller = null;
+    ProductController controller;
     public CardLayout cardLayout;
     public ProductList productList;
     public ProductEditor productEditor;
@@ -34,7 +34,7 @@ public class ProductView extends JPanel {
 
         this.add(tabContent, BorderLayout.CENTER);
         this.controller.renderObjects();
-        this.controller.loadDataTableAsync();
+        this.controller.loadDataTableAsync("");
 
     }
 
