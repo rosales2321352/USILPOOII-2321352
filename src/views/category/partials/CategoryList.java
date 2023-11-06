@@ -1,25 +1,27 @@
-package views.product.partials;
+package views.category.partials;
 
-import controllers.product.ProductController;
+import controllers.category.CategoryController;
 import views.core.layout.CustomScrollBarUI;
-import views.core.table.*;
+import views.core.table.ManageCellsActionButtons;
+import views.core.table.ManageGeneralCells;
+import views.core.table.ManageTableHeader;
+import views.core.table.TableModel;
 
 import javax.swing.*;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
 
-public class ProductList extends JPanel {
-
+public class CategoryList extends JPanel {
     public TableModel model;
     public JTable table;
     public JButton btnSearch;
     public JTextField txtQuery;
-    ProductController controller;
+    private CategoryController controller;
 
-    public ProductList(ProductController controller){
+    public CategoryList(CategoryController controller){
         this.controller = controller;
-        this.setLayout(new GridBagLayout());
         this.DrawControls();
+
     }
 
     public void DrawControls() {
@@ -30,27 +32,23 @@ public class ProductList extends JPanel {
 
 
         JPanel panelOptions = new JPanel();
-        panelOptions.setLayout(new BorderLayout());
-        JLabel area = new JLabel();
-        area.setText("Listado de Productos");
-        area.setFont(new Font("Arial", Font.BOLD,24));
-        panelOptions.add(area,BorderLayout.LINE_START);
+
+        GroupLayout layout = new GroupLayout(panelOptions);
+        panelOptions.setLayout(layout);
 
 
-        JPanel flowPanel = new JPanel();
-        flowPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
-        panelOptions.add(flowPanel,BorderLayout.LINE_END);
+        JLabel lblTitle = new JLabel();
+        lblTitle.setText("Listado de Productos");
+        lblTitle.setFont(new Font("Arial", Font.BOLD,24));
 
         txtQuery = new JTextField();
         txtQuery.setPreferredSize(new Dimension(250, 30));
-        flowPanel.add(txtQuery);
 
         btnSearch = new JButton("Buscar");
         btnSearch.setBackground(new Color(0,123,255));
         btnSearch.setBorder((BorderFactory.createMatteBorder(6,20,6,20,new java.awt.Color(0,123,255))));
         btnSearch.setForeground(Color.WHITE);
-        btnSearch.addActionListener(controller::onClickSearchProduct);
-        flowPanel.add(btnSearch);
+        btnSearch.addActionListener(controller::onClickSearchCategory);
 
         JButton addNew = new JButton("Nuevo");
         addNew.setName("Action");
@@ -58,7 +56,30 @@ public class ProductList extends JPanel {
         addNew.setBorder((BorderFactory.createMatteBorder(6,20,6,20,new java.awt.Color(0,123,255))));
         addNew.setForeground(Color.WHITE);
         addNew.addActionListener(controller::onClickBtnNew);
-        flowPanel.add(addNew);
+
+        layout.setAutoCreateGaps(true);
+        layout.setAutoCreateContainerGaps(false);
+        layout.setHorizontalGroup(
+            layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addComponent(lblTitle)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtQuery).addGap(10)
+                        .addComponent(btnSearch).addGap(30)
+                        .addComponent(addNew)
+                    )
+                )
+        );
+
+        layout.setVerticalGroup(
+            layout.createSequentialGroup()
+                .addComponent(lblTitle)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtQuery)
+                    .addComponent(btnSearch)
+                    .addComponent(addNew)
+                )
+        );
 
         GridBagConstraints gbc = new GridBagConstraints();
 
@@ -76,19 +97,6 @@ public class ProductList extends JPanel {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         add(listScrollPane, gbc);
     }
-
-    public void makeTableHeader(String[] titles){
-        Object[][] objects = new Object[25][];
-        for (int i = 0; i < objects.length; i++) {
-            objects[i] = new Object[]{""};
-        }
-        model = new TableModel(objects,titles);
-        table.setModel(model);
-        table.getTableHeader().setReorderingAllowed(false);
-        JTableHeader jTableHeader = table.getTableHeader();
-        jTableHeader.setDefaultRenderer(new ManageTableHeader());
-        table.setTableHeader(jTableHeader);
-    }
     public void makeTable(Object[][] information, String[] titles){
         model = new TableModel(information,titles);
         table.setModel(model);
@@ -100,26 +108,34 @@ public class ProductList extends JPanel {
         table.setGridColor(new java.awt.Color(216,216,216));
         table.getColumnModel().getColumn(0).setMaxWidth(50);
         table.getColumnModel().getColumn(0).setResizable(false);
-        table.getColumnModel().getColumn(1).setMaxWidth(60);
         table.getColumnModel().getColumn(1).setResizable(false);
         table.getColumnModel().getColumn(2).setMaxWidth(80);
         table.getColumnModel().getColumn(2).setResizable(false);
-        table.getColumnModel().getColumn(3).setMaxWidth(40);
-        table.getColumnModel().getColumn(3).setResizable(false);
 
         ManageCellsActionButtons actionsButtons =
                 new ManageCellsActionButtons(table,
-                        5,
-                        new ProductAction(this.controller),
-                        new ProductAction(this.controller));
+                        3,
+                        new CategoryAction(this.controller),
+                        new CategoryAction(this.controller));
 
-        table.getColumnModel().getColumn(5).setMaxWidth(100);
-        table.getColumnModel().getColumn(5).setMinWidth(100);
+        table.getColumnModel().getColumn(3).setMaxWidth(100);
+        table.getColumnModel().getColumn(3).setMinWidth(100);
 
         JTableHeader jTableHeader = table.getTableHeader();
         jTableHeader.setDefaultRenderer(new ManageTableHeader());
         table.setTableHeader(jTableHeader);
 
     }
-
+    public void makeTableHeader(String[] titles){
+        Object[][] objects = new Object[24][];
+        for (int i = 0; i < objects.length; i++) {
+            objects[i] = new Object[]{""};
+        }
+        model = new TableModel(objects,titles);
+        table.setModel(model);
+        table.getTableHeader().setReorderingAllowed(false);
+        JTableHeader jTableHeader = table.getTableHeader();
+        jTableHeader.setDefaultRenderer(new ManageTableHeader());
+        table.setTableHeader(jTableHeader);
+    }
 }

@@ -124,7 +124,7 @@ public class ProductController {
 
             if(rowsAffected < 1){
                 JOptionPane.showMessageDialog(null,
-                        "No se pudo eliminar el producto.",
+                        "",
                         "Atención", JOptionPane.INFORMATION_MESSAGE);
             }else{
                 JOptionPane.showMessageDialog(null,

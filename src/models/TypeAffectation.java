@@ -28,6 +28,7 @@ public class TypeAffectation implements IComboBox {
     public List<TypeAffectation> getTypesAffectationList(){
         try{
             ResultSet result = Db.executeQuery(ModelSQL.SQL_STMT_GET_TYPE_AFFECTATION);
+
             List<TypeAffectation> typesAffectation = new ArrayList<>();
             while (result.next()){
                 typesAffectation.add(new TypeAffectation(

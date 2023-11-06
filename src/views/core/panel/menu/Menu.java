@@ -41,21 +41,22 @@ public class Menu extends JMenuBar {
 
         categories.addActionListener((e) -> {
             SwingUtilities.invokeLater(() -> {
-                run(new CategoryView(),"Administración de Categorías",400, 400);
+                run(new CategoryView(),"Administración de Categorías",500, 576,false);
             });
         });
 
         product.addActionListener((e) -> {
             SwingUtilities.invokeLater(() -> {
-                run(new ProductView(),"Administración de Productos",768, 576);
+                run(new ProductView(),"Administración de Productos",768, 576,true);
             });
         });
 
     }
 
-    public void run(JPanel panel,String title,int width,int height){
+    public void run(JPanel panel,String title,int width,int height,boolean resizable ){
         JDialog dialog = new JDialog(this.main, title, true);
         dialog.setMinimumSize(new Dimension(width, height));
+        dialog.setResizable(resizable);
         dialog.setLocationRelativeTo(this.main);
         dialog.add(panel);
         dialog.setVisible(true);
