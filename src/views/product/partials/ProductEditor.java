@@ -2,18 +2,12 @@ package views.product.partials;
 
 import controllers.product.ProductController;
 import models.ProductSunat;
-import models.TypeAffectation;
-import models.Unity;
+import models.typeAffectation.TypeAffectation;
 import models.category.Category;
 import models.combobox.UnityComboBox;
 import views.core.combobox.CustomComboBox;
-import views.core.combobox.CustomComboBoxModel;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
@@ -32,6 +26,7 @@ public class ProductEditor extends JPanel{
     public JFormattedTextField txtquantity;
 
     public ProductEditor(ProductController controller) {
+        this.setBackground(Color.WHITE);
         this.controller = controller;
         this.drawControlls();
         this.controller.loadDataComboBoxAsync();
@@ -43,6 +38,7 @@ public class ProductEditor extends JPanel{
         this.setLayout(new BorderLayout());
 
         JPanel titlePanel = new JPanel();
+        titlePanel.setBackground(Color.WHITE);
         titlePanel.setLayout(new FlowLayout(FlowLayout.LEFT));
         JLabel lblTitle = new JLabel("Editar Producto");
         lblTitle.setFont(new Font("Arial", Font.BOLD,24));
@@ -51,6 +47,7 @@ public class ProductEditor extends JPanel{
         this.add(titlePanel,BorderLayout.PAGE_START);
 
         JPanel controlsPanel = new JPanel();
+        controlsPanel.setBackground(Color.WHITE);
         JLabel lblName = new JLabel("Nombre:");
         JLabel lblCategory = new JLabel("Categoría:");
         JLabel lblCodSunat = new JLabel("Cod. SUNAT:");
@@ -158,6 +155,7 @@ public class ProductEditor extends JPanel{
         this.add(controlsPanel,BorderLayout.CENTER);
 
         JPanel buttonsPanel = new JPanel();
+        buttonsPanel.setBackground(Color.WHITE);
         buttonsPanel.setLayout(new FlowLayout(FlowLayout.LEADING));
 
         JButton btnSave = new JButton("Guardar");

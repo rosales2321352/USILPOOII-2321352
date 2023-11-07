@@ -1,26 +1,28 @@
-package views.category;
+package views.unity;
 
-import controllers.category.CategoryController;
 import controllers.product.ProductController;
-import views.category.partials.CategoryEditor;
-import views.category.partials.CategoryList;
+import controllers.unity.UnityController;
+import views.product.partials.ProductEditor;
 import views.product.partials.ProductList;
+import views.unity.partials.UnityEditor;
+import views.unity.partials.UnityList;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
-public class CategoryView extends JPanel {
-    CategoryController controller;
+public class UnityView extends JPanel{
+
+    public UnityController controller;
     public CardLayout cardLayout;
     public JPanel tabContent;
-    public CategoryList categoryList;
-    public CategoryEditor categoryEditor;
-    public CategoryView(){
+    public UnityList unityList;
+    public UnityEditor unityEditor;
+    public UnityView(){
         this.setBackground(Color.WHITE);
-        this.controller = new CategoryController(this);
-        this.categoryList = new CategoryList(this.controller);
-        this.categoryEditor = new CategoryEditor(this.controller);
+        this.controller = new UnityController(this);
+        this.unityList = new UnityList(this.controller);
+        this.unityEditor = new UnityEditor(this.controller);
         this.setLayout(new BorderLayout());
         this.cardLayout = new CardLayout();
         this.tabContent = new JPanel(cardLayout);
@@ -29,11 +31,14 @@ public class CategoryView extends JPanel {
         EmptyBorder paddingBorder = new EmptyBorder(paddingSize, paddingSize, paddingSize, paddingSize);
         this.setBorder(paddingBorder);
 
-        tabContent.add(this.categoryList, "List");
-        tabContent.add(this.categoryEditor,"Action");
+        tabContent.add(this.unityList, "List");
+        tabContent.add(this.unityEditor, "Action");
 
         this.add(tabContent, BorderLayout.CENTER);
+
         this.controller.renderObjects();
         this.controller.loadDataTableAsync("");
     }
+
+
 }

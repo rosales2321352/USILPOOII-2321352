@@ -1,6 +1,6 @@
 package models;
 
-import classes.db.Db;
+import models.db.Db;
 import views.core.combobox.IComboBox;
 
 import java.sql.ResultSet;

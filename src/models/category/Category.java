@@ -1,7 +1,7 @@
 package models.category;
 
-import classes.db.Db;
-import classes.db.classes.Parameter;
+import models.db.Db;
+import models.db.classes.Parameter;
 import models.ModelSQL;
 import views.core.combobox.IComboBox;
 

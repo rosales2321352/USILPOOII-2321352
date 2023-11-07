@@ -1,7 +1,7 @@
-package models;
+package models.typeAffectation;
 
-import classes.db.Db;
-import models.category.Category;
+import models.ModelSQL;
+import models.db.Db;
 import views.core.combobox.IComboBox;
 
 import java.sql.ResultSet;
@@ -18,10 +18,36 @@ public class TypeAffectation implements IComboBox {
     public TypeAffectation(){
 
     }
-    public TypeAffectation(String type_affectation_id,String name, int free, int tax_id){
+
+    public String getType_affectation_id() {
+        return type_affectation_id;
+    }
+
+    public void setType_affectation_id(String type_affectation_id) {
         this.type_affectation_id = type_affectation_id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
         this.name = name;
+    }
+
+    public int getFree() {
+        return free;
+    }
+
+    public void setFree(int free) {
         this.free = free;
+    }
+
+    public int getTax_id() {
+        return tax_id;
+    }
+
+    public void setTax_id(int tax_id) {
         this.tax_id = tax_id;
     }
 
@@ -31,12 +57,12 @@ public class TypeAffectation implements IComboBox {
 
             List<TypeAffectation> typesAffectation = new ArrayList<>();
             while (result.next()){
-                typesAffectation.add(new TypeAffectation(
-                        result.getString("type_affectation_id"),
-                        result.getString("name"),
-                        result.getInt("free"),
-                        result.getInt("tax_id")
-                ));
+                TypeAffectation typeAffectation = new TypeAffectation();
+                typeAffectation.setType_affectation_id(result.getString("type_affectation_id"));
+                typeAffectation.setName(result.getString("name"));
+                typeAffectation.setFree(result.getInt("free"));
+                typeAffectation.setTax_id(result.getInt("tax_id"));
+                typesAffectation.add(typeAffectation);
             }
             result.getStatement().close();
             result.close();

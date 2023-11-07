@@ -61,6 +61,7 @@ public class CategoryController {
                 "¿Está seguro de cancelar la operación?",
                 "Confirmación", JOptionPane.YES_NO_OPTION);
         if(response == JOptionPane.YES_OPTION) {
+            this.resetControls();
             this.switchTab((JButton) e.getSource());
         }
     }
@@ -91,6 +92,7 @@ public class CategoryController {
         }
     }
     public void onClickBtnEdit(ActionEvent e, int id){
+        this.panel.categoryEditor.lblTitle.setText("Editar Categoría");
         CompletableFuture<Category> futureCategory = CompletableFuture.supplyAsync(() -> new Category().getCategory(id));
         futureCategory.thenAcceptAsync(category -> SwingUtilities.invokeLater(() -> {
             this.category_id = category.getCategoryId();

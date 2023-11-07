@@ -1,4 +1,4 @@
-package classes.db.interfaces;
+package models.db.interfaces;
 
 import java.sql.Connection;
 

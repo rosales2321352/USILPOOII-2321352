@@ -1,6 +1,6 @@
 package models.combobox;
 
-import models.Unity;
+import models.unity.Unity;
 import views.core.combobox.IComboBox;
 
 import java.util.List;

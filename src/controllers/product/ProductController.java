@@ -1,8 +1,8 @@
 package controllers.product;
 
 import models.ProductSunat;
-import models.TypeAffectation;
-import models.Unity;
+import models.typeAffectation.TypeAffectation;
+import models.unity.Unity;
 import models.category.Category;
 import models.combobox.UnityComboBox;
 import models.product.Product;
@@ -10,7 +10,6 @@ import views.core.combobox.CustomComboBoxModel;
 import views.product.ProductView;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.List;
 import java.util.concurrent.*;

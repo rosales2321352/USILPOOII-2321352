@@ -1,32 +1,49 @@
 package controllers.login;
 
+import core.models.Auth;
 import models.login.Authenticate;
 import views.admin.AdminView;
+import views.dashboard.Dashboard;
+import views.login.LoginView;
+
+import java.awt.event.ActionEvent;
+import java.util.Arrays;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class LoginController {
-    private Authenticate authenticate;
 
-    public LoginController() {
-        authenticate = new Authenticate();
+    final private LoginView panel;
+    public LoginController(LoginView panel){
+        this.panel = panel;
     }
 
-    public boolean iniciarSesion(String usuario, String contrasena) {
-        boolean resultado = authenticate.autenticar(usuario, contrasena);
-        if (resultado) {
-            mostrarVistaDelAdministrador();
-            // Inicio de sesión exitoso, realiza acciones adicionales aquí
-            // Por ejemplo, abre una nueva ventana o cambia la vista.
-            // También puedes comunicarte con la vista para realizar estos cambios.
-
-        } else {
-
+    private boolean validate(){
+        String userName = this.panel.txtUserName.getText();
+        String password = new String(this.panel.txtPassword.getPassword());
+        if(userName.trim().isEmpty()){
+            return false;
         }
-
-        return resultado;
+        if(password.trim().isEmpty()){
+            return false;
+        }
+        return true;
     }
 
-    private void mostrarVistaDelAdministrador() {
-        AdminView adminView = new AdminView();
-        adminView.setVisible(true);
+    public void onClickBtnLogin(ActionEvent e){
+        if(validate()) {
+            String userName = this.panel.txtUserName.getText();
+            String password = new String(this.panel.txtPassword.getPassword());
+
+            if(Authenticate.authenticate(userName,password)){
+                var auth = Auth.getInstance();
+                auth.setAuthenticated(true);
+                Dashboard d = new Dashboard();
+                this.panel.dispose();
+            }
+        }
     }
+
+
+
 }

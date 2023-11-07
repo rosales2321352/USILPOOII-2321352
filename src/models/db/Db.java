@@ -1,7 +1,7 @@
-package classes.db;
+package models.db;
 
-import classes.db.classes.Parameter;
-import classes.db.interfaces.IDbFactory;
+import models.db.classes.Parameter;
+import models.db.interfaces.IDbFactory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

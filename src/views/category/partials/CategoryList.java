@@ -19,6 +19,7 @@ public class CategoryList extends JPanel {
     private CategoryController controller;
 
     public CategoryList(CategoryController controller){
+        this.setBackground(Color.WHITE);
         this.controller = controller;
         this.DrawControls();
 
@@ -27,18 +28,19 @@ public class CategoryList extends JPanel {
     public void DrawControls() {
         this.table = new JTable();
         JScrollPane listScrollPane = new JScrollPane(table);
+        listScrollPane.setBackground(Color.WHITE);
         listScrollPane.getVerticalScrollBar().setUI(new CustomScrollBarUI());
         listScrollPane.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
 
 
         JPanel panelOptions = new JPanel();
-
+        panelOptions.setBackground(Color.WHITE);
         GroupLayout layout = new GroupLayout(panelOptions);
         panelOptions.setLayout(layout);
 
 
         JLabel lblTitle = new JLabel();
-        lblTitle.setText("Listado de Productos");
+        lblTitle.setText("Listado de Categorías");
         lblTitle.setFont(new Font("Arial", Font.BOLD,24));
 
         txtQuery = new JTextField();

@@ -1,8 +1,7 @@
 package views.dashboard;
 
-import classes.db.classes.MysqlConnection;
+import models.db.classes.MysqlConnection;
 import views.core.panel.menu.Menu;
-import views.product.ProductView;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;

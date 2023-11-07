@@ -3,6 +3,7 @@ package views.core.panel.menu;
 import views.admin.EmployeeAdminView;
 import views.category.CategoryView;
 import views.product.ProductView;
+import views.unity.UnityView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -42,16 +43,13 @@ public class Menu extends JMenuBar {
         JMenuItem product = new JMenuItem("Productos");
         productPrice.add(product);
 
+        /**/
+        JMenuItem unity = new JMenuItem("Unidades de Medida");
+        maintenance.add(unity);
+
         exitItem.addActionListener((e) -> {
             System.exit(0);
         });
-        /*
-        user.addActionListener((e) -> {
-            SwingUtilities.invokeLater(() -> {
-               run(new EmployeeAdminView(), "Configuración de Empleados", 400, 400);
-            });
-        });
-         */
 
         categories.addActionListener((e) -> {
             SwingUtilities.invokeLater(() -> {
@@ -62,6 +60,12 @@ public class Menu extends JMenuBar {
         product.addActionListener((e) -> {
             SwingUtilities.invokeLater(() -> {
                 run(new ProductView(),"Administración de Productos",768, 576,true);
+            });
+        });
+
+        unity.addActionListener((e) -> {
+            SwingUtilities.invokeLater(() -> {
+                run(new UnityView(),"Administración de Unidades de Medida",500,576,false);
             });
         });
 

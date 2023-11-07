@@ -8,6 +8,7 @@ import java.awt.*;
 public class CategoryEditor extends JPanel {
 
     private CategoryController controller;
+    public JLabel lblTitle;
     public JTextField txtName;
     public JTextField txtColor;
     public JButton btnSave;
@@ -23,8 +24,9 @@ public class CategoryEditor extends JPanel {
         this.setLayout(new BorderLayout());
 
         JPanel titlePanel = new JPanel();
+        titlePanel.setBackground(Color.WHITE);
         titlePanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-        JLabel lblTitle = new JLabel("Editar Categoría");
+        lblTitle = new JLabel("Agregar Categoría");
         lblTitle.setFont(new Font("Arial", Font.BOLD,24));
         titlePanel.add(lblTitle);
 
@@ -38,6 +40,7 @@ public class CategoryEditor extends JPanel {
         txtColor.setPreferredSize(new Dimension(200,30));
 
         JPanel panelControls = new JPanel();
+        panelControls.setBackground(Color.WHITE);
         GroupLayout layout = new GroupLayout(panelControls);
         panelControls.setLayout(layout);
 
@@ -74,6 +77,7 @@ public class CategoryEditor extends JPanel {
         );
 
         JPanel panelButtons = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        panelButtons.setBackground(Color.WHITE);
         this.btnCancel = new JButton("Cancelar");
         btnCancel.setBackground(new Color(65, 65, 65));
         btnCancel.setBorder((BorderFactory.createMatteBorder(6,20,6,20,new java.awt.Color(65, 65, 65))));

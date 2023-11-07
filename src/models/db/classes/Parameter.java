@@ -1,4 +1,4 @@
-package classes.db.classes;
+package models.db.classes;
 
 public class Parameter<T> {
     private int key_;

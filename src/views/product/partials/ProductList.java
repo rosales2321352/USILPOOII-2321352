@@ -17,19 +17,22 @@ public class ProductList extends JPanel {
     ProductController controller;
 
     public ProductList(ProductController controller){
+        this.setBackground(Color.WHITE);
         this.controller = controller;
         this.setLayout(new GridBagLayout());
-        this.DrawControls();
+        this.drawControls();
     }
 
-    public void DrawControls() {
+    public void drawControls() {
         this.table = new JTable();
         JScrollPane listScrollPane = new JScrollPane(table);
+        listScrollPane.setBackground(Color.WHITE);
         listScrollPane.getVerticalScrollBar().setUI(new CustomScrollBarUI());
         listScrollPane.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
 
 
         JPanel panelOptions = new JPanel();
+        panelOptions.setBackground(Color.WHITE);
         panelOptions.setLayout(new BorderLayout());
         JLabel area = new JLabel();
         area.setText("Listado de Productos");
@@ -38,6 +41,7 @@ public class ProductList extends JPanel {
 
 
         JPanel flowPanel = new JPanel();
+        flowPanel.setBackground(Color.WHITE);
         flowPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
         panelOptions.add(flowPanel,BorderLayout.LINE_END);
 

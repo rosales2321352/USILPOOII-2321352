@@ -18,6 +18,7 @@ public class ProductView extends JPanel {
     public ProductEditor productEditor;
     public JPanel tabContent;
     public ProductView(){
+        this.setBackground(Color.WHITE);
         this.controller = new ProductController(this);
         this.productList = new ProductList(this.controller);
         this.productEditor = new ProductEditor(this.controller);

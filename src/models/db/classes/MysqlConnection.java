@@ -1,7 +1,7 @@
-package classes.db.classes;
+package models.db.classes;
 
-import classes.db.interfaces.IDb;
-import org.postgresql.Driver;
+import models.db.interfaces.IDb;
+import com.mysql.cj.jdbc.Driver;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,33 +9,28 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class PsqlConnection implements IDb {
+public class MysqlConnection implements IDb {
 
-    public Connection instance;
+    private Connection instance;
 
     @Override
     public Connection getInstance(){
-        if(this.instance == null){
-            try{
+        if(instance == null){
+            try {
                 this.instance = connection();
             }catch (SQLException ex){
-                Logger.getLogger(PsqlConnection.class.getName()).log(Level.SEVERE,null,ex);
+                Logger.getLogger(MysqlConnection.class.getName()).log(Level.SEVERE,null,ex);
             }
         }
-
         return this.instance;
     }
 
     public Connection connection() throws SQLException{
-
-        String url = "jdbc:postgresql://localhost:5432/bdcrud";
-        String user = "postgres";
-        String pass = "Rosales@1015";
-
+        String user = "usil_root";
+        String pass = "675&mF{~D-P=";
+        String url  = "jdbc:mysql://usilpooii.mysql.database.azure.com:3306/usilpooii_db?useTimezone=true&serverTimezone=UTC&useSSL=true&allowPublicKeyRetrieval=true";
         DriverManager.registerDriver(new Driver());
-
         Connection conn = DriverManager.getConnection(url,user,pass);
-
         return conn;
     }
 }
