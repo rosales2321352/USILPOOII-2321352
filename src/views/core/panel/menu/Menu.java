@@ -3,6 +3,7 @@ package views.core.panel.menu;
 import views.admin.EmployeeAdminView;
 import views.category.CategoryView;
 import views.product.ProductView;
+import views.typeAffectation.TypeAffectationView;
 import views.unity.UnityView;
 
 import javax.swing.*;
@@ -47,6 +48,9 @@ public class Menu extends JMenuBar {
         JMenuItem unity = new JMenuItem("Unidades de Medida");
         maintenance.add(unity);
 
+        JMenuItem typeAffectation = new JMenuItem("Tip. Afectación");
+        maintenance.add(typeAffectation);
+
         exitItem.addActionListener((e) -> {
             System.exit(0);
         });
@@ -66,6 +70,12 @@ public class Menu extends JMenuBar {
         unity.addActionListener((e) -> {
             SwingUtilities.invokeLater(() -> {
                 run(new UnityView(),"Administración de Unidades de Medida",500,576,false);
+            });
+        });
+
+        typeAffectation.addActionListener((e) -> {
+            SwingUtilities.invokeLater(() -> {
+                run(new TypeAffectationView(),"Administración de tipos de afectación",500,576,false);
             });
         });
 
