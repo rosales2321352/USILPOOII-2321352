@@ -97,6 +97,8 @@ public class Category implements IComboBox {
                 category.setName(result.getString("name"));
                 category.setDistintiveColor(result.getString("distintive_color"));
             }
+            result.getStatement().close();
+            result.close();
             return category;
         }catch (Exception e){
             return new Category();

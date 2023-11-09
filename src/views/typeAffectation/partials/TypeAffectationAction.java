@@ -1,7 +1,7 @@
-package views.category.partials;
+package views.typeAffectation.partials;
 
-import controllers.category.CategoryController;
-import controllers.product.ProductController;
+import controllers.typeAffectation.TypeAffectationController;
+import controllers.unity.UnityController;
 import views.core.panel.IActionPanel;
 
 import javax.imageio.ImageIO;
@@ -10,14 +10,13 @@ import java.awt.*;
 import java.io.IOException;
 import java.util.Objects;
 
-public class CategoryAction extends JPanel implements IActionPanel {
-
-    public CategoryController controller;
-    private int category_id;
+public class TypeAffectationAction extends JPanel implements IActionPanel {
+    public TypeAffectationController controller;
+    private String type_affectation_id;
     public JButton btnEdit;
     public JButton btnDelete;
 
-    public CategoryAction(CategoryController controller){
+    public TypeAffectationAction(TypeAffectationController controller){
 
         this.controller = controller;
         this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
@@ -42,8 +41,12 @@ public class CategoryAction extends JPanel implements IActionPanel {
             throw new RuntimeException(e);
         }
 
-        btnEdit.addActionListener((e) -> controller.onClickBtnEdit(e,this.category_id));
-        btnDelete.addActionListener((e) -> controller.onClickBtnDelete(e,this.category_id));
+        btnEdit.addActionListener((e) -> {
+           controller.onClickBtnEdit(e,type_affectation_id);
+        });
+        btnDelete.addActionListener((e) -> {
+           controller.onClickBtnDelete(e,type_affectation_id);
+        });
 
         this.add(btnEdit);
         this.add(btnDelete);
@@ -56,6 +59,6 @@ public class CategoryAction extends JPanel implements IActionPanel {
 
     @Override
     public void setId(Object id) {
-        this.category_id = Integer.parseInt(id.toString());
+        this.type_affectation_id = id.toString();
     }
 }
