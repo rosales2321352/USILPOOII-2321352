@@ -2,6 +2,7 @@ package views.core.panel.menu;
 
 import views.admin.EmployeeAdminView;
 import views.category.CategoryView;
+import views.person.PersonView;
 import views.product.ProductView;
 import views.tax.TaxView;
 import views.typeAffectation.TypeAffectationView;
@@ -29,6 +30,9 @@ public class Menu extends JMenuBar {
 
         JMenu userperson = new JMenu("Personas y Usuarios");
         maintenance.add(userperson);
+
+        JMenuItem persona = new JMenuItem("Personas");
+        userperson.add(persona);
 
         JMenuItem user = new JMenuItem("Usuarios");
         userperson.add(user);
@@ -64,6 +68,15 @@ public class Menu extends JMenuBar {
         exitItem.addActionListener((e) -> {
             System.exit(0);
         });
+
+        persona.addActionListener((e) -> {
+
+            SwingUtilities.invokeLater(() -> {
+                run(new PersonView(),"Administración de Personas",500, 576,false);
+            });
+        });
+
+
 
         categories.addActionListener((e) -> {
             SwingUtilities.invokeLater(() -> {
