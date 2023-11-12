@@ -1,7 +1,6 @@
 package views.documents.partials;
 
-import controllers.product.ProductController;
-import controllers.documents.DocumentController;
+import controllers.Documents.DocumentsController;
 import views.core.panel.IActionPanel;
 
 import javax.imageio.ImageIO;
@@ -12,12 +11,12 @@ import java.util.Objects;
 
 public class DocumentsAction extends JPanel implements IActionPanel {
 
-    public DocumentController controller;
-    private int unity_id;
+    public DocumentsController controller;
+    private String documents_id;
     public JButton btnEdit;
     public JButton btnDelete;
 
-    public DocumentsAction(DocumentController controller){
+    public DocumentsAction(DocumentsController controller){
 
         this.controller = controller;
         this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
@@ -43,10 +42,10 @@ public class DocumentsAction extends JPanel implements IActionPanel {
         }
 
         btnEdit.addActionListener((e) -> {
-            controller.onClickBtnEdit(e,unity_id);
+            controller.onClickBtnEdit(e,documents_id);
         });
         btnDelete.addActionListener((e) -> {
-            controller.onClickBtnDelete(e,unity_id);
+            controller.onClickBtnDelete(e,documents_id);
         });
 
         this.add(btnEdit);
@@ -59,7 +58,13 @@ public class DocumentsAction extends JPanel implements IActionPanel {
     }
 
     @Override
-    public void setId(int id) {
-        this.unity_id = id;
+    public void setId(Object id) {
+        this.documents_id= id. toString();
+
     }
+
+    /*@Override
+    public void setId(int id) {
+        this.documents_id = id;
+    }*/
 }

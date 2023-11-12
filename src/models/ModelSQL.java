@@ -41,4 +41,16 @@ public class ModelSQL {
     //LOGIN
     public static final String SQL_STMT_AUTHENTICATED = "SELECT * FROM user WHERE username = ? AND password = ? limit 50";
 
+    //DocumentType
+    public static final String SQL_STMT_GET_DOCUMENTSTYPES = "SELECT document_type_id , name  FROM document_type dt  limit 50";
+
+    public static final String SQL_STMT_GET_DOCUMENTSTYPES_BY_LIKE = "SELECT document_type_id , name  FROM document_type dt WHERE document_type_id LIKE ? or name LIKE ? limit 50";
+    public static final String SQL_STMT_GET_DOCUMENTTYPE= "SELECT document_type_id , name  FROM document_type dt WHERE document_type_id = ? limit 50";
+
+    public static final String SQL_STMT_INSERT_DOCUMENTSTYPES = "INSERT  into document_type (name,document_type_id) values (?,?)";
+    public static final String SQL_STMT_UPDATE_DOCUMENTSTYPES = "UPDATE document_type SET name=? WHERE document_type_id = ?";
+    public static final String SQL_STMT_DELETE_DOCUMENTSTYPES = "delete from document_type where document_type_id =?";
+
+
+
 }
