@@ -1,7 +1,7 @@
-package views.category.partials;
+package views.tax.partials;
 
-import controllers.category.CategoryController;
-import controllers.product.ProductController;
+import controllers.tax.TaxController;
+import controllers.unity.UnityController;
 import views.core.panel.IActionPanel;
 
 import javax.imageio.ImageIO;
@@ -10,14 +10,14 @@ import java.awt.*;
 import java.io.IOException;
 import java.util.Objects;
 
-public class CategoryAction extends JPanel implements IActionPanel {
+public class TaxAction extends JPanel implements IActionPanel {
 
-    public CategoryController controller;
-    private int category_id;
+    public TaxController controller;
+    private int tax_id;
     public JButton btnEdit;
     public JButton btnDelete;
 
-    public CategoryAction(CategoryController controller){
+    public TaxAction(TaxController controller){
 
         this.controller = controller;
         this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
@@ -42,8 +42,12 @@ public class CategoryAction extends JPanel implements IActionPanel {
             throw new RuntimeException(e);
         }
 
-        btnEdit.addActionListener((e) -> controller.onClickBtnEdit(e,this.category_id));
-        btnDelete.addActionListener((e) -> controller.onClickBtnDelete(e,this.category_id));
+        btnEdit.addActionListener((e) -> {
+            controller.onClickBtnEdit(e,tax_id);
+        });
+        btnDelete.addActionListener((e) -> {
+            controller.onClickBtnDelete(e,tax_id);
+        });
 
         this.add(btnEdit);
         this.add(btnDelete);
@@ -56,6 +60,7 @@ public class CategoryAction extends JPanel implements IActionPanel {
 
     @Override
     public void setId(Object id) {
-        this.category_id = Integer.parseInt(id.toString());
+        this.tax_id = Integer.parseInt(id.toString());
     }
 }
+

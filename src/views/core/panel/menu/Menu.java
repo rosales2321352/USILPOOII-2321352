@@ -3,6 +3,8 @@ package views.core.panel.menu;
 import views.admin.EmployeeAdminView;
 import views.category.CategoryView;
 import views.product.ProductView;
+import views.tax.TaxView;
+import views.typeAffectation.TypeAffectationView;
 import views.unity.UnityView;
 
 import javax.swing.*;
@@ -47,6 +49,18 @@ public class Menu extends JMenuBar {
         JMenuItem unity = new JMenuItem("Unidades de Medida");
         maintenance.add(unity);
 
+        JMenuItem typeAffectation = new JMenuItem("Tip. Afectación");
+        maintenance.add(typeAffectation);
+
+        JMenu otros = new JMenu("Otros");
+        maintenance.add(otros);
+
+        JMenuItem movementType = new JMenuItem("Tipos de Movimientos");
+        otros.add(movementType);
+
+        JMenuItem tax = new JMenuItem("Impuestos");
+        otros.add(tax);
+
         exitItem.addActionListener((e) -> {
             System.exit(0);
         });
@@ -66,6 +80,18 @@ public class Menu extends JMenuBar {
         unity.addActionListener((e) -> {
             SwingUtilities.invokeLater(() -> {
                 run(new UnityView(),"Administración de Unidades de Medida",500,576,false);
+            });
+        });
+
+        typeAffectation.addActionListener((e) -> {
+            SwingUtilities.invokeLater(() -> {
+                run(new TypeAffectationView(),"Administración de tipos de afectación",500,576,false);
+            });
+        });
+
+        tax.addActionListener((e) -> {
+            SwingUtilities.invokeLater(() -> {
+                run(new TaxView(),"Administración de impuestos",500,576,false);
             });
         });
 

@@ -47,7 +47,7 @@ public class ManageCellsActionButtons extends AbstractCellEditor implements Tabl
 
         Object id_value = table.getValueAt(row,0);
         if(id_value instanceof String){
-            actionPanel.setId(Integer.parseInt(id_value.toString()));
+            actionPanel.setId(id_value);
         }
 
         return this.actionsEdit;

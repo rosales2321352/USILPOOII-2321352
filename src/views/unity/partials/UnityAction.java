@@ -1,6 +1,4 @@
 package views.unity.partials;
-
-import controllers.product.ProductController;
 import controllers.unity.UnityController;
 import views.core.panel.IActionPanel;
 
@@ -42,12 +40,8 @@ public class UnityAction extends JPanel implements IActionPanel {
             throw new RuntimeException(e);
         }
 
-        btnEdit.addActionListener((e) -> {
-            controller.onClickBtnEdit(e,unity_id);
-        });
-        btnDelete.addActionListener((e) -> {
-            controller.onClickBtnDelete(e,unity_id);
-        });
+        btnEdit.addActionListener((e) -> controller.onClickBtnEdit(e,unity_id));
+        btnDelete.addActionListener((e) -> controller.onClickBtnDelete(e,unity_id));
 
         this.add(btnEdit);
         this.add(btnDelete);
@@ -59,7 +53,7 @@ public class UnityAction extends JPanel implements IActionPanel {
     }
 
     @Override
-    public void setId(int id) {
-        this.unity_id = id;
+    public void setId(Object id) {
+        this.unity_id = Integer.parseInt(id.toString());
     }
 }

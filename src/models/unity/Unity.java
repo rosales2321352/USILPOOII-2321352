@@ -75,6 +75,8 @@ public class Unity {
                 unity.setName(result.getString("name"));
                 unity.setSymbol(result.getString("symbol"));
             }
+            result.getStatement().close();
+            result.close();
             return unity;
         }catch(Exception e){
             return new Unity();

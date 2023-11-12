@@ -58,7 +58,9 @@ public class ProductAction extends JPanel implements IActionPanel {
     }
 
     @Override
-    public void setId(int id) {
-        this.id_product = id;
+    public void setId(Object id) {
+
+        this.id_product = Integer.parseInt(id.toString());
+
     }
 }
