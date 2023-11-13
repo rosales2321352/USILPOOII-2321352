@@ -3,6 +3,8 @@ package views.person.partials;
 import controllers.person.PersonController;
 
 import views.core.layout.CustomScrollBarUI;
+import views.core.table.ManageCellsActionButtons;
+import views.core.table.ManageGeneralCells;
 import views.core.table.ManageTableHeader;
 import views.core.table.TableModel;
 
@@ -72,7 +74,7 @@ public class PersonList extends  JPanel{
         gbc.gridy = 0;
         gbc.gridwidth = 2;
         gbc.weightx = 1.0;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.fill = GridBagConstraints.BOTH;
         add(panelOptions, gbc);
 
         gbc.gridx = 0;
@@ -97,6 +99,36 @@ public class PersonList extends  JPanel{
     }
 
     public void makeTable(Object[][] information, String[] titles){
+        model = new TableModel(information, titles);
+        table.setModel(model);
+        for(int i=0;i < table.getColumnCount() -1;i++){
+            table.getColumnModel().getColumn(i).setCellRenderer(new ManageGeneralCells("text"));
+        }
+        table.getTableHeader().setReorderingAllowed(false);
+        table.setRowHeight(25);
+        table.setGridColor(new java.awt.Color(216,216,216));
+        table.getColumnModel().getColumn(0).setMaxWidth(50);
+        table.getColumnModel().getColumn(0).setResizable(false);
+        table.getColumnModel().getColumn(1).setMaxWidth(60);
+        table.getColumnModel().getColumn(1).setResizable(false);
+        table.getColumnModel().getColumn(2).setMaxWidth(80);
+        table.getColumnModel().getColumn(2).setResizable(false);
+        table.getColumnModel().getColumn(3).setMaxWidth(40);
+        table.getColumnModel().getColumn(3).setResizable(false);
+        table.getColumnModel().getColumn(3).setMaxWidth(40);
+        table.getColumnModel().getColumn(3).setResizable(false);
 
+
+        ManageCellsActionButtons actionButtons =
+                new ManageCellsActionButtons(table,
+                        8,
+                        new PersonAction(this.controller),
+                        new PersonAction(this.controller));
+        table.getColumnModel().getColumn(8).setMaxWidth(100);
+        table.getColumnModel().getColumn(8).setMinWidth(100);
+
+        JTableHeader jTableHeader = table.getTableHeader();
+        jTableHeader.setDefaultRenderer(new ManageTableHeader());
+        table.setTableHeader(jTableHeader);
     }
 }

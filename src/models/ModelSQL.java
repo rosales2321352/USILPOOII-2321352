@@ -2,6 +2,8 @@ package models;
 
 public class ModelSQL {
 
+    public static final String SQL_STMT_GET_EMPLOYEE = "SELECT * from employee e limit 50  ";
+    public static final String SQL_STMT_GET_EMPLOYEE_BY_LIKE = "SELECT * from employee e WHERE e.employee_id LIKE ? or e.document LIKE  ? or e.full_name like ? or e.email LIKE ? limit 50  ";
     public static final String SQL_STMT_GET_PRODUCTS = "select product_id ,product_id_sunat ,reference, type_affectation_id , name  from product p order by product_id desc limit 50";
     public static final String SQL_STMT_GET_PRODUCTS_BY_LIKE = "select product_id ,product_id_sunat ,reference, type_affectation_id , name  from product p WHERE p.product_id  like ? or p.reference like ? or p.name  like ? order by product_id desc limit 50";
     public static final String SQL_STMT_GET_PRODUCT = "select *  from product p where p.product_id = ? limit 50";

@@ -40,7 +40,8 @@ public class PersonAction extends JPanel implements IActionPanel{
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
+        this.add(btnEdit);
+        this.add(btnDelete);
        /* btnEdit.addActionListener((e) -> {
             controller.onClickEditAction(e, id_employee);
         });*/

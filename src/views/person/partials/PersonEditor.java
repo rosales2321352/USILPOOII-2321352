@@ -1,4 +1,16 @@
 package views.person.partials;
 
-public class PersonEditor {
+import controllers.person.PersonController;
+import models.person.Person;
+import views.core.combobox.CustomComboBox;
+
+import javax.swing.*;
+
+public class PersonEditor extends JPanel {
+
+    private int id_employee;
+    private PersonController controller;
+
+
+
 }

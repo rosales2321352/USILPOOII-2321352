@@ -72,7 +72,7 @@ public class Menu extends JMenuBar {
         persona.addActionListener((e) -> {
 
             SwingUtilities.invokeLater(() -> {
-                run(new PersonView(),"Administración de Personas",500, 576,false);
+                run(new PersonView(),"Administración de Personas",900, 676,false);
             });
         });
 
