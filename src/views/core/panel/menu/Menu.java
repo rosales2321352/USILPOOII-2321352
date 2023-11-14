@@ -1,10 +1,9 @@
 package views.core.panel.menu;
 
-import views.admin.EmployeeAdminView;
 import views.category.CategoryView;
 import views.documents.DocumentsView;
 import views.product.ProductView;
-import views.tax.TaxView;
+import views.tax.JPTaxView;
 import views.typeAffectation.TypeAffectationView;
 import views.unity.UnityView;
 
@@ -103,7 +102,7 @@ public class Menu extends JMenuBar {
 
         tax.addActionListener((e) -> {
             SwingUtilities.invokeLater(() -> {
-                run(new TaxView(),"Administración de impuestos",500,576,false);
+                run(new JPTaxView(),"Administración de impuestos",500,576,false);
             });
         });
 

@@ -6,11 +6,14 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-public class TaxController {
+public class TaxController  {
     private int tax_id;
     private TaxView panel;
     final String[] COLUMN_NAMES = { "Id", "Nombre", "%", "Aciones"};
-    public TaxController (TaxView panel){
+    public TaxController (){
+
+    }
+    public void setPanel(TaxView panel){
         this.panel = panel;
     }
     public void renderObjects(){

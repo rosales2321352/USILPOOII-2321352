@@ -20,7 +20,8 @@ public class TaxView extends JPanel{
     //public UnityEditor unityEditor;
     public TaxView(){
         this.setBackground(Color.WHITE);
-        this.controller = new TaxController(this);
+        this.controller = new TaxController();
+        this.controller.setPanel(this);
         this.taxList = new TaxList(this.controller);
         this.taxEditor = new TaxEditor(this.controller);
         //this.unityEditor = new UnityEditor(this.controller);
@@ -28,6 +29,7 @@ public class TaxView extends JPanel{
         this.cardLayout = new CardLayout();
         this.tabContent = new JPanel(cardLayout);
         this.tabContent.setBackground(Color.WHITE);
+        this.setBackground(Color.WHITE);
         int paddingSize = 20;
         EmptyBorder paddingBorder = new EmptyBorder(paddingSize, paddingSize, paddingSize, paddingSize);
         this.setBorder(paddingBorder);
