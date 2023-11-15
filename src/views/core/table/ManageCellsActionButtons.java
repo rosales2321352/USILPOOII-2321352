@@ -28,8 +28,6 @@ public class ManageCellsActionButtons extends AbstractCellEditor implements Tabl
         columnModel.getColumn(column).setCellRenderer( this );
         columnModel.getColumn(column).setCellEditor( this );
 
-
-
     }
 
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column)
