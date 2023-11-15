@@ -2,6 +2,7 @@ package views.core.panel.menu;
 
 import views.category.CategoryView;
 import views.documents.DocumentsView;
+import views.person.PersonView;
 import views.product.ProductView;
 import views.tax.JPTaxView;
 import views.typeAffectation.TypeAffectationView;
@@ -32,6 +33,9 @@ public class Menu extends JMenuBar {
 
         JMenuItem documentType = new JMenuItem("Tipo documentos indentidad");
         userperson.add(documentType);
+
+        JMenuItem persona = new JMenuItem("Personas");
+        userperson.add(persona);
 
         JMenuItem user = new JMenuItem("Usuarios");
         userperson.add(user);
@@ -70,10 +74,15 @@ public class Menu extends JMenuBar {
 
         documentType.addActionListener((e) -> {
             SwingUtilities.invokeLater(() -> {
-                run(new DocumentsView(),"Tipo de Documentos",500, 576,false);
+                run(new DocumentsView(), "Tipo de Documentos", 500, 576, false);
             });
         });
 
+        persona.addActionListener((e) -> {
+            SwingUtilities.invokeLater(() -> {
+                run(new PersonView(),"Administración de Personas",900, 676,false);
+            });
+        });
 
 
         categories.addActionListener((e) -> {
