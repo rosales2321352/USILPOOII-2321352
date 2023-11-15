@@ -34,9 +34,9 @@ public class PersonController {
         });
     }
 
-    /*
+/*
     public void loadDataComboBoxAsync(){
-        CompletableFuture<List<Person>> futurePerson = CompletableFuture.supplyAsync(new Person()::getListPersons);
+        CompletableFuture<List<TypeDocument>> futurePerson = CompletableFuture.supplyAsync(new Person()::getListPersons);
 
         futurePerson.thenAcceptAsync(persons -> SwingUtilities.invokeLater(() -> {
             CustomComboBox<Person> comboBoxModel = new CustomComboBox<>(persons);
