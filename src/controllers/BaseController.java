@@ -22,6 +22,7 @@ public abstract class BaseController<T>{
     protected String[] COLUMN_NAMES;
     protected int id;
 
+    public abstract void reloadDataTableAsync();
     public void loadDataTableAsync(CompletableFuture<List<T>> futureData, TableCallback callback) {
         futureData.thenAcceptAsync(dataList -> {
             Object[][] information = tableLoadStrategy.loadTableData(dataList);
@@ -31,10 +32,10 @@ public abstract class BaseController<T>{
     public abstract boolean validate();
     public abstract int save();
     public abstract int delete();
-    public void onClickNew(ActionEvent e) {this.switchTab((JButton) e.getSource());};
+    public void onClickNew(ActionEvent e) {switchTab((JButton) e.getSource());};
     public void onClickSave(ActionEvent e){
         if(validate()){
-            String message = this.id == 0 ? messages.get("AddConfirm") : messages.get("EditConfirm");
+            String message = id == 0 ? messages.get("AddConfirm") : messages.get("EditConfirm");
             int response = JOptionPane.showConfirmDialog(null,
                     message,
                     "Confirmación", JOptionPane.YES_NO_OPTION);
@@ -49,13 +50,14 @@ public abstract class BaseController<T>{
                         null,
                         message,
                         "Atención", JOptionPane.INFORMATION_MESSAGE);
-                //this.loadDataTableAsync("");
-                this.resetControls();
-                this.switchTab((JButton) e.getSource());
+                reloadDataTableAsync();
+                resetControls();
+                switchTab((JButton) e.getSource());
             }
         }
     }
-    public void onClickDelete(ActionEvent e){
+    public void onClickDelete(ActionEvent e,int id){
+        this.id = id;
         int response = JOptionPane.showConfirmDialog(null,
                 messages.get("DeleteConfirm"),
                 "Confirmación", JOptionPane.YES_NO_OPTION);
@@ -69,6 +71,7 @@ public abstract class BaseController<T>{
             JOptionPane.showMessageDialog(null,
                     message,
                     "Atención", JOptionPane.INFORMATION_MESSAGE);
+            reloadDataTableAsync();
         }
         this.id = 0;
     }
@@ -79,8 +82,8 @@ public abstract class BaseController<T>{
                 "¿Está seguro de cancelar la operación?",
                 "Confirmación", JOptionPane.YES_NO_OPTION);
         if (response == JOptionPane.YES_OPTION) {
-            this.resetControls();
-            this.switchTab((JButton) e.getSource());
+            resetControls();
+            switchTab((JButton) e.getSource());
         }
     }
 

@@ -1,20 +1,29 @@
 package views;
 
 import views.core.table.*;
-import views.tax.partials.TaxAction;
 
 import javax.swing.*;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
 
-public class JPBaseList extends JPanel{
+public abstract class JPBaseList extends JPanel{
     protected JTable table;
     protected TableModel model;
-
+    public JPanel titlePanel;
     public JPBaseList(){
-        this.setBackground(Color.WHITE);
+        setBackground(Color.WHITE);
+        setLayout(new BorderLayout());
     }
 
+    public abstract void drawControls();
+    public void makeTitle(String title){
+        titlePanel = new JPanel();
+        titlePanel.setBackground(Color.WHITE);
+        titlePanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        JLabel lblTitle = new JLabel(title);
+        lblTitle.setFont(new Font("Arial", Font.BOLD,24));
+        titlePanel.add(lblTitle);
+    }
     public void makeTableHeader(String[] titles, int len){
         Object[][] objects = new Object[len][];
         for (int i = 0; i < objects.length; i++) {
@@ -27,7 +36,6 @@ public class JPBaseList extends JPanel{
         jTableHeader.setDefaultRenderer(new ManageTableHeader());
         table.setTableHeader(jTableHeader);
     }
-
     public void makeTable(Object[][] information, String[] titles, TableCallback callback){
         model = new TableModel(information,titles);
         table.setModel(model);

@@ -1,128 +1,91 @@
 package controllers.tax;
 
+import controllers.BaseController;
+import controllers.strategy.table.classes.TaxTableLoadStrategy;
 import models.tax.Tax;
-import views.tax.TaxView;
+import views.JPBaseView;
+import views.core.table.ManageCellsActionButtons;
+import views.tax.partials.JPTaxAction;
+import views.tax.partials.JPTaxEditor;
+import views.tax.partials.JPTaxList;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
-import java.util.List;
+import java.util.HashMap;
 import java.util.concurrent.CompletableFuture;
-public class TaxController  {
-    private int tax_id;
-    private TaxView panel;
-    final String[] COLUMN_NAMES = { "Id", "Nombre", "%", "Aciones"};
-    public TaxController (){
 
+public class TaxController extends BaseController<Tax>{
+    JPTaxEditor taxEditor;
+    JPTaxList taxList;
+    public TaxController(JPBaseView baseView){
+        this.baseView = baseView;
+        COLUMN_NAMES = new String[]{ "Id", "Nombre", "%","Acciones"};
+        messages = new HashMap<>();
+        messages.put("AddConfirm","");
+        messages.put("EditConfirm","");
+        messages.put("DeleteConfirm","");
+        messages.put("SaveError","");
+        messages.put("SaveSuccess","");
+        messages.put("DeleteSuccess","");
     }
-    public void setPanel(TaxView panel){
-        this.panel = panel;
+    public void init(){
+        taxEditor = (JPTaxEditor) baseView.panelEditor;
+        taxList = (JPTaxList) baseView.panelList;
+        taxList.makeTableHeader(COLUMN_NAMES,23);
+        loadDataTableTaxAsync("");
     }
-    public void renderObjects(){
-        this.panel.taxList.makeTableHeader(COLUMN_NAMES);
-        this.loadDataTableAsync("");
-    }
-    public void loadDataTableAsync(String query){
-        CompletableFuture<List<Tax>> futureTax = CompletableFuture.supplyAsync(() -> {
-            return new Tax().getTaxes(query);
+    public void loadDataTableTaxAsync(String query){
+        tableLoadStrategy = new TaxTableLoadStrategy();
+        loadDataTableAsync(
+            CompletableFuture.supplyAsync(() -> new Tax().getTaxes(query)),
+            (table) -> {
+                table.getColumnModel().getColumn(0).setMaxWidth(50);
+                table.getColumnModel().getColumn(0).setResizable(false);
+                table.getColumnModel().getColumn(1).setResizable(false);
+                table.getColumnModel().getColumn(2).setMaxWidth(80);
+                table.getColumnModel().getColumn(2).setResizable(false);
+                new ManageCellsActionButtons(table, 3, new JPTaxAction(this), new JPTaxAction(this));
+                table.getColumnModel().getColumn(3).setMaxWidth(100);
+                table.getColumnModel().getColumn(3).setMinWidth(100);
         });
-        futureTax.thenAcceptAsync(taxes -> {
-            Object[][] information = taxes.stream()
-                .map(tax -> new Object[]{
-                    String.valueOf(tax.getTax_id()),
-                    tax.getName() ,
-                    String.valueOf(tax.getPercentage())})
-                .toArray(Object[][]::new);
-            SwingUtilities.invokeLater(() -> panel.taxList.makeTable(information,COLUMN_NAMES));
-        });
     }
-
-    public void resetControls(){
-        this.panel.taxEditor.txtName.setText("");
-        this.panel.taxEditor.numPercentaje.setValue(0);
-        this.panel.taxEditor.lblTitle.setText("Agregar Impuesto");
-    }
-    public boolean validate(){
-        if(this.panel.taxEditor.txtName.getText().trim().isEmpty()){
-            return false;
-        }
-        if((Double)this.panel.taxEditor.numPercentaje.getValue() < 0){
-            return false;
-        }
-        return true;
+    public void reloadDataTableAsync(){
+        loadDataTableTaxAsync("");
     }
     public int save(){
         Tax tax = new Tax();
-        tax.setTax_id(tax_id);
-        tax.setName(this.panel.taxEditor.txtName.getText());
-        tax.setPercentage((Double) this.panel.taxEditor.numPercentaje.getValue());
+        tax.setTax_id(id);
+        tax.setName(taxEditor.txtName.getText());
+        tax.setPercentage((Double) taxEditor.spnPercentage.getValue());
         return tax.save();
     }
-    public void onClickBtnNew(ActionEvent e){ this.switchTab((JButton) e.getSource()); }
-    public void onClickBtnSave(ActionEvent e){
-        if(validate()){
-            String message = this.tax_id == 0 ? "¿Está seguro de crear la unidad?" : "¿Está seguro de actualizar la unidad?";
-            int response = JOptionPane.showConfirmDialog(null,
-                    message,
-                    "Confirmación", JOptionPane.YES_NO_OPTION);
-            if (response == JOptionPane.YES_OPTION) {
-                int rowsAffected = save();
-                if(rowsAffected < 1){
-                    message = "Ha ocurrido un error en el proceso.";
-                }else{
-                    message = "Impuesto guardado correctamente.";
-                }
-                JOptionPane.showMessageDialog(
-                        null,
-                        message,
-                        "Atención", JOptionPane.INFORMATION_MESSAGE);
-                this.loadDataTableAsync("");
-                this.resetControls();
-                this.switchTab((JButton) e.getSource());
-            }
-        }
+
+    public int delete(){
+        return new Tax().delete(id);
     }
-    public void onClickBtnEdit(ActionEvent e, int tax_id){
-        this.panel.taxEditor.lblTitle.setText("Editar Impuesto");
+
+    public boolean validate(){
+        return !taxEditor.txtName.getText().trim().isEmpty();
+    }
+
+    @Override
+    public void resetControls() {
+        taxEditor.txtName.setText("");
+        taxEditor.spnPercentage.setValue(0);
+        baseView.panelEditor.lblTitle.setText("Agregar Impuesto");
+    }
+    public void onClickEdit(ActionEvent e, int tax_id){
+        taxEditor.lblTitle.setText("Editar Impuesto");
         CompletableFuture<Tax> futureTax = CompletableFuture.supplyAsync(() -> new Tax().getTax(tax_id));
         futureTax.thenAcceptAsync(tax -> SwingUtilities.invokeLater(() -> {
-            this.tax_id = tax.getTax_id();
-            panel.taxEditor.txtName.setText(tax.getName());
-            panel.taxEditor.numPercentaje.setValue(tax.getPercentage());
+            id = tax.getTax_id();
+            taxEditor.txtName.setText(tax.getName());
+            taxEditor.spnPercentage.setValue(tax.getPercentage());
         }));
-        this.switchTab((JButton) e.getSource());
+        switchTab((JButton) e.getSource());
     }
-    public void onClickBtnCancel(ActionEvent e) {
-        int response = JOptionPane.showConfirmDialog(null,
-                "¿Está seguro de cancelar la operación?",
-                "Confirmación", JOptionPane.YES_NO_OPTION);
-        if(response == JOptionPane.YES_OPTION) {
-            this.resetControls();
-            this.switchTab((JButton) e.getSource());
-        }
-    }
-    public void onClickBtnDelete(ActionEvent e,int tax_id){
-        int response = JOptionPane.showConfirmDialog(null,
-                "¿Está seguro de eliminar el impuesto?",
-                "Confirmación", JOptionPane.YES_NO_OPTION);
-        if(response == JOptionPane.YES_OPTION){
-            String message ="";
-            if(new Tax().delete(tax_id) < 1){
-                message = "Ha ocurrido un error en el proceso";
-            }else{
-                message = "Impuesto eliminado correctamente.";
-            }
-            JOptionPane.showMessageDialog(null,
-                    message,
-                    "Atención", JOptionPane.INFORMATION_MESSAGE);
-            this.loadDataTableAsync("");
-        }
-        this.tax_id = 0;
-    }
-    public void onClickBtnSearch(ActionEvent e){
-        String query = panel.taxList.txtQuery.getText();
-        loadDataTableAsync(query);
-    }
-    public void switchTab(JButton button){
-        String command = button.getName();
-        panel.cardLayout.show(panel.tabContent,command);
+    public void onClickSearch(ActionEvent e){
+        String query = taxList.txtQuery.getText();
+        loadDataTableTaxAsync(query);
     }
 }

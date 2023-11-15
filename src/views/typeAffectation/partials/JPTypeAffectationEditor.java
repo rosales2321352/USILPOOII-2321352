@@ -1,54 +1,48 @@
 package views.typeAffectation.partials;
 
 import controllers.typeAffectation.TypeAffectationController;
-import models.category.Category;
 import models.combobox.TaxComboBox;
+import views.JPBaseEditor;
+import views.core.CustomButton;
 import views.core.combobox.CustomComboBox;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class TypeAffectationEditor extends JPanel {
-    private TypeAffectationController controller;
-    public JLabel lblTitle;
+public class JPTypeAffectationEditor extends JPBaseEditor {
+
+    private final TypeAffectationController controller;
     public JTextField txtId;
     public JTextField txtName;
-    public JButton btnSave;
-    public JButton btnCancel;
     public CustomComboBox<TaxComboBox> cmbTax;
     public JCheckBox chkFree;
     public JCheckBox chkOnerous;
-    public TypeAffectationEditor(TypeAffectationController controller){
-        this.setBackground(Color.WHITE);
-        this.controller = controller;
-        this.setLayout(new BorderLayout());
-        this.drawControls();
-    }
-    public void drawControls(){
-        JPanel titlePanel = new JPanel();
-        titlePanel.setBackground(Color.WHITE);
-        titlePanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-        lblTitle = new JLabel("Agregar Tipo de Afectación");
-        lblTitle.setFont(new Font("Arial", Font.BOLD,24));
-        titlePanel.add(lblTitle);
 
+    public JPTypeAffectationEditor(TypeAffectationController controller){
+        super();
+        this.controller = controller;
+        drawControls();
+    }
+
+    public void drawControls(){
+        makeTitle("Agregar nuevo tipo de afeactación");
         JPanel panelControls = new JPanel();
         panelControls.setBackground(Color.WHITE);
         GroupLayout layout = new GroupLayout(panelControls);
         panelControls.setLayout(layout);
 
         JLabel lblId = new JLabel("Id:");
-        this.txtId = new JTextField();
+        txtId = new JTextField();
         JLabel lblName = new JLabel("Nombre:");
-        this.txtName = new JTextField();
+        txtName = new JTextField();
         JLabel lblSymbol = new JLabel("Impuesto:");
-        this.cmbTax = new CustomComboBox<>();
+        cmbTax = new CustomComboBox<>();
         JLabel lblFree = new JLabel("Gratuito:");
-        this.chkFree = new JCheckBox();
-        this.chkFree.setBackground(Color.WHITE);
+        chkFree = new JCheckBox();
+        chkFree.setBackground(Color.WHITE);
         JLabel lblOnerous = new JLabel("Oneroso:");
-        this.chkOnerous = new JCheckBox();
-        this.chkOnerous.setBackground(Color.WHITE);
+        chkOnerous = new JCheckBox();
+        chkOnerous.setBackground(Color.WHITE);
 
         layout.setHorizontalGroup(
             layout.createSequentialGroup()
@@ -69,15 +63,15 @@ public class TypeAffectationEditor extends JPanel {
                 .addGroup(layout.createSequentialGroup()
                     .addComponent(lblSymbol)
                     .addGap(10)
-                    .addComponent(this.cmbTax,GroupLayout.DEFAULT_SIZE, 250, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbTax,GroupLayout.DEFAULT_SIZE, 250, GroupLayout.PREFERRED_SIZE)
                 )
                 .addGroup(layout.createSequentialGroup()
                     .addComponent(lblFree)
                     .addGap(10)
-                    .addComponent(this.chkFree,GroupLayout.DEFAULT_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(chkFree,GroupLayout.DEFAULT_SIZE, 50, GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblOnerous)
                     .addGap(10)
-                    .addComponent(this.chkOnerous,GroupLayout.DEFAULT_SIZE, 140, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(chkOnerous,GroupLayout.DEFAULT_SIZE, 140, GroupLayout.PREFERRED_SIZE)
                 )
             )
         );
@@ -87,8 +81,8 @@ public class TypeAffectationEditor extends JPanel {
             .addComponent(titlePanel)
             .addGap(30)
             .addGroup(layout.createParallelGroup(GroupLayout.Alignment.CENTER)
-                    .addComponent(lblId)
-                    .addComponent(txtId,GroupLayout.DEFAULT_SIZE, 35, GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblId)
+                .addComponent(txtId,GroupLayout.DEFAULT_SIZE, 35, GroupLayout.PREFERRED_SIZE)
             )
             .addGap(20)
             .addGroup(layout.createParallelGroup(GroupLayout.Alignment.CENTER)
@@ -98,39 +92,33 @@ public class TypeAffectationEditor extends JPanel {
             .addGap(20)
             .addGroup(layout.createParallelGroup(GroupLayout.Alignment.CENTER)
                 .addComponent(lblSymbol)
-                .addComponent(this.cmbTax,GroupLayout.DEFAULT_SIZE, 35, GroupLayout.PREFERRED_SIZE)
+                .addComponent(cmbTax,GroupLayout.DEFAULT_SIZE, 35, GroupLayout.PREFERRED_SIZE)
             )
             .addGap(20)
             .addGroup(layout.createParallelGroup(GroupLayout.Alignment.CENTER)
                 .addComponent(lblFree)
-                .addComponent(this.chkFree)
+                .addComponent(chkFree)
                 .addComponent(lblOnerous)
-                .addComponent(this.chkOnerous)
+                .addComponent(chkOnerous)
             )
         );
 
-        this.add(panelControls,BorderLayout.PAGE_START);
+        add(panelControls,BorderLayout.PAGE_START);
 
         JPanel panelButtons = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         panelButtons.setBackground(Color.WHITE);
 
-        this.btnCancel = new JButton("Cancelar");
-        btnCancel.setBackground(new Color(65, 65, 65));
-        btnCancel.setBorder((BorderFactory.createMatteBorder(6,20,6,20,new java.awt.Color(65, 65, 65))));
-        btnCancel.setForeground(Color.WHITE);
+        JButton btnCancel = new CustomButton("Cancelar",new Color(65, 65, 65),Color.WHITE);
         btnCancel.setName("List");
-        btnCancel.addActionListener(controller::onClickBtnCancel);
+        btnCancel.addActionListener(controller::onClickCancel);
 
-        this.btnSave = new JButton("Guardar");
-        btnSave.setBackground(new Color(0,123,255));
-        btnSave.setBorder((BorderFactory.createMatteBorder(6,20,6,20,new java.awt.Color(0,123,255))));
-        btnSave.setForeground(Color.WHITE);
+        JButton btnSave = new CustomButton("Guardar",new Color(0,123,255),Color.WHITE);
         btnSave.setName("List");
-        btnSave.addActionListener(controller::onClickBtnSave);
+        btnSave.addActionListener(controller::onClickSave);
 
         panelButtons.add(btnSave);
         panelButtons.add(btnCancel);
-
-        this.add(panelButtons,BorderLayout.PAGE_END);
+        add(panelButtons,BorderLayout.PAGE_END);
     }
 }
+

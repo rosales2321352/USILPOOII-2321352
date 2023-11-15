@@ -4,8 +4,8 @@ import views.category.CategoryView;
 import views.documents.DocumentsView;
 import views.product.ProductView;
 import views.tax.JPTaxView;
-import views.typeAffectation.TypeAffectationView;
-import views.unity.UnityView;
+import views.typeAffectation.JPTypeAffectationView;
+import views.unity.JPUnityView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -90,13 +90,13 @@ public class Menu extends JMenuBar {
 
         unity.addActionListener((e) -> {
             SwingUtilities.invokeLater(() -> {
-                run(new UnityView(),"Administración de Unidades de Medida",500,576,false);
+                run(new JPUnityView(),"Administración de Unidades de Medida",500,576,false);
             });
         });
 
         typeAffectation.addActionListener((e) -> {
             SwingUtilities.invokeLater(() -> {
-                run(new TypeAffectationView(),"Administración de tipos de afectación",500,576,false);
+                run(new JPTypeAffectationView(),"Administración de tipos de afectación",500,576,false);
             });
         });
 

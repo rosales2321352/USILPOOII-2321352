@@ -1,13 +1,11 @@
-package views.tax;
+package views.tax.partials;
 
 
 import controllers.tax.TaxController;
-import controllers.tax.TaxController_;
 import views.JPBaseEditor;
 import views.JPBaseList;
 import views.core.CustomButton;
 import views.core.CustomJScrollPane;
-import views.core.layout.CustomScrollBarUI;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,8 +13,8 @@ import java.awt.*;
 public class JPTaxList extends JPBaseList {
     public JTextField txtQuery;
     public JPBaseEditor panelEditor;
-    private final TaxController_ controller;
-    public JPTaxList(TaxController_ controller){
+    private final TaxController controller;
+    public JPTaxList(TaxController controller){
         super();
         this.controller = controller;
 
@@ -25,8 +23,8 @@ public class JPTaxList extends JPBaseList {
     }
 
     public void drawControls(){
-        this.table = new JTable();
-        this.table.setBackground(Color.WHITE);
+        table = new JTable();
+        table.setBackground(Color.WHITE);
         JScrollPane listScrollPane = new CustomJScrollPane(table);
 
         JPanel titlePanel = new JPanel();
@@ -45,35 +43,35 @@ public class JPTaxList extends JPBaseList {
         txtQuery.setPreferredSize(new Dimension(250, 30));
 
         JButton btnSearch = new CustomButton("Buscar",new Color(0,123,255),Color.WHITE);
-        btnSearch.addActionListener(this.controller::onClickSave);
+        btnSearch.addActionListener(controller::onClickSearch);
 
         JButton btnNew = new CustomButton("Nuevo",new Color(0,123,255),Color.WHITE);
         btnNew.setName("Action");
-        //btnNew.addActionListener(new NewCommand<>(controller)::execute);
+        btnNew.addActionListener(controller::onClickNew);
 
         layout.setHorizontalGroup(
-                layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup()
-                                .addComponent(titlePanel)
-                                .addGroup(layout.createSequentialGroup()
-                                        .addComponent(txtQuery)
-                                        .addGap(5, 5, 5)
-                                        .addComponent(btnSearch)
-                                        .addGap(30, 30, 30)
-                                        .addComponent(btnNew)
-                                )
-                        )
+            layout.createSequentialGroup()
+            .addGroup(layout.createParallelGroup()
+                .addComponent(titlePanel)
+                .addGroup(layout.createSequentialGroup()
+                    .addComponent(txtQuery)
+                    .addGap(5, 5, 5)
+                    .addComponent(btnSearch)
+                    .addGap(30, 30, 30)
+                    .addComponent(btnNew)
+                )
+            )
         );
 
         layout.setVerticalGroup(
-                layout.createSequentialGroup()
-                        .addComponent(titlePanel)
-                        .addGap(15, 15, 15)
-                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                .addComponent(txtQuery)
-                                .addComponent(btnSearch)
-                                .addComponent(btnNew)
-                        )
+            layout.createSequentialGroup()
+            .addComponent(titlePanel)
+            .addGap(15, 15, 15)
+            .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                .addComponent(txtQuery)
+                .addComponent(btnSearch)
+                .addComponent(btnNew)
+            )
         );
         this.add(panelOptions,BorderLayout.PAGE_START);
         this.add(listScrollPane);

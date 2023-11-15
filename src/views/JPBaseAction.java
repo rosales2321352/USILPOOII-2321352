@@ -11,17 +11,14 @@ public class JPBaseAction extends JPanel {
     public JButton btnEdit;
     public JButton btnDelete;
 
-    public JPBaseAction(Boolean make){
+    public JPBaseAction(){
         this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
         this.setBackground(Color.WHITE);
-
-        if(make) {
-            this.makeEditorButton();
-            this.makeDeleteButton();
-            this.setImages();
-            this.add(this.btnEdit);
-            this.add(this.btnDelete);
-        }
+        this.makeEditorButton();
+        this.makeDeleteButton();
+        this.setImages();
+        this.add(this.btnEdit);
+        this.add(this.btnDelete);
     }
 
     public void makeEditorButton(){
