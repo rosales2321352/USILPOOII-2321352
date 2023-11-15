@@ -16,5 +16,8 @@ public class JPBaseView extends JPanel {
         EmptyBorder paddingBorder = new EmptyBorder(paddingSize, paddingSize, paddingSize, paddingSize);
         this.setBorder(paddingBorder);
         this.setLayout(new BorderLayout());
+        this.cardLayout = new CardLayout();
+        this.tabContent = new JPanel(cardLayout);
+        this.tabContent.setBackground(Color.WHITE);
     }
 }
