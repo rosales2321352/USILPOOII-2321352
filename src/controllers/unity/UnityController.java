@@ -84,6 +84,7 @@ public class UnityController {
                     message,
                     "Confirmación", JOptionPane.YES_NO_OPTION);
             if (response == JOptionPane.YES_OPTION) {
+
                 int rowsAffected = save();
                 if(rowsAffected < 1){
                     JOptionPane.showMessageDialog(
@@ -96,6 +97,8 @@ public class UnityController {
                             "Unidad guardado correctamente.",
                             "Atención", JOptionPane.INFORMATION_MESSAGE);
                 }
+
+
                 this.loadDataTableAsync("");
                 this.resetControls();
                 this.switchTab((JButton) e.getSource());

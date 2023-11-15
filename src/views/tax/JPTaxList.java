@@ -1,10 +1,9 @@
 package views.tax;
 
-import controllers.command.ICommand;
-import controllers.command.NewCommand;
-import controllers.command.SaveCommand;
+
 import controllers.tax.TaxController;
 import controllers.tax.TaxController_;
+import views.JPBaseEditor;
 import views.JPBaseList;
 import views.core.CustomButton;
 import views.core.CustomJScrollPane;
@@ -15,6 +14,7 @@ import java.awt.*;
 
 public class JPTaxList extends JPBaseList {
     public JTextField txtQuery;
+    public JPBaseEditor panelEditor;
     private final TaxController_ controller;
     public JPTaxList(TaxController_ controller){
         super();
@@ -26,6 +26,7 @@ public class JPTaxList extends JPBaseList {
 
     public void drawControls(){
         this.table = new JTable();
+        this.table.setBackground(Color.WHITE);
         JScrollPane listScrollPane = new CustomJScrollPane(table);
 
         JPanel titlePanel = new JPanel();
@@ -44,11 +45,11 @@ public class JPTaxList extends JPBaseList {
         txtQuery.setPreferredSize(new Dimension(250, 30));
 
         JButton btnSearch = new CustomButton("Buscar",new Color(0,123,255),Color.WHITE);
-        btnSearch.addActionListener(new SaveCommand<>(this.controller)::execute);
+        btnSearch.addActionListener(this.controller::onClickSave);
 
         JButton btnNew = new CustomButton("Nuevo",new Color(0,123,255),Color.WHITE);
         btnNew.setName("Action");
-        btnNew.addActionListener(new NewCommand<>(controller)::execute);
+        //btnNew.addActionListener(new NewCommand<>(controller)::execute);
 
         layout.setHorizontalGroup(
                 layout.createSequentialGroup()
