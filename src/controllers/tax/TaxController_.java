@@ -6,16 +6,29 @@ import models.tax.Tax;
 import views.JPBaseView;
 import views.core.table.ManageCellsActionButtons;
 import views.tax.JPTaxAction;
+import views.tax.JPTaxEditor;
+import views.tax.JPTaxList;
 import views.tax.partials.TaxAction;
 
 import java.awt.event.ActionEvent;
+import java.util.HashMap;
 import java.util.concurrent.CompletableFuture;
 
 public class TaxController_  extends BaseController<Tax>{
-
+    JPTaxEditor taxEditor;
+    JPTaxList taxList;
     public TaxController_(JPBaseView baseView){
         this.baseView = baseView;
+        this.taxEditor = (JPTaxEditor) this.baseView.panelEditor;
+        this.taxList = (JPTaxList) this.baseView.panelList;
         this.COLUMN_NAMES = new String[]{ "Id", "Nombre", "%","Acciones"};
+        this.messages = new HashMap<>();
+        this.messages.put("AddConfirm","");
+        this.messages.put("EditConfirm","");
+        this.messages.put("DeleteConfirm","");
+        this.messages.put("SaveError","");
+        this.messages.put("SaveSuccess","");
+        this.messages.put("DeleteSuccess","");
     }
     public void loadDataTableTaxAsync(String query){
         this.tableLoadStrategy = new TaxTableLoadStrategy();
@@ -32,31 +45,31 @@ public class TaxController_  extends BaseController<Tax>{
                 table.getColumnModel().getColumn(3).setMinWidth(100);
         });
     }
-
-    @Override
-    public void onClickSave(ActionEvent e) {
-        System.out.println("Hola");
+    public int save(){
+        Tax tax = new Tax();
+        tax.setTax_id(this.id);
+        tax.setName(this.taxEditor.txtName.getText());
+        tax.setPercentage((Double) this.taxEditor.spnPercentage.getValue());
+        return tax.save();
     }
 
-    @Override
-    public void onClickDelete(ActionEvent e) {
-
+    public int delete(){
+        return new Tax().delete(this.id);
     }
 
-    @Override
-    public void onClickEdit(ActionEvent e) {
+    public boolean validate(){
+        JPTaxEditor taxEditor = (JPTaxEditor) this.baseView.panelEditor;
+        if(taxEditor.txtName.getText().trim().isEmpty()){
+            return false;
+        }
 
-    }
-
-    @Override
-    public void onClickSearch(ActionEvent e) {
-
+        return true;
     }
 
     @Override
     public void resetControls() {
-        /*this.panel.taxEditor.txtName.setText("");
-        this.panel.taxEditor.numPercentaje.setValue(0);
-        this.panel.taxEditor.lblTitle.setText("Agregar Impuesto");*/
+        this.taxEditor.txtName.setText("");
+        this.taxEditor.spnPercentage.setValue(0);
+        this.baseView.panelEditor.lblTitle.setText("Agregar Impuesto");
     }
 }

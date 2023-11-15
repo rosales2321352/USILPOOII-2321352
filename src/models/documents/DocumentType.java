@@ -14,7 +14,6 @@ public class DocumentType {
      private String documents_id;
      private String name;
 
-
      public DocumentType(){}
 
      public String getDocuments_id() {

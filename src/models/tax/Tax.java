@@ -1,5 +1,6 @@
 package models.tax;
 
+import models.BaseModel;
 import models.ModelSQL;
 import models.db.Db;
 import models.db.classes.Parameter;
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Tax {
+public class Tax extends BaseModel {
 
     private int tax_id;
     private String name;

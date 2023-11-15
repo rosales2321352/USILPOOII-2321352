@@ -6,8 +6,8 @@ import javax.swing.*;
 import java.awt.*;
 
 public abstract class JPBaseEditor extends JPanel {
-    protected JLabel lblTitle;
-    protected JPanel titlePanel;
+    public JLabel lblTitle;
+    public JPanel titlePanel;
 
     public JPBaseEditor(){
         this.setBackground(Color.WHITE);

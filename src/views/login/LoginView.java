@@ -3,6 +3,7 @@ package views.login;
 import controllers.login.LoginController;
 
 import javax.swing.*;
+import javax.swing.plaf.DimensionUIResource;
 import java.awt.*;
 
 public class LoginView extends JFrame {
@@ -27,6 +28,7 @@ public class LoginView extends JFrame {
         this.setBackground(Color.WHITE);
         this.setLayout(new FlowLayout(FlowLayout.CENTER));
         JPanel panelControls = new JPanel();
+
         panelControls.setBackground(Color.WHITE);
         GroupLayout layout = new GroupLayout(panelControls);
 

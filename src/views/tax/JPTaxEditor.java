@@ -77,11 +77,11 @@ public class JPTaxEditor extends JPBaseEditor {
 
         JButton btnCancel = new CustomButton("Cancelar",new Color(65, 65, 65),Color.WHITE);
         btnCancel.setName("List");
-        btnCancel.addActionListener(new CancelCommand<>(controller)::execute);
+        //btnCancel.addActionListener(new CancelCommand<>(controller)::execute);
 
         JButton btnSave = new CustomButton("Guardar",new Color(0,123,255),Color.WHITE);
         btnSave.setName("List");
-        btnSave.addActionListener(new SaveCommand<>(controller)::execute);
+        //btnSave.addActionListener(new SaveCommand<>(controller)::execute);
 
         panelButtons.add(btnSave);
         panelButtons.add(btnCancel);
