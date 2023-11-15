@@ -1,6 +1,6 @@
-package views.unity.partials;
+package views.documents.partials;
 
-import controllers.unity.UnityController;
+/*import controllers.documents.DocumentsController;*/
 import views.core.layout.CustomScrollBarUI;
 import views.core.table.ManageCellsActionButtons;
 import views.core.table.ManageGeneralCells;
@@ -11,19 +11,19 @@ import javax.swing.*;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
 
-public class UnityList extends JPanel {
+public class DocumentsList extends JPanel {
 
-    private UnityController controller;
+    private final controllers.Documents.DocumentsController controller;
     public JTable table;
     public TableModel model;
     public JTextField txtQuery;
-    public UnityList(UnityController controller){
+
+    public DocumentsList(controllers.Documents.DocumentsController controller){
         this.setBackground(Color.WHITE);
         this.setLayout(new BorderLayout());
         this.controller = controller;
         this.drawControls();
     }
-
 
     public void drawControls(){
         this.table = new JTable();
@@ -35,7 +35,7 @@ public class UnityList extends JPanel {
         JPanel titlePanel = new JPanel();
         titlePanel.setBackground(Color.WHITE);
         titlePanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-        JLabel lblTitle = new JLabel("Listado de Unidades de Medida");
+        JLabel lblTitle = new JLabel("Listado de Documentos");
         lblTitle.setFont(new Font("Arial", Font.BOLD,24));
         titlePanel.add(lblTitle);
 
@@ -85,17 +85,16 @@ public class UnityList extends JPanel {
                         )
         );
 
-        this.add(panelOptions,BorderLayout.PAGE_START);
-
+        this.add(panelOptions, BorderLayout.PAGE_START);
         this.add(listScrollPane);
-
     }
+
     public void makeTableHeader(String[] titles){
         Object[][] objects = new Object[25][];
         for (int i = 0; i < objects.length; i++) {
             objects[i] = new Object[]{""};
         }
-        model = new TableModel(objects,titles);
+        model = new TableModel(objects, titles);
         table.setModel(model);
         table.getTableHeader().setReorderingAllowed(false);
         JTableHeader jTableHeader = table.getTableHeader();
@@ -104,9 +103,9 @@ public class UnityList extends JPanel {
     }
 
     public void makeTable(Object[][] information, String[] titles){
-        model = new TableModel(information,titles);
+        model = new TableModel(information, titles);
         table.setModel(model);
-        for(int i=0;i < table.getColumnCount() - 1;i++){
+        for(int i=0; i < table.getColumnCount() - 1; i++){
             table.getColumnModel().getColumn(i).setCellRenderer(new ManageGeneralCells("text"));
         }
         table.getTableHeader().setReorderingAllowed(false);
@@ -115,21 +114,18 @@ public class UnityList extends JPanel {
         table.getColumnModel().getColumn(0).setMaxWidth(50);
         table.getColumnModel().getColumn(0).setResizable(false);
         table.getColumnModel().getColumn(1).setResizable(false);
-        table.getColumnModel().getColumn(2).setMaxWidth(80);
-        table.getColumnModel().getColumn(2).setResizable(false);
 
         ManageCellsActionButtons actionsButtons =
                 new ManageCellsActionButtons(table,
-                        3,
-                        new views.unity.partials.UnityAction(this.controller),
-                        new views.unity.partials.UnityAction(this.controller));
+                        2,
+                        new views.documents.partials.DocumentsAction(this.controller),
+                        new views.documents.partials.DocumentsAction(this.controller));
 
-        table.getColumnModel().getColumn(3).setMaxWidth(100);
-        table.getColumnModel().getColumn(3).setMinWidth(100);
+        table.getColumnModel().getColumn(2).setMaxWidth(100);
+        table.getColumnModel().getColumn(2).setMinWidth(100);
 
         JTableHeader jTableHeader = table.getTableHeader();
         jTableHeader.setDefaultRenderer(new ManageTableHeader());
         table.setTableHeader(jTableHeader);
-
     }
 }

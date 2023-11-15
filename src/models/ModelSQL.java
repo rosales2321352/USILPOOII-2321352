@@ -1,9 +1,15 @@
 package models;
 
 public class ModelSQL {
-
+    //EMPLOYEE
     public static final String SQL_STMT_GET_EMPLOYEE = "SELECT * from employee e limit 50  ";
+    public static final String SQL_STMT_GET_EMPLOYEE_ID = "SELECT * from employee e WHERE e.employee_id = ?";
     public static final String SQL_STMT_GET_EMPLOYEE_BY_LIKE = "SELECT * from employee e WHERE e.employee_id LIKE ? or e.document LIKE  ? or e.full_name like ? or e.email LIKE ? limit 50  ";
+    public static final String SQL_STMT_INSERT_EMPLOYEE = "";
+    public static final String SQL_STMT_UPDATE_EMPLOYEE = "";
+    public static final String SQL_STMT_DELETE_EMPLOYEE = "";
+
+    //PRODUCT
     public static final String SQL_STMT_GET_PRODUCTS = "select product_id ,product_id_sunat ,reference, type_affectation_id , name  from product p order by product_id desc limit 50";
     public static final String SQL_STMT_GET_PRODUCTS_BY_LIKE = "select product_id ,product_id_sunat ,reference, type_affectation_id , name  from product p WHERE p.product_id  like ? or p.reference like ? or p.name  like ? order by product_id desc limit 50";
     public static final String SQL_STMT_GET_PRODUCT = "select *  from product p where p.product_id = ? limit 50";
@@ -42,5 +48,17 @@ public class ModelSQL {
     public static final String SQL_STMT_DELETE_TAX = "delete from tax where tax_id=?";
     //LOGIN
     public static final String SQL_STMT_AUTHENTICATED = "SELECT * FROM user WHERE username = ? AND password = ? limit 50";
+
+    //DocumentType
+    public static final String SQL_STMT_GET_DOCUMENTSTYPES = "SELECT document_type_id , name  FROM document_type dt  limit 50";
+
+    public static final String SQL_STMT_GET_DOCUMENTSTYPES_BY_LIKE = "SELECT document_type_id , name  FROM document_type dt WHERE document_type_id LIKE ? or name LIKE ? limit 50";
+    public static final String SQL_STMT_GET_DOCUMENTTYPE= "SELECT document_type_id , name  FROM document_type dt WHERE document_type_id = ? limit 50";
+
+    public static final String SQL_STMT_INSERT_DOCUMENTSTYPES = "INSERT  into document_type (name,document_type_id) values (?,?)";
+    public static final String SQL_STMT_UPDATE_DOCUMENTSTYPES = "UPDATE document_type SET name=? WHERE document_type_id = ?";
+    public static final String SQL_STMT_DELETE_DOCUMENTSTYPES = "delete from document_type where document_type_id =?";
+
+
 
 }

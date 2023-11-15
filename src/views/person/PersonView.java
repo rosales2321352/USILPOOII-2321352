@@ -20,7 +20,7 @@ public class PersonView extends JPanel {
         this.setBackground(Color.WHITE);
         this.controller = new PersonController(this);
         this.personList = new PersonList(this.controller);
-        //this.personEditor = new PersonEditor(this.controller);
+        this.personEditor = new PersonEditor(this.controller);
         this.setLayout(new BorderLayout());
         this.cardLayout = new CardLayout();
         this.tabContent = new JPanel(cardLayout);
@@ -30,7 +30,7 @@ public class PersonView extends JPanel {
         this.setBorder(paddingBorder);
 
         tabContent.add(this.personList,"List");
-        //tabContent.add(this.personEditor,"Action");
+        tabContent.add(this.personEditor,"Action");
 
         this.add(tabContent, BorderLayout.CENTER);
         this.controller.renderObjects();
