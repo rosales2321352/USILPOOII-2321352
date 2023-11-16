@@ -89,7 +89,7 @@ public class ProductController {
     public Integer deleteProduct(){
         Product product = new Product();
         product.setProductId(this.product_id);
-        return product.delete();
+        return product.delete(0);
     }
 
     private void resetControls(){

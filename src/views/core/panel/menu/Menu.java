@@ -1,8 +1,9 @@
 package views.core.panel.menu;
 
-import views.category.CategoryView;
+import views.category.JPCategoryView;
 import views.documents.DocumentsView;
 import views.person.PersonView;
+import views.product.JPProductView;
 import views.product.ProductView;
 import views.tax.JPTaxView;
 import views.typeAffectation.JPTypeAffectationView;
@@ -87,13 +88,13 @@ public class Menu extends JMenuBar {
 
         categories.addActionListener((e) -> {
             SwingUtilities.invokeLater(() -> {
-                run(new CategoryView(),"Administración de Categorías",500, 576,false);
+                run(new JPCategoryView(),"Administración de Categorías",500, 576,false);
             });
         });
 
         product.addActionListener((e) -> {
             SwingUtilities.invokeLater(() -> {
-                run(new ProductView(),"Administración de Productos",768, 576,true);
+                run(new JPProductView(),"Administración de Productos",770, 576,true);
             });
         });
 

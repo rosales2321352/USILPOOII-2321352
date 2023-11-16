@@ -1,10 +1,6 @@
 package views.documents;
 
-import controllers.product.ProductController;
 import controllers.Documents.DocumentsController;
-import views.category.partials.CategoryList;
-import views.product.partials.ProductEditor;
-import views.product.partials.ProductList;
 import views.documents.partials.DocumentsEditor;
 import views.documents.partials.DocumentsList;
 
