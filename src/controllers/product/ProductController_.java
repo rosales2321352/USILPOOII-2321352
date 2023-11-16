@@ -14,7 +14,6 @@ import views.core.table.ManageCellsActionButtons;
 import views.product.partials.JPProductAction;
 import views.product.partials.JPProductEditor;
 import views.product.partials.JPProductList;
-import views.product.partials.ProductAction;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

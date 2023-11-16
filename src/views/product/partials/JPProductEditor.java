@@ -1,6 +1,5 @@
 package views.product.partials;
 
-import controllers.product.ProductController;
 import controllers.product.ProductController_;
 import models.ProductSunat;
 import models.category.Category;

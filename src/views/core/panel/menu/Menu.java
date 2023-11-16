@@ -4,7 +4,6 @@ import views.category.JPCategoryView;
 import views.documents.DocumentsView;
 import views.person.PersonView;
 import views.product.JPProductView;
-import views.product.ProductView;
 import views.tax.JPTaxView;
 import views.typeAffectation.JPTypeAffectationView;
 import views.unity.JPUnityView;

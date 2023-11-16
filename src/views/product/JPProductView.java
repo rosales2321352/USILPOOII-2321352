@@ -1,6 +1,5 @@
 package views.product;
 
-import controllers.product.ProductController;
 import controllers.product.ProductController_;
 import views.JPBaseView;
 import views.product.partials.JPProductEditor;
@@ -15,8 +14,8 @@ public class JPProductView extends JPBaseView {
         ProductController_ controller = new ProductController_(this);
         panelEditor = new JPProductEditor(controller);
         panelList = new JPProductList(controller);
-        tabContent.add(panelEditor,"Action");
         tabContent.add(panelList,"List");
+        tabContent.add(panelEditor,"Action");
         add(tabContent, BorderLayout.CENTER);
         controller.init();
     }
