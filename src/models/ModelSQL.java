@@ -59,6 +59,18 @@ public class ModelSQL {
     public static final String SQL_STMT_UPDATE_DOCUMENTSTYPES = "UPDATE document_type SET name=? WHERE document_type_id = ?";
     public static final String SQL_STMT_DELETE_DOCUMENTSTYPES = "delete from document_type where document_type_id =?";
 
+    //Currency
+
+    public static final String SQL_STMT_GET_Currencies = "SELECT currency_id  , name,symbol ,iso_code ,location ,predetermined  FROM currency c  limit 50";
+
+    public static final String SQL_STMT_GET_Currency_BY_LIKE = "Select * FROM  currency c WHERE currency_id LIKE ? or name LIKE ? or symbol LIKE ? LIMIT  50";
+    public static final String SQL_STMT_GET_Currency= "SELECT currency_id  , name  FROM currency c  dt WHERE currency_id  = ? limit 50";
+
+    public static final String SQL_STMT_INSERT_Currency = "INSERT INTO currency (name,symbol,iso_code,location,predetermined) values (?,?,?,?,?)";
+    public static final String SQL_STMT_UPDATE_Currency = "UPDATE currency SET name=? ,symbol=? ,iso_code=?, location=?, predeterminated=? WHERE document_type_id = ?";
+    public static final String SQL_STMT_DELETE_Currency = "delete from currency where currency_id =?";
+
+
 
 
 }

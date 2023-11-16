@@ -1,5 +1,6 @@
 package views.core.panel.menu;
 
+import views.Currency.CurrencyView;
 import views.category.CategoryView;
 import views.documents.DocumentsView;
 import views.person.PersonView;
@@ -59,6 +60,13 @@ public class Menu extends JMenuBar {
         JMenuItem typeAffectation = new JMenuItem("Tip. Afectación");
         maintenance.add(typeAffectation);
 
+        JMenu Currencies = new JMenu("Divisas");
+        maintenance.add(Currencies);
+
+        JMenuItem Currency = new JMenuItem("Monedas");
+        Currencies.add(Currency);
+
+
         JMenu otros = new JMenu("Otros");
         maintenance.add(otros);
 
@@ -109,6 +117,11 @@ public class Menu extends JMenuBar {
             });
         });
 
+        Currency.addActionListener((e) -> {
+            SwingUtilities.invokeLater(() -> {
+                run(new CurrencyView(),"Monedas",500,576,false);
+            });
+        });
         tax.addActionListener((e) -> {
             SwingUtilities.invokeLater(() -> {
                 run(new JPTaxView(),"Administración de impuestos",500,576,false);

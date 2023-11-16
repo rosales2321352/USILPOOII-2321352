@@ -1,73 +1,73 @@
-package controllers.Documents;
+package controllers.Currency;
 
 
+import models.Currency.Currency;
 import models.ModelSQL;
-import models.documents.DocumentType;
-import views.documents.DocumentsView;
+import views.Currency.CurrencyView;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-public class DocumentsController {
+public class CurrencyController {
 
     final String[] COLUMN_NAMES = { "Id", "Nombre" , "Acciones" };
-    private final DocumentsView panel;
-    private String documents_id="";
+    private final CurrencyView panel;
+    private String name="";
 
     private boolean edit=false;
 
-    public DocumentsController(DocumentsView panel){
+    public CurrencyController(CurrencyView panel){
         this.panel = panel;
     }
 
     public void renderObjects(){
-        this.panel.documentsList.makeTableHeader(COLUMN_NAMES);
+        this.panel.CurrencyList.makeTableHeader(COLUMN_NAMES);
     }
 
     public void resetControls(){
         this.edit=false;
-        this.panel.documentsEditor.txtName.setText("");
-        this.panel.documentsEditor.txtId.setText("");
-        this.panel.documentsEditor.lblTitle.setText("Agregar documento");
-        this.panel.documentsEditor.txtId.setEditable(true);
+        this.panel.CurrencyEditor.txtName.setText("");
+        this.panel.CurrencyEditor.txtId.setText("");
+        this.panel.CurrencyEditor.lblTitle.setText("Agregar moneda");
+        this.panel.CurrencyEditor.txtId.setEditable(true);
 
 
 
     }
 
     public void loadDataTableAsync(String query){
-        CompletableFuture<List<DocumentType>> futureDocumentType = CompletableFuture.supplyAsync(() -> {
-            return new DocumentType().getDocuments(query);
+        CompletableFuture<List<Currency>> futureCurrency = CompletableFuture.supplyAsync(() -> {
+            return new Currency().getCurrencies(query);
         });
-        futureDocumentType.thenAcceptAsync(unities -> {
+        futureCurrency.thenAcceptAsync(unities -> {
             Object[][] information = unities.stream()
-                    .map(documents -> new Object[]{
-                            String.valueOf(documents.getDocuments_id()),
-                            documents.getName()})
+                    .map(currency -> new Object[]{
+                            String.valueOf(currency.getCurrency_id()),
+                            currency.getName(),currency.getSymbol()})
                     .toArray(Object[][]::new);
-            SwingUtilities.invokeLater(() -> panel.documentsList.makeTable(information, COLUMN_NAMES));
+            SwingUtilities.invokeLater(() -> panel.CurrencyList.makeTable(information, COLUMN_NAMES));
         });
     }
 
     public boolean validate(){
-        if(panel.documentsEditor.txtName.getText().trim().isEmpty()){
+        if(panel.CurrencyEditor.txtName.getText().trim().isEmpty()){
             return false;
         }
-        if(panel.documentsEditor.txtId.getText().trim().isEmpty()){
+        if(panel.CurrencyEditor.txtId.getText().trim().isEmpty()){
             return false;
         }
         return true;
     }
 
-    public int save(){
-        DocumentType documentType  = new DocumentType();
-        documentType.setDocuments_id(panel.documentsEditor.txtId.getText());
-        documentType.setName(panel.documentsEditor.txtName.getText());
+  /*  public int save(){
+        Currency currency  = new Currency();
+        currency.setCurrency_id(panel.CurrencyEditor.txtId.getText());
+        currency.setName(panel.CurrencyEditor.txtName.getText());
 
-        return documentType.save(edit);
-    }
+        return currency.save(edit);
+    }*/
 
     public void onClickBtnCancel(ActionEvent e){
         int response = JOptionPane.showConfirmDialog(null,
@@ -79,27 +79,27 @@ public class DocumentsController {
         }
     }
 
-    public void onClickBtnEdit(ActionEvent e, String documents_id){
-        this.panel.documentsEditor.lblTitle.setText("Editar Documento");
-        CompletableFuture<DocumentType> futureDocumentType = CompletableFuture.supplyAsync(() -> new DocumentType().getDocument(documents_id));
-        futureDocumentType.thenAcceptAsync(documents -> SwingUtilities.invokeLater(() -> {
+    /*public void onClickBtnEdit(ActionEvent e, String name){
+        this.panel.CurrencyEditor.lblTitle.setText("Editar Moneda");
+        CompletableFuture<Currency> futureCurrency = CompletableFuture.supplyAsync(() -> new Currency().getname(name));
+        futureCurrency.thenAcceptAsync(Currency -> SwingUtilities.invokeLater(() -> {
             this.edit = true;
-            panel.documentsEditor.txtId.setText(documents.getDocuments_id());
-            panel.documentsEditor.txtId.setEditable(false);
-            panel.documentsEditor.txtName.setText(documents.getName());
+            panel.CurrencyEditor.txtId.setText(Currency.getname());
+            panel.CurrencyEditor.txtId.setEditable(false);
+            panel.CurrencyEditor.txtName.setText(Currency.getName());
         }));
         this.switchTab((JButton) e.getSource());
-    }
+    }*/
 
-    public void onClickBtnSave(ActionEvent e){
+    /*public void onClickBtnSave(ActionEvent e){
         if(validate()){
             String message="";
-            if (this.documents_id.trim().isEmpty()) {
+            if (this.name.trim().isEmpty()) {
 
-                message ="¿Está seguro de crear el documento?" ;
+                message ="¿Está seguro de crear la moneda?" ;
             }
             else {
-                message = "¿Está seguro de actualizar el documento?";
+                message = "¿Está seguro de actualizar la moneda?";
             }
             int response = JOptionPane.showConfirmDialog(null,
                     message,
@@ -109,12 +109,12 @@ public class DocumentsController {
                 if(rowsAffected < 1){
                     JOptionPane.showMessageDialog(
                             null,
-                            "No se pudo guardar el documento.",
+                            "No se pudo guardar la moneda.",
                             "Atención", JOptionPane.INFORMATION_MESSAGE);
                 }else{
                     JOptionPane.showMessageDialog(
                             null,
-                            "Documento guardada correctamente.",
+                            "Moneda guardada correctamente.",
                             "Atención", JOptionPane.INFORMATION_MESSAGE);
                 }
                 this.loadDataTableAsync("");
@@ -122,32 +122,31 @@ public class DocumentsController {
                 this.switchTab((JButton) e.getSource());
             }
         }
-    }
+    }*/
 
     public void onClickBtnSearch(ActionEvent e){
-        String query = panel.documentsList.txtQuery.getText();
+        String query = panel.CurrencyList.txtQuery.getText();
         loadDataTableAsync(query);
     }
 
-    public void onClickBtnDelete(ActionEvent e, String documents_id){
+  /*  public void onClickBtnDelete(ActionEvent e, String documents_id){
         int response = JOptionPane.showConfirmDialog(null,
-                "¿Está seguro de eliminar el documento?",
+                "¿Está seguro de eliminar la moneda?",
                 "Confirmación", JOptionPane.YES_NO_OPTION);
         if(response == JOptionPane.YES_OPTION){
             String message ="";
-            if(new DocumentType().delete(documents_id) < 1){
+            if(new models.Currency.Currency().delete(name) < 1){
                 message = "Ha ocurrido un error en el proceso";
             }else{
-                message = "Documento eliminado correctamente.";
+                message = "Moneda eliminado correctamente.";
             }
             JOptionPane.showMessageDialog(null,
                     message,
                     "Atención", JOptionPane.INFORMATION_MESSAGE);
             this.loadDataTableAsync("");
         }
-        this.documents_id = "";
-    }
-
+        this.name = "";
+    }*/
     public void onClickBtnNew(ActionEvent e){
         this.switchTab((JButton) e.getSource());
     }
