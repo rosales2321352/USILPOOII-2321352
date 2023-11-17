@@ -104,7 +104,7 @@ public class Category implements IComboBox {
             return new Category();
         }
     }
-    public int save(int category_id){
+    public int save(){
         try{
             String stmt = category_id==0?ModelSQL.SQL_STMT_INSERT_CATEGORY:ModelSQL.SQL_STMT_UPDATE_CATEGORY;
             List<Parameter> parameters = new ArrayList<>();
@@ -118,10 +118,10 @@ public class Category implements IComboBox {
             return 0;
         }
     }
-    public int delete(){
+    public int delete(int category_id){
         try{
             List<Parameter> parameters = new ArrayList<>();
-            parameters.add(new Parameter<>(1,this.category_id));
+            parameters.add(new Parameter<>(1,category_id));
             return Db.executeUpdate(ModelSQL.SQL_STMT_DELETE_CATEGORY,parameters);
         }catch (Exception e){
             return 0;

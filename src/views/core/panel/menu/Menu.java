@@ -1,10 +1,9 @@
 package views.core.panel.menu;
 
-import views.Currency.CurrencyView;
-import views.category.CategoryView;
+import views.category.JPCategoryView;
 import views.documents.DocumentsView;
 import views.person.PersonView;
-import views.product.ProductView;
+import views.product.JPProductView;
 import views.tax.JPTaxView;
 import views.typeAffectation.JPTypeAffectationView;
 import views.unity.JPUnityView;
@@ -60,13 +59,6 @@ public class Menu extends JMenuBar {
         JMenuItem typeAffectation = new JMenuItem("Tip. Afectación");
         maintenance.add(typeAffectation);
 
-        JMenu Currencies = new JMenu("Divisas");
-        maintenance.add(Currencies);
-
-        JMenuItem Currency = new JMenuItem("Monedas");
-        Currencies.add(Currency);
-
-
         JMenu otros = new JMenu("Otros");
         maintenance.add(otros);
 
@@ -95,13 +87,13 @@ public class Menu extends JMenuBar {
 
         categories.addActionListener((e) -> {
             SwingUtilities.invokeLater(() -> {
-                run(new CategoryView(),"Administración de Categorías",500, 576,false);
+                run(new JPCategoryView(),"Administración de Categorías",500, 576,false);
             });
         });
 
         product.addActionListener((e) -> {
             SwingUtilities.invokeLater(() -> {
-                run(new ProductView(),"Administración de Productos",768, 576,true);
+                run(new JPProductView(),"Administración de Productos",770, 576,true);
             });
         });
 
@@ -117,11 +109,6 @@ public class Menu extends JMenuBar {
             });
         });
 
-        Currency.addActionListener((e) -> {
-            SwingUtilities.invokeLater(() -> {
-                run(new CurrencyView(),"Monedas",500,576,false);
-            });
-        });
         tax.addActionListener((e) -> {
             SwingUtilities.invokeLater(() -> {
                 run(new JPTaxView(),"Administración de impuestos",500,576,false);

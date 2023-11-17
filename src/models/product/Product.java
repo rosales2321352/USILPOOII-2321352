@@ -63,7 +63,6 @@ public class Product {
                         new Parameter<>(3,query)
                 ));
             }
-
             List<Product> products = new ArrayList<>();
             while (result.next()){
                 var product = new Product();
@@ -81,7 +80,6 @@ public class Product {
             return new ArrayList<>();
         }
     }
-
     public Product getProduct(int product_id){
         try{
             var result = Db.executeQuery(ModelSQL.SQL_STMT_GET_PRODUCT, List.of(
@@ -103,9 +101,6 @@ public class Product {
             return new Product();
         }
     }
-
-
-
     public int save(){
         try{
             String query = this.product_id==0 ? ModelSQL.SQL_STMT_INSERT_PRODUCT:ModelSQL.SQL_STMT_UPDATE_PRODUCT;
@@ -124,13 +119,11 @@ public class Product {
             return 0;
         }
     }
-
-    public int delete(){
+    public int delete(int id){
         try{
-            List<Parameter> parameters = List.of(
-                    new Parameter<>(1, this.product_id)
-            );
-            return Db.executeUpdate(ModelSQL.SQL_STMT_DELETE_PRODUCT,parameters);
+            return Db.executeUpdate(ModelSQL.SQL_STMT_DELETE_PRODUCT,List.of(
+                new Parameter<>(1, id)
+            ));
         }catch (Exception e){
             Logger.getLogger(Product.class.getName()).log(Level.SEVERE,null,e);
             return 0;

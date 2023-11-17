@@ -1,8 +1,6 @@
-package views.tax.partials;
+package views.category.partials;
 
-
-import controllers.tax.TaxController;
-import views.JPBaseEditor;
+import controllers.category.CategoryController;
 import views.JPBaseList;
 import views.core.CustomButton;
 import views.core.CustomJScrollPane;
@@ -10,28 +8,20 @@ import views.core.CustomJScrollPane;
 import javax.swing.*;
 import java.awt.*;
 
-public class JPTaxList extends JPBaseList {
+public class JPCategoryList extends JPBaseList {
     public JTextField txtQuery;
-    private final TaxController controller;
-    public JPTaxList(TaxController controller){
+    private final CategoryController controller;
+    public JPCategoryList(CategoryController controller){
         super();
-        this.controller = controller;
-
+        this.controller=controller;
         this.setLayout(new BorderLayout());
         this.drawControls();
     }
-
     public void drawControls(){
         table = new JTable();
         table.setBackground(Color.WHITE);
         JScrollPane listScrollPane = new CustomJScrollPane(table);
-
-        JPanel titlePanel = new JPanel();
-        titlePanel.setBackground(Color.WHITE);
-        titlePanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-        JLabel lblTitle = new JLabel("Listado de Impuestos");
-        lblTitle.setFont(new Font("Arial", Font.BOLD,24));
-        titlePanel.add(lblTitle);
+        makeTitle("Listado de Categorías");
 
         JPanel panelOptions = new JPanel();
         GroupLayout layout = new GroupLayout(panelOptions);
@@ -61,7 +51,6 @@ public class JPTaxList extends JPBaseList {
                 )
             )
         );
-
         layout.setVerticalGroup(
             layout.createSequentialGroup()
             .addComponent(titlePanel)
@@ -75,7 +64,4 @@ public class JPTaxList extends JPBaseList {
         this.add(panelOptions,BorderLayout.PAGE_START);
         this.add(listScrollPane);
     }
-
-
-
 }

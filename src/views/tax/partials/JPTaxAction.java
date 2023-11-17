@@ -13,8 +13,8 @@ public class JPTaxAction extends JPBaseAction implements IActionPanel {
     public JPTaxAction(TaxController controller){
         super();
         this.controller = controller;
-        this.btnEdit.addActionListener((e) -> controller.onClickEdit(e,id));
-        this.btnDelete.addActionListener((e) -> controller.onClickDelete(e,id));
+        btnEdit.addActionListener((e) -> controller.onClickEdit(e,id));
+        btnDelete.addActionListener((e) -> controller.onClickDelete(e,id));
     }
 
     @Override
