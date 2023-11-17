@@ -12,11 +12,11 @@ import java.util.concurrent.CompletableFuture;
 
 public class CurrencyController {
 
-    final String[] COLUMN_NAMES = { "Id", "Nombre" , "Acciones" };
+    final String[] COLUMN_NAMES = { "Id","Name", "Symbol" , "Acciones" };
     private final CurrencyView panel;
     private String name="";
 
-    private boolean edit=false;
+    private int currency_id = 0;
 
     public CurrencyController(CurrencyView panel){
         this.panel = panel;
@@ -27,14 +27,13 @@ public class CurrencyController {
     }
 
     public void resetControls(){
-        this.edit=false;
+        this.currency_id=0;
         this.panel.CurrencyEditor.txtName.setText("");
-        this.panel.CurrencyEditor.txtId.setText("");
+        this.panel.CurrencyEditor.txtsymbol.setText("");
         this.panel.CurrencyEditor.lblTitle.setText("Agregar moneda");
-        this.panel.CurrencyEditor.txtId.setEditable(true);
-
-
-
+        this.panel.CurrencyEditor.txtsymbol.setEditable(true);
+        this.panel.CurrencyEditor.txtlocation.setText("");
+        this.panel.CurrencyEditor.txtpredetermined.setSelected(false);
     }
 
     public void loadDataTableAsync(String query){
@@ -55,19 +54,31 @@ public class CurrencyController {
         if(panel.CurrencyEditor.txtName.getText().trim().isEmpty()){
             return false;
         }
-        if(panel.CurrencyEditor.txtId.getText().trim().isEmpty()){
-            return false;
+        if(panel.CurrencyEditor.txtsymbol.getText().trim().isEmpty()){
+            return false;}
+
+        if(panel.CurrencyEditor.txtiso_code.getText().trim().isEmpty()){
+                return false;
         }
+
+        if(panel.CurrencyEditor.txtlocation.getText().trim().isEmpty()){
+                return false;}
         return true;
     }
 
-  /*  public int save(){
+    public int save(){
         Currency currency  = new Currency();
-        currency.setCurrency_id(panel.CurrencyEditor.txtId.getText());
+        currency.setCurrency_id(this.currency_id);
         currency.setName(panel.CurrencyEditor.txtName.getText());
+        currency.setSymbol(panel.CurrencyEditor.txtsymbol.getText());
+        currency.setIso_code(panel.CurrencyEditor.txtiso_code.getText());
+        currency.setLocation(panel.CurrencyEditor.txtlocation.getText());
+        currency.setPredeterminanted(panel.CurrencyEditor.txtpredetermined.isSelected()?1:0);
 
-        return currency.save(edit);
-    }*/
+
+
+        return currency.save();
+    }
 
     public void onClickBtnCancel(ActionEvent e){
         int response = JOptionPane.showConfirmDialog(null,
@@ -79,19 +90,22 @@ public class CurrencyController {
         }
     }
 
-    /*public void onClickBtnEdit(ActionEvent e, String name){
+    public void onClickBtnEdit(ActionEvent e, int currencyId){
         this.panel.CurrencyEditor.lblTitle.setText("Editar Moneda");
-        CompletableFuture<Currency> futureCurrency = CompletableFuture.supplyAsync(() -> new Currency().getname(name));
-        futureCurrency.thenAcceptAsync(Currency -> SwingUtilities.invokeLater(() -> {
-            this.edit = true;
-            panel.CurrencyEditor.txtId.setText(Currency.getname());
-            panel.CurrencyEditor.txtId.setEditable(false);
-            panel.CurrencyEditor.txtName.setText(Currency.getName());
+        CompletableFuture<Currency> futureCurrency = CompletableFuture.supplyAsync(() -> new Currency().getCurrency(currencyId));
+        futureCurrency.thenAcceptAsync(currency -> SwingUtilities.invokeLater(() -> {
+            this.currency_id=currency.getCurrency_id();
+            this.panel.CurrencyEditor.txtName.setText(currency.getName());
+            this.panel.CurrencyEditor.txtsymbol.setText(currency.getSymbol());
+            this.panel.CurrencyEditor.txtlocation.setText(currency.getLocation());
+            this.panel.CurrencyEditor.txtpredetermined.setSelected(currency.getPredeterminanted()==1);
+            this.panel.CurrencyEditor.txtiso_code.setText(currency.getIso_code());
+
         }));
         this.switchTab((JButton) e.getSource());
-    }*/
+    }
 
-    /*public void onClickBtnSave(ActionEvent e){
+    public void onClickBtnSave(ActionEvent e){
         if(validate()){
             String message="";
             if (this.name.trim().isEmpty()) {
@@ -122,23 +136,23 @@ public class CurrencyController {
                 this.switchTab((JButton) e.getSource());
             }
         }
-    }*/
+    }
 
     public void onClickBtnSearch(ActionEvent e){
         String query = panel.CurrencyList.txtQuery.getText();
         loadDataTableAsync(query);
     }
 
-  /*  public void onClickBtnDelete(ActionEvent e, String documents_id){
+    public void onClickBtnDelete(ActionEvent e, int currency_id){
         int response = JOptionPane.showConfirmDialog(null,
                 "¿Está seguro de eliminar la moneda?",
                 "Confirmación", JOptionPane.YES_NO_OPTION);
         if(response == JOptionPane.YES_OPTION){
             String message ="";
-            if(new models.Currency.Currency().delete(name) < 1){
+            if(new models.Currency.Currency().delete(currency_id) < 1){
                 message = "Ha ocurrido un error en el proceso";
             }else{
-                message = "Moneda eliminado correctamente.";
+                message = "Moneda eliminada correctamente.";
             }
             JOptionPane.showMessageDialog(null,
                     message,
@@ -146,7 +160,7 @@ public class CurrencyController {
             this.loadDataTableAsync("");
         }
         this.name = "";
-    }*/
+    }
     public void onClickBtnNew(ActionEvent e){
         this.switchTab((JButton) e.getSource());
     }

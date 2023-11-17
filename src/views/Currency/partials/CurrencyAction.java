@@ -7,13 +7,12 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
-import java.util.Currency;
 import java.util.Objects;
 
 public class CurrencyAction extends JPanel implements IActionPanel {
 
     public CurrencyController controller;
-    private String name;
+    private int currency_id;
     public JButton btnEdit;
     public JButton btnDelete;
 
@@ -42,12 +41,12 @@ public class CurrencyAction extends JPanel implements IActionPanel {
             throw new RuntimeException(e);
         }
 
-       /* btnEdit.addActionListener((e) -> {
-            controller.onClickBtnEdit(e,name);
+        btnEdit.addActionListener((e) -> {
+            controller.onClickBtnEdit(e,currency_id);
         });
         btnDelete.addActionListener((e) -> {
-            controller.onClickBtnDelete(e,name);
-        });*/
+            controller.onClickBtnDelete(e,currency_id);
+        });
 
         this.add(btnEdit);
         this.add(btnDelete);
@@ -60,12 +59,8 @@ public class CurrencyAction extends JPanel implements IActionPanel {
 
     @Override
     public void setId(Object id) {
-        this.name= id. toString();
+        this.currency_id= Integer.parseInt(id.toString());
 
     }
 
-    /*@Override
-    public void setId(int id) {
-        this.documents_id = id;
-    }*/
 }

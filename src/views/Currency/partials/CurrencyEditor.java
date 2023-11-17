@@ -12,7 +12,13 @@ public class CurrencyEditor extends JPanel {
     public JButton btnSave;
     public JButton btnCancel;
     public JTextField txtName;
-    public JTextField txtId;
+    public JTextField txtsymbol;
+
+    public JTextField txtiso_code;
+
+    public JTextField txtlocation;
+
+    public JCheckBox txtpredetermined;
 
     public CurrencyEditor(CurrencyController controller){
         this.setBackground(Color.WHITE);
@@ -36,22 +42,44 @@ public class CurrencyEditor extends JPanel {
 
         JLabel lblName = new JLabel("Nombre:");
         this.txtName = new JTextField();
-        JLabel lblId = new JLabel("Simbolo:");
-        this.txtId = new JTextField();
+        JLabel lblsymbol = new JLabel("Simbolo:");
+        this.txtsymbol = new JTextField();
+        JLabel lbllocation = new JLabel("Locación:");
+        this.txtlocation = new JTextField();
+        JLabel lbliso_code = new JLabel("Codigo iso:");
+        this.txtiso_code = new JTextField();
+        JLabel lblpredeterminated = new JLabel("Predeterminado:");
+        this.txtpredetermined = new JCheckBox();
+        this.txtpredetermined.setBackground(Color.white);
 
         layout.setHorizontalGroup(
                 layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.CENTER)
                                 .addComponent(titlePanel)
                                 .addGroup(layout.createSequentialGroup()
-                                        .addComponent(lblId)
-                                        .addGap(10)
-                                        .addComponent(txtId, GroupLayout.DEFAULT_SIZE, 250, GroupLayout.PREFERRED_SIZE)
-                                )
-                                .addGroup(layout.createSequentialGroup()
                                         .addComponent(lblName)
                                         .addGap(10)
                                         .addComponent(txtName, GroupLayout.DEFAULT_SIZE, 250, GroupLayout.PREFERRED_SIZE)
+                                )
+                                .addGroup(layout.createSequentialGroup()
+                                        .addComponent(lblsymbol)
+                                        .addGap(10)
+                                        .addComponent(txtsymbol, GroupLayout.DEFAULT_SIZE, 250, GroupLayout.PREFERRED_SIZE)
+                                )
+                                .addGroup(layout.createSequentialGroup()
+                                        .addComponent(lbliso_code)
+                                        .addGap(10)
+                                        .addComponent(txtiso_code, GroupLayout.DEFAULT_SIZE, 250, GroupLayout.PREFERRED_SIZE)
+                                )
+                                .addGroup(layout.createSequentialGroup()
+                                        .addComponent(lbllocation)
+                                        .addGap(10)
+                                        .addComponent(txtlocation, GroupLayout.DEFAULT_SIZE, 250, GroupLayout.PREFERRED_SIZE)
+                                )
+                                .addGroup(layout.createSequentialGroup()
+                                        .addComponent(lblpredeterminated)
+                                        .addGap(10)
+                                        .addComponent(txtpredetermined, GroupLayout.DEFAULT_SIZE, 250, GroupLayout.PREFERRED_SIZE)
                                 )
                         )
         );
@@ -61,15 +89,33 @@ public class CurrencyEditor extends JPanel {
                         .addComponent(titlePanel)
                         .addGap(30)
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.CENTER)
-                                .addComponent(lblId)
-                                .addComponent(txtId, GroupLayout.DEFAULT_SIZE, 35, GroupLayout.PREFERRED_SIZE)
-                        )
-                        .addGap(20)
-                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.CENTER)
                                 .addComponent(lblName)
                                 .addComponent(txtName, GroupLayout.DEFAULT_SIZE, 35, GroupLayout.PREFERRED_SIZE)
                         )
+                        .addGap(20)
+
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.CENTER)
+                                .addComponent(lblsymbol)
+                                .addComponent(txtsymbol, GroupLayout.DEFAULT_SIZE, 35, GroupLayout.PREFERRED_SIZE)
+                        )
+                        .addGap(20)
+
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.CENTER)
+                                .addComponent(lbliso_code)
+                                .addComponent(txtiso_code, GroupLayout.DEFAULT_SIZE, 35, GroupLayout.PREFERRED_SIZE)
+                        )
+                        .addGap(20)
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.CENTER)
+                                .addComponent(lbllocation)
+                                .addComponent(txtlocation, GroupLayout.DEFAULT_SIZE, 35, GroupLayout.PREFERRED_SIZE)
+                        )
+                        .addGap(20)
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.CENTER)
+                                .addComponent(lblpredeterminated)
+                                .addComponent(txtpredetermined, GroupLayout.DEFAULT_SIZE, 35, GroupLayout.PREFERRED_SIZE)
+                        )
         );
+
 
         this.add(panelControls, BorderLayout.PAGE_START);
 
@@ -88,7 +134,7 @@ public class CurrencyEditor extends JPanel {
         btnSave.setBorder((BorderFactory.createMatteBorder(6,20,6,20,new java.awt.Color(0,123,255))));
         btnSave.setForeground(Color.WHITE);
         btnSave.setName("List");
-        //btnSave.addActionListener(controller::onClickBtnSave);
+        btnSave.addActionListener(controller::onClickBtnSave);
 
         panelButtons.add(btnSave);
         panelButtons.add(btnCancel);

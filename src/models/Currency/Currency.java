@@ -73,7 +73,10 @@ public class Currency {
                 query = '%'+query+'%';
                 result = Db.executeQuery(ModelSQL.SQL_STMT_GET_Currency_BY_LIKE,Arrays.asList(
                         new Parameter<>(1,query),
-                        new Parameter<>(2,query)
+                        new Parameter<>(2,query),
+                        new Parameter<>(3,query)
+
+
                 ));
             }
 
@@ -96,10 +99,10 @@ public class Currency {
         }
     }
 
-    public Currency getCurrency(String name){
+    public Currency getCurrency(int currency_id){
         try{
             ResultSet result = Db.executeQuery(ModelSQL.SQL_STMT_GET_Currency, List.of(
-                    new Parameter<>(1, name)
+                    new Parameter<>(1, currency_id)
             ));
             Currency currency = new Currency();
             while(result.next()){
@@ -154,5 +157,7 @@ public class Currency {
     public void setPredeterminanted(int predeterminanted) {
         this.predeterminanted = predeterminanted;
     }
+
+
 }
 
