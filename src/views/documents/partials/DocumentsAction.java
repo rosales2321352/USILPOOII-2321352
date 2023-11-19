@@ -12,7 +12,7 @@ import java.util.Objects;
 public class DocumentsAction extends JPanel implements IActionPanel {
 
     public DocumentsController controller;
-    private String documents_id;
+    private int documents_id;
     public JButton btnEdit;
     public JButton btnDelete;
 
@@ -59,7 +59,7 @@ public class DocumentsAction extends JPanel implements IActionPanel {
 
     @Override
     public void setId(Object id) {
-        this.documents_id= id. toString();
+        this.documents_id= Integer.parseInt(id.toString());
 
     }
 

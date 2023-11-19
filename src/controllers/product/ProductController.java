@@ -21,12 +21,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-public class ProductController_ extends BaseController<Product> {
+public class ProductController extends BaseController<Product> {
 
     JPProductList productList;
     JPProductEditor productEditor;
 
-    public ProductController_(JPBaseView baseView){
+    public ProductController(JPBaseView baseView){
         this.baseView=baseView;
         COLUMN_NAMES=new String[]{ "Id", "SUNAT", "Referencia", "TA", "Descripción", "Aciones"};
         messages = new HashMap<>();

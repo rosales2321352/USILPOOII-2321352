@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 public class Person  {
 
     private Integer employee_id;
-    private String type_dni_id;
+    private int type_dni_id;
     private String document;
     private String telephone;
     private String name;
@@ -29,7 +29,7 @@ public class Person  {
         public Integer getEmployeeId () {
             return this.employee_id;
         }
-        public String getTypeDniId () {
+        public int getTypeDniId () {
             return this.type_dni_id;
         }
         public String getDocument(){
@@ -53,7 +53,7 @@ public class Person  {
         public Integer getOutstanding() { return this.outstanding; }
 
         public void setEmployeeId (Integer employee_id){  this.employee_id = employee_id; }
-        public void setTypeDniId(String type_dni_id){
+        public void setTypeDniId(int type_dni_id){
             this.type_dni_id = type_dni_id;
         }
         public void setDocument(String document){ this.document = document;}
@@ -97,7 +97,7 @@ public class Person  {
                 while (result.next()){
                     var person = new Person();
                     person.setEmployeeId(result.getInt("employee_id"));
-                    person.setTypeDniId(result.getString("document_type_id"));
+                    person.setTypeDniId(result.getInt("document_type_id"));
                     person.setDocument(result.getString("document"));
                     person.setName(result.getString("full_name"));
                     person.setAddress(result.getString("address"));
@@ -122,7 +122,7 @@ public class Person  {
             Person person = new Person();
             while (result.next()){
                 person.setEmployeeId(result.getInt("employee_id"));
-                person.setTypeDniId(result.getString("document_type_id"));
+                person.setTypeDniId(result.getInt("document_type_id"));
                 person.setDocument(result.getString("document"));
                 person.setName(result.getString("full_name"));
                 person.setAddress(result.getString("address"));

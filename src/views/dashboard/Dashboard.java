@@ -17,32 +17,31 @@ public class Dashboard extends JFrame {
 
             try {
                 Image icon = ImageIO.read(Objects.requireNonNull(getClass().getResource("/res/main.png")));
-                this.setIconImage(new ImageIcon(icon).getImage());
+                setIconImage(new ImageIcon(icon).getImage());
             }catch (Exception e){
                 Logger.getLogger(MysqlConnection.class.getName()).log(Level.SEVERE,e.getMessage(),e);
             }
-            this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            this.setSize(768, 576);
+            setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            setSize(768, 576);
             Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-            this.setSize(screenSize);
-            this.setLocation(0, 0);
-            this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-            this.setResizable(true);
-            this.setTitle("Sistema de Ventas");
+            setSize(screenSize);
+            setLocation(0, 0);
+            setExtendedState(JFrame.MAXIMIZED_BOTH);
+            setResizable(true);
+            setTitle("Sistema de Ventas");
 
             JPanel panel1 = new JPanel();
             JPanel panel2 = new JPanel();
             panel3 = new JPanel();
 
-            this.add(panel1,BorderLayout.PAGE_START);
-            this.add(panel2,BorderLayout.LINE_START);
-            this.add(panel3,BorderLayout.CENTER);
-            //this.add(panel);
-            this.setLocationRelativeTo(null);
-            this.setVisible(true);
+            add(panel1,BorderLayout.PAGE_START);
+            add(panel2,BorderLayout.LINE_START);
+            add(panel3,BorderLayout.CENTER);
+            setLocationRelativeTo(null);
+            setVisible(true);
 
-            this.setJMenuBar(new Menu(this));
-            this.setVisible(true);
+            setJMenuBar(new Menu(this));
+            setVisible(true);
         });
     }
 

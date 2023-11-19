@@ -36,7 +36,7 @@ public class DocumentsEditor extends JPanel {
 
         JLabel lblName = new JLabel("Nombre:");
         this.txtName = new JTextField();
-        JLabel lblId = new JLabel("Id:");
+        JLabel lblId = new JLabel("Código SUNAT:");
         this.txtId = new JTextField();
 
         layout.setHorizontalGroup(

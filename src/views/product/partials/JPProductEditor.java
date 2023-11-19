@@ -1,6 +1,6 @@
 package views.product.partials;
 
-import controllers.product.ProductController_;
+import controllers.product.ProductController;
 import models.ProductSunat;
 import models.category.Category;
 import models.combobox.UnityComboBox;
@@ -14,7 +14,7 @@ import java.awt.*;
 
 public class JPProductEditor extends JPBaseEditor {
 
-    private final ProductController_ controller;
+    private final ProductController controller;
     public CustomComboBox<Category> cmbCategory;
     public CustomComboBox<TypeAffectation> cmbTypeAffectation;
     public CustomComboBox<ProductSunat> cmbProductSunat;
@@ -23,7 +23,7 @@ public class JPProductEditor extends JPBaseEditor {
     public JTextField txtName;
     public JSpinner spnQuantity;
 
-    public JPProductEditor(ProductController_ controller){
+    public JPProductEditor(ProductController controller){
         super();
         this.controller=controller;
         drawControls();

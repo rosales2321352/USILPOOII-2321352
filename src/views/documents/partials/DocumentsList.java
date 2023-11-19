@@ -117,12 +117,12 @@ public class DocumentsList extends JPanel {
 
         ManageCellsActionButtons actionsButtons =
                 new ManageCellsActionButtons(table,
-                        2,
+                        3,
                         new views.documents.partials.DocumentsAction(this.controller),
                         new views.documents.partials.DocumentsAction(this.controller));
 
-        table.getColumnModel().getColumn(2).setMaxWidth(100);
-        table.getColumnModel().getColumn(2).setMinWidth(100);
+        table.getColumnModel().getColumn(3).setMaxWidth(100);
+        table.getColumnModel().getColumn(3).setMinWidth(100);
 
         JTableHeader jTableHeader = table.getTableHeader();
         jTableHeader.setDefaultRenderer(new ManageTableHeader());
