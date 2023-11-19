@@ -34,7 +34,7 @@ public class JPCustomerList extends JPBaseList {
         txtQuery.setPreferredSize(new Dimension(250, 30));
 
         JButton btnSearch = new CustomButton("Buscar",new Color(0,123,255),Color.WHITE);
-        //btnSearch.addActionListener(controller::onClickSearch);
+        btnSearch.addActionListener(controller::onClickSearch);
 
         JButton btnNew = new CustomButton("Nuevo",new Color(0,123,255),Color.WHITE);
         btnNew.setName("Action");

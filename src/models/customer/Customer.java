@@ -87,7 +87,8 @@ public class Customer {
                 resultSet = Db.executeQuery(ModelSQL.SQL_STMT_GET_CUSTOMERS_BY_LIKE, Arrays.asList(
                         new Parameter<>(1,query),
                         new Parameter<>(2,query),
-                        new Parameter<>(3,query)
+                        new Parameter<>(3,query),
+                        new Parameter<>(4,query)
                 ));
             }
             List<Customer> customerList = new ArrayList<>();
@@ -143,9 +144,9 @@ public class Customer {
             parameters.add(new Parameter<>(5,email));
             parameters.add(new Parameter<>(6,telephone_number));
             parameters.add(new Parameter<>(7,reference));
-            if(customer_id==0){
+            if(customer_id!=0){
                 stmt = ModelSQL.SQL_STMT_UPDATE_CUSTOMER;
-                parameters.add(new Parameter<>(7,customer_id));
+                parameters.add(new Parameter<>(8,customer_id));
             }
             return Db.executeUpdate(stmt,parameters);
         }catch (Exception e){

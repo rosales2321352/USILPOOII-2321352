@@ -28,12 +28,12 @@ public class CustomerController extends BaseController<Customer> {
         this.baseView = baseView;
         COLUMN_NAMES = new String[]{ "Id","Tipo Documento","Documento", "Nombres y Apellidos","Correo","Acciones"};
         messages = new HashMap<>();
-        messages.put("AddConfirm","");
-        messages.put("EditConfirm","");
-        messages.put("DeleteConfirm","");
-        messages.put("SaveError","");
-        messages.put("SaveSuccess","");
-        messages.put("DeleteSuccess","");
+        messages.put("AddConfirm","¿Estás seguro de crear al cliente?");
+        messages.put("EditConfirm","¿Estás seguro de editar al cliente?");
+        messages.put("DeleteConfirm","¿Estás seguro de eliminar al cliente?");
+        messages.put("SaveError","Algo salió mal, no se pudo completar la operación");
+        messages.put("SaveSuccess","Cliente grabado correctamente");
+        messages.put("DeleteSuccess","Cliente eliminado correctamente");
     }
 
     public void init(){
@@ -80,16 +80,16 @@ public class CustomerController extends BaseController<Customer> {
         if(customerEditor.txtFullName.getText().trim().isEmpty()) return false;
         if(customerEditor.txtAddress.getText().trim().isEmpty()) return false;
         if(customerEditor.txtTelephoneNumber.getText().trim().isEmpty()) return false;
-        if(customerEditor.txtEmail.getText().trim().isEmpty()) return false;
-        return !customerEditor.txtReference.getText().trim().isEmpty();
+        return !customerEditor.txtEmail.getText().trim().isEmpty();
     }
 
     @Override
     public int save() {
-        DocumentType documentType = (DocumentType) customerEditor.cmbTypeDocument.getSelectedItem();
+        DocumentTypeComboBox documentType = (DocumentTypeComboBox) customerEditor.cmbTypeDocument.getSelectedItem();
         Customer customer = new Customer();
         customer.setCustomer_id(id);
-        customer.setDocument_type_id(documentType.getDocuments_id());
+        customer.setDocument_type_id((int) documentType.getId());
+        customer.setDocument(customerEditor.txtDocument.getText());
         customer.setFull_name(customerEditor.txtFullName.getText());
         customer.setAddress(customerEditor.txtAddress.getText());
         customer.setEmail(customerEditor.txtEmail.getText());
@@ -105,6 +105,7 @@ public class CustomerController extends BaseController<Customer> {
 
     @Override
     public void resetControls() {
+        customerEditor.lblTitle.setText("Agregar Nuevo Cliente");
         customerEditor.cmbTypeDocument.setSelectedIndex(0);
         customerEditor.txtDocument.setText("");
         customerEditor.txtFullName.setText("");
@@ -115,6 +116,7 @@ public class CustomerController extends BaseController<Customer> {
     }
 
     public void onClickEdit(ActionEvent e, int id){
+        customerEditor.lblTitle.setText("Edición de Cliente");
         CompletableFuture<Customer> customerFuture = CompletableFuture.supplyAsync(() -> {
            return new Customer().getCustomer(id);
         });
@@ -129,5 +131,12 @@ public class CustomerController extends BaseController<Customer> {
             customerEditor.txtReference.setText(customer.getReference());
         }));
         this.switchTab((JButton) e.getSource());
+    }
+
+    public void onClickSearch(ActionEvent e){
+        String query = customerList.txtQuery.getText();
+        if(query != null){
+            loadDataTableCustomerAsync(query);
+        }
     }
 }
