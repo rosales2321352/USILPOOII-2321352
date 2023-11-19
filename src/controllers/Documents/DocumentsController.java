@@ -12,9 +12,9 @@ import java.util.concurrent.CompletableFuture;
 
 public class DocumentsController {
 
-    final String[] COLUMN_NAMES = { "Id", "Nombre" , "Acciones" };
+    final String[] COLUMN_NAMES = { "Id","Cód. SUNAT","Nombre" , "Acciones" };
     private final DocumentsView panel;
-    private String documents_id="";
+    private int documents_id=0;
 
     private boolean edit=false;
 
@@ -45,6 +45,7 @@ public class DocumentsController {
             Object[][] information = unities.stream()
                     .map(documents -> new Object[]{
                             String.valueOf(documents.getDocuments_id()),
+                            documents.getCod_sunat(),
                             documents.getName()})
                     .toArray(Object[][]::new);
             SwingUtilities.invokeLater(() -> panel.documentsList.makeTable(information, COLUMN_NAMES));
@@ -63,7 +64,8 @@ public class DocumentsController {
 
     public int save(){
         DocumentType documentType  = new DocumentType();
-        documentType.setDocuments_id(panel.documentsEditor.txtId.getText());
+        documentType.setDocuments_id(documents_id);
+        documentType.setCod_sunat(panel.documentsEditor.txtId.getText());
         documentType.setName(panel.documentsEditor.txtName.getText());
 
         return documentType.save(edit);
@@ -79,13 +81,13 @@ public class DocumentsController {
         }
     }
 
-    public void onClickBtnEdit(ActionEvent e, String documents_id){
+    public void onClickBtnEdit(ActionEvent e, int documents_id){
         this.panel.documentsEditor.lblTitle.setText("Editar Documento");
         CompletableFuture<DocumentType> futureDocumentType = CompletableFuture.supplyAsync(() -> new DocumentType().getDocument(documents_id));
         futureDocumentType.thenAcceptAsync(documents -> SwingUtilities.invokeLater(() -> {
             this.edit = true;
-            panel.documentsEditor.txtId.setText(documents.getDocuments_id());
-            panel.documentsEditor.txtId.setEditable(false);
+            this.documents_id = documents.getDocuments_id();
+            panel.documentsEditor.txtId.setText(documents.getCod_sunat());
             panel.documentsEditor.txtName.setText(documents.getName());
         }));
         this.switchTab((JButton) e.getSource());
@@ -94,8 +96,7 @@ public class DocumentsController {
     public void onClickBtnSave(ActionEvent e){
         if(validate()){
             String message="";
-            if (this.documents_id.trim().isEmpty()) {
-
+            if (this.documents_id==0) {
                 message ="¿Está seguro de crear el documento?" ;
             }
             else {
@@ -129,7 +130,7 @@ public class DocumentsController {
         loadDataTableAsync(query);
     }
 
-    public void onClickBtnDelete(ActionEvent e, String documents_id){
+    public void onClickBtnDelete(ActionEvent e, int documents_id){
         int response = JOptionPane.showConfirmDialog(null,
                 "¿Está seguro de eliminar el documento?",
                 "Confirmación", JOptionPane.YES_NO_OPTION);
@@ -145,7 +146,7 @@ public class DocumentsController {
                     "Atención", JOptionPane.INFORMATION_MESSAGE);
             this.loadDataTableAsync("");
         }
-        this.documents_id = "";
+        this.documents_id = 0;
     }
 
     public void onClickBtnNew(ActionEvent e){

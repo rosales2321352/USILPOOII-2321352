@@ -8,10 +8,7 @@ public class ManageGeneralCells extends DefaultTableCellRenderer {
 
     private String type = "text";
     private Font normal = new Font("Open Sans",Font.PLAIN,12);
-    private Font bold = new Font("Open Sans",Font.BOLD,12);
-    public ManageGeneralCells(){
 
-    }
     public ManageGeneralCells(String type){
         this.type = type;
     }
@@ -23,9 +20,9 @@ public class ManageGeneralCells extends DefaultTableCellRenderer {
         Color backgroundColorSelected = new Color(140,140,140);
 
         if(isSelected){
-            this.setBackground(backgroundColorSelected);
+            setBackground(backgroundColorSelected);
         }else{
-            this.setBackground(Color.WHITE);
+            setBackground(Color.WHITE);
         }
         if(type.equals("text")){
             if(hasFocus){
@@ -33,13 +30,13 @@ public class ManageGeneralCells extends DefaultTableCellRenderer {
             }else{
                 backgroundColor = backgroundColorDefault;
             }
-            this.setHorizontalAlignment(JLabel.LEFT);
+            setHorizontalAlignment(JLabel.LEFT);
             if(value instanceof String) {
-                this.setText((String) value);
+                setText((String) value);
             }
-            this.setFont(normal);
-            this.setForeground(Color.BLACK);
-            this.setBackground((isSelected)?backgroundColor:Color.WHITE);
+            setFont(normal);
+            setForeground(Color.BLACK);
+            setBackground((isSelected)?backgroundColor:Color.WHITE);
             return this;
         }
         return  this;

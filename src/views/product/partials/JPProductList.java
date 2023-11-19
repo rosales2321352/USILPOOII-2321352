@@ -1,6 +1,6 @@
 package views.product.partials;
 
-import controllers.product.ProductController_;
+import controllers.product.ProductController;
 import views.JPBaseList;
 import views.core.CustomButton;
 import views.core.CustomJScrollPane;
@@ -11,8 +11,8 @@ import java.awt.*;
 public class JPProductList extends JPBaseList {
 
     public JTextField txtQuery;
-    private final ProductController_ controller;
-    public JPProductList(ProductController_ controller){
+    private final ProductController controller;
+    public JPProductList(ProductController controller){
         super();
         this.controller = controller;
         this.setLayout(new BorderLayout());

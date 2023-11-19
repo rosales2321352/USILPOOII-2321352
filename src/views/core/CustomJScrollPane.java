@@ -9,11 +9,11 @@ public class CustomJScrollPane extends JScrollPane {
 
     public CustomJScrollPane(Component view){
         super(view);
-        this.setBackground(Color.WHITE);
-        this.getVerticalScrollBar().setUI(new CustomScrollBarUI());
-        this.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
-        this.setOpaque(true);
-        this.getViewport().setBackground(Color.WHITE);
+        setBackground(Color.WHITE);
+        getVerticalScrollBar().setUI(new CustomScrollBarUI());
+        getHorizontalScrollBar().setUI(new CustomScrollBarUI());
+        setOpaque(true);
+        getViewport().setBackground(Color.WHITE);
     }
 
 }

@@ -50,15 +50,24 @@ public class ModelSQL {
     public static final String SQL_STMT_AUTHENTICATED = "SELECT * FROM user WHERE username = ? AND password = ? limit 50";
 
     //DocumentType
-    public static final String SQL_STMT_GET_DOCUMENTSTYPES = "SELECT document_type_id , name  FROM document_type dt  limit 50";
+    public static final String SQL_STMT_GET_DOCUMENTSTYPES = "SELECT document_type_id ,cod_sunat, name  FROM document_type dt  limit 50";
 
-    public static final String SQL_STMT_GET_DOCUMENTSTYPES_BY_LIKE = "SELECT document_type_id , name  FROM document_type dt WHERE document_type_id LIKE ? or name LIKE ? limit 50";
-    public static final String SQL_STMT_GET_DOCUMENTTYPE= "SELECT document_type_id , name  FROM document_type dt WHERE document_type_id = ? limit 50";
+    public static final String SQL_STMT_GET_DOCUMENTSTYPES_BY_LIKE = "SELECT document_type_id ,cod_sunat, name  FROM document_type dt WHERE document_type_id LIKE ? or cod_sunat LIKE ? or name LIKE ? limit 50";
+    public static final String SQL_STMT_GET_DOCUMENTTYPE= "SELECT document_type_id ,cod_sunat, name  FROM document_type dt WHERE document_type_id = ? limit 50";
 
-    public static final String SQL_STMT_INSERT_DOCUMENTSTYPES = "INSERT  into document_type (name,document_type_id) values (?,?)";
-    public static final String SQL_STMT_UPDATE_DOCUMENTSTYPES = "UPDATE document_type SET name=? WHERE document_type_id = ?";
+    public static final String SQL_STMT_INSERT_DOCUMENTSTYPES = "INSERT  into document_type (cod_sunat,name) values (?,?)";
+    public static final String SQL_STMT_UPDATE_DOCUMENTSTYPES = "UPDATE document_type SET cod_sunat= ?, name=? WHERE document_type_id = ?";
     public static final String SQL_STMT_DELETE_DOCUMENTSTYPES = "delete from document_type where document_type_id =?";
 
-
+    //CLIENT
+    public static final String SQL_STMT_GET_CUSTOMERS = "select c.customer_id, c.document_type_id ,dt.name as document_type_name,c.document, c.full_name ,c.email  from customer c\n" +
+            "    inner join document_type dt on (c.document_type_id = dt.document_type_id) LIMIT 50";
+    public static final String SQL_STMT_GET_CUSTOMER = "c.customer_id, c.document_type_id ,dt.name as document_type_name,c.document, c.full_name, c.address ,c.email, c.telephone_number,c.reference  from customer c\n" +
+            "    inner join document_type dt on (c.document_type_id = dt.document_type_id) where customer_id = ? LIMIT 50";
+    public static final String SQL_STMT_GET_CUSTOMERS_BY_LIKE = "select c.customer_id, c.document_type_id ,dt.name as document_type_name,c.document, c.full_name ,c.email  from customer c \n" +
+            "inner join document_type dt on (c.document_type_id = dt.document_type_id) where c.customer_id like ? or c.document like ? or c.full_name like ? or c.email like ? LIMIT 50";
+    public static final String SQL_STMT_INSERT_CUSTOMER = "insert into customer (document_type_id ,document ,full_name ,address ,email ,telephone_number ,reference) values (?,?,?,?,?,?,?)";
+    public static final String SQL_STMT_UPDATE_CUSTOMER = "update customer set document_type_id=? ,document =?,full_name=? ,address=? ,email=? ,telephone_number=? ,reference=? where document_type_id = ?";
+    public static final String SQL_STMT_DELETE_CUSTOMER = "delete from customer where customer_id  = ? ";
 
 }

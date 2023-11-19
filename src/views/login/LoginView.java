@@ -15,18 +15,18 @@ public class LoginView extends JFrame {
     public LoginView(){
         SwingUtilities.invokeLater(() -> {
             this.controller = new LoginController(this);
-            this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            this.setSize(450, 450);
-            this.setTitle("Inicio de Sesión");
-            this.drawControls();
-            this.setLocationRelativeTo(null);
-            this.setVisible(true);
+            setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            setSize(450, 450);
+            setTitle("Inicio de Sesión");
+            drawControls();
+            setLocationRelativeTo(null);
+            setVisible(true);
         });
     }
 
     public void drawControls(){
-        this.setBackground(Color.WHITE);
-        this.setLayout(new FlowLayout(FlowLayout.CENTER));
+        setBackground(Color.WHITE);
+        setLayout(new FlowLayout(FlowLayout.CENTER));
         JPanel panelControls = new JPanel();
 
         panelControls.setBackground(Color.WHITE);
@@ -36,14 +36,14 @@ public class LoginView extends JFrame {
         lblTitle.setFont(new Font("Arial", Font.BOLD,24));
 
         JLabel lblUserName = new JLabel("Nombre de Usuario");
-        this.txtUserName = new JTextField();
+        txtUserName = new JTextField();
         JLabel lblPassword = new JLabel("Contraseña");
-        this.txtPassword = new JPasswordField();
-        this.btnLogin = new JButton("INGRESAR");
-        this.btnLogin.setBackground(new Color(0,123,255));
-        this.btnLogin.setBorder((BorderFactory.createMatteBorder(6,20,6,20,new java.awt.Color(0,123,255))));
-        this.btnLogin.setForeground(Color.WHITE);
-        this.btnLogin.addActionListener(controller::onClickBtnLogin);
+        txtPassword = new JPasswordField();
+        btnLogin = new JButton("INGRESAR");
+        btnLogin.setBackground(new Color(0,123,255));
+        btnLogin.setBorder((BorderFactory.createMatteBorder(6,20,6,20,new java.awt.Color(0,123,255))));
+        btnLogin.setForeground(Color.WHITE);
+        btnLogin.addActionListener(controller::onClickBtnLogin);
 
         layout.setHorizontalGroup(
                 layout.createSequentialGroup()
@@ -74,7 +74,7 @@ public class LoginView extends JFrame {
         );
 
         panelControls.setLayout(layout);
-        this.add(panelControls);
+        add(panelControls);
     }
 
 }

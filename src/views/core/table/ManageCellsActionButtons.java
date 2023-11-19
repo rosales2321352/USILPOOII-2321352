@@ -33,22 +33,17 @@ public class ManageCellsActionButtons extends AbstractCellEditor implements Tabl
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column)
     {
         actionsRenderer.setBackground(Color.WHITE);
-
-
-
-        return this.actionsRenderer;
+        return actionsRenderer;
     }
 
     public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column)
     {
-        this.editorValue = value;
-
+        editorValue = value;
         Object id_value = table.getValueAt(row,0);
         if(id_value instanceof String){
             actionPanel.setId(id_value);
         }
-
-        return this.actionsEdit;
+        return actionsEdit;
     }
 
     public Object getCellEditorValue()

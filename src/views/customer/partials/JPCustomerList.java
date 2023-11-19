@@ -1,8 +1,6 @@
-package views.tax.partials;
+package views.customer.partials;
 
-
-import controllers.tax.TaxController;
-import views.JPBaseEditor;
+import controllers.customer.CustomerController;
 import views.JPBaseList;
 import views.core.CustomButton;
 import views.core.CustomJScrollPane;
@@ -10,27 +8,22 @@ import views.core.CustomJScrollPane;
 import javax.swing.*;
 import java.awt.*;
 
-public class JPTaxList extends JPBaseList {
+public class JPCustomerList extends JPBaseList {
+
+    public final CustomerController controller;
     public JTextField txtQuery;
-    private final TaxController controller;
-    public JPTaxList(TaxController controller){
+    public JPCustomerList(CustomerController controller){
         super();
-        this.controller = controller;
-        setLayout(new BorderLayout());
+        this.controller=controller;
         drawControls();
     }
 
-    public void drawControls(){
+    @Override
+    public void drawControls() {
         table = new JTable();
         table.setBackground(Color.WHITE);
         JScrollPane listScrollPane = new CustomJScrollPane(table);
-
-        JPanel titlePanel = new JPanel();
-        titlePanel.setBackground(Color.WHITE);
-        titlePanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-        JLabel lblTitle = new JLabel("Listado de Impuestos");
-        lblTitle.setFont(new Font("Arial", Font.BOLD,24));
-        titlePanel.add(lblTitle);
+        makeTitle("Listado de Clientes");
 
         JPanel panelOptions = new JPanel();
         GroupLayout layout = new GroupLayout(panelOptions);
@@ -41,7 +34,7 @@ public class JPTaxList extends JPBaseList {
         txtQuery.setPreferredSize(new Dimension(250, 30));
 
         JButton btnSearch = new CustomButton("Buscar",new Color(0,123,255),Color.WHITE);
-        btnSearch.addActionListener(controller::onClickSearch);
+        //btnSearch.addActionListener(controller::onClickSearch);
 
         JButton btnNew = new CustomButton("Nuevo",new Color(0,123,255),Color.WHITE);
         btnNew.setName("Action");
@@ -74,7 +67,4 @@ public class JPTaxList extends JPBaseList {
         this.add(panelOptions,BorderLayout.PAGE_START);
         this.add(listScrollPane);
     }
-
-
-
 }
