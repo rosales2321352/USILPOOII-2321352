@@ -4,7 +4,6 @@ import models.ModelSQL;
 import models.db.Db;
 import models.db.classes.Parameter;
 
-import javax.swing.text.Document;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Arrays;

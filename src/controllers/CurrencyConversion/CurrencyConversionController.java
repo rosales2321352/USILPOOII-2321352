@@ -1,67 +1,66 @@
-package controllers.Currency;
-
-
-import models.Currency.Currency;
-import views.Currency.CurrencyView;
+package controllers.CurrencyConversion;
+import models.CurrencyConversion.CurrencyConversion;
+import views.CurrencyConversion.partials.CurrencyConversionEditor;
+import models.ModelSQL;
+import views.CurrencyConversion.CurrencyConversionView;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-public class CurrencyController {
+public class CurrencyConversionController {
 
-    final String[] COLUMN_NAMES = { "Id","Name", "Symbol" , "Acciones" };
-    private final CurrencyView panel;
-    private String name="";
+    final String[] COLUMN_NAMES = { "Id","Currency","Conversion","Sale","Buy", "Acciones" };
+    private final CurrencyConversionView panel;
+    private String conversion="";
 
     private int currency_id = 0;
 
-    public CurrencyController(CurrencyView panel){
+    public CurrencyConversionController(CurrencyConversionView panel){
         this.panel = panel;
     }
 
     public void renderObjects(){
-        this.panel.CurrencyList.makeTableHeader(COLUMN_NAMES);
+        this.panel.CurrencyConversionList.makeTableHeader(COLUMN_NAMES);
     }
 
     public void resetControls(){
         this.currency_id=0;
-        this.panel.CurrencyEditor.txtName.setText("");
-        this.panel.CurrencyEditor.txtsymbol.setText("");
-        this.panel.CurrencyEditor.lblTitle.setText("Agregar moneda");
-        this.panel.CurrencyEditor.txtsymbol.setEditable(true);
-        this.panel.CurrencyEditor.txtlocation.setText("");
-        this.panel.CurrencyEditor.txtpredetermined.setSelected(false);
+        this.panel.CurrencyConversionEditor.txtcurrency.setText("");
+        this.panel.CurrencyConversionEditor.lblTitle.setText("Agregar tipo de cambio");
+        this.panel.CurrencyConversionEditor.txtconversion.setText("");
+        this.panel.CurrencyConversionEditor.txtsale.setText("");
+        this.panel.CurrencyConversionEditor.txtbuy.setText("");
     }
 
     public void loadDataTableAsync(String query){
-        CompletableFuture<List<Currency>> futureCurrency = CompletableFuture.supplyAsync(() -> {
-            return new Currency().getCurrencies(query);
+        CompletableFuture<List<CurrencyConversion>> futureCurrencyConversion = CompletableFuture.supplyAsync(() -> {
+            return new CurrencyConversion().getCurrencyConversions(query);
         });
-        futureCurrency.thenAcceptAsync(unities -> {
+        futureCurrencyConversion.thenAcceptAsync(unities -> {
             Object[][] information = unities.stream()
-                    .map(currency -> new Object[]{
-                            String.valueOf(currency.getCurrency_id()),
-                            currency.getName(),currency.getSymbol()})
+                    .map(currencyConversion -> new Object[]{
+                            String.valueOf(currencyConversion.getCurrency_id()),
+                            currencyConversion.getConversion_id(),currencyConversion.getCurrency_id()})
                     .toArray(Object[][]::new);
-            SwingUtilities.invokeLater(() -> panel.CurrencyList.makeTable(information, COLUMN_NAMES));
+            SwingUtilities.invokeLater(() -> panel.CurrencyConversionList.makeTable(information, COLUMN_NAMES));
         });
     }
 
     public boolean validate(){
-        if(panel.CurrencyEditor.txtName.getText().trim().isEmpty()){
+        if(panel.CurrencyConversionEditor.txtcurrency.getText().trim().isEmpty()){
             return false;
         }
-        if(panel.CurrencyEditor.txtsymbol.getText().trim().isEmpty()){
+        if(panel.CurrencyConversionEditor.txtconversion.getText().trim().isEmpty()){
             return false;}
 
-        if(panel.CurrencyEditor.txtiso_code.getText().trim().isEmpty()){
-                return false;
+        if(panel.CurrencyConversionEditor.txtsale.getText().trim().isEmpty()){
+            return false;
         }
 
-        if(panel.CurrencyEditor.txtlocation.getText().trim().isEmpty()){
-                return false;}
+        if(panel.CurrencyConversionEditor.txtbuy.getText().trim().isEmpty()){
+            return false;}
         return true;
     }
 
@@ -138,11 +137,11 @@ public class CurrencyController {
     }
 
     public void onClickBtnSearch(ActionEvent e){
-        String query = panel.CurrencyList.txtQuery.getText();
+        String query = panel.CurrencyConversionList.txtQuery.getText();
         loadDataTableAsync(query);
     }
 
-    public void onClickBtnDelete(ActionEvent e, int currency_id){
+    /*public void onClickBtnDelete(ActionEvent e, int currency_id){
         int response = JOptionPane.showConfirmDialog(null,
                 "¿Está seguro de eliminar la moneda?",
                 "Confirmación", JOptionPane.YES_NO_OPTION);
@@ -159,7 +158,7 @@ public class CurrencyController {
             this.loadDataTableAsync("");
         }
         this.name = "";
-    }
+    }*/
     public void onClickBtnNew(ActionEvent e){
         this.switchTab((JButton) e.getSource());
     }

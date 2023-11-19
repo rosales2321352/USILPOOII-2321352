@@ -1,4 +1,4 @@
-package views.Currency.partials;
+package views.CurrencyConversion.partials;
 
 import views.core.layout.CustomScrollBarUI;
 import views.core.table.ManageCellsActionButtons;
@@ -10,14 +10,14 @@ import javax.swing.*;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
 
-public class CurrencyList extends JPanel {
+public class CurrencyConversionList extends JPanel {
 
-    private final controllers.Currency.CurrencyController controller;
+    private final controllers.CurrencyConversion.CurrencyConversionController controller;
     public JTable table;
     public TableModel model;
     public JTextField txtQuery;
 
-    public CurrencyList(controllers.Currency.CurrencyController controller){
+    public CurrencyConversionList(controllers.CurrencyConversion.CurrencyConversionController controller){
         this.setBackground(Color.WHITE);
         this.setLayout(new BorderLayout());
         this.controller = controller;
@@ -34,7 +34,7 @@ public class CurrencyList extends JPanel {
         JPanel titlePanel = new JPanel();
         titlePanel.setBackground(Color.WHITE);
         titlePanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-        JLabel lblTitle = new JLabel("Listado de Monedas");
+        JLabel lblTitle = new JLabel("Tipo de cambio");
         lblTitle.setFont(new Font("Arial", Font.BOLD,24));
         titlePanel.add(lblTitle);
 
@@ -118,8 +118,8 @@ public class CurrencyList extends JPanel {
         ManageCellsActionButtons actionsButtons =
                 new ManageCellsActionButtons(table,
                         3,
-                        new views.Currency.partials.CurrencyAction(this.controller),
-                        new views.Currency.partials.CurrencyAction(this.controller));
+                        new views.CurrencyConversion.partials.CurrencyConversionAction(this.controller),
+                        new views.CurrencyConversion.partials.CurrencyConversionAction(this.controller));
 
         table.getColumnModel().getColumn(3).setMaxWidth(100);
         table.getColumnModel().getColumn(3).setMinWidth(100);

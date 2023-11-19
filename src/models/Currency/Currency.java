@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Currency {
+public class Currency  {
     private int currency_id;
     private String name;
 
