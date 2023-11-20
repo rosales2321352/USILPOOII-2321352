@@ -61,4 +61,9 @@ public class ModelSQL {
     public static final String SQL_STMT_UPDATE_CUSTOMER = "update customer set document_type_id=? ,document =?,full_name=? ,address=? ,email=? ,telephone_number=? ,reference=? where customer_id = ?";
     public static final String SQL_STMT_DELETE_CUSTOMER = "delete from customer where customer_id  = ? ";
 
+    //DOCUMENT
+
+    public static final String SQL_STMT_GET_BILLINGS = "select d.document_id,d.date_issue, CONCAT(d.series,'-',d.correlative) as 'n_document',c.full_name ,d.total_pay  from document d inner join customer c on(d.customer_id = c.customer_id) limit 50";
+    public static final String SQL_STMT_GET_BILLINGS_BY_LIKE = "select d.document_id,d.date_issue, CONCAT(d.series,'-',d.correlative) as 'n_document',c.full_name ,d.total_pay  from document d inner join customer c on(d.customer_id = c.customer_id) where CONCAT(d.series,'-',d.correlative) like ? or c.full_name like ? limit 50";
+    public static final String SQL_STMT_GET_CORRELATIVE = "SELECT LPAD(COALESCE(MAX(CAST(document_id AS UNSIGNED)), 0) + 1,8,\"0\") AS new_correlative FROM document";
 }
