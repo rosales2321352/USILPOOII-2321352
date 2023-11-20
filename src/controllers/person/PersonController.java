@@ -69,7 +69,7 @@ public class PersonController {
         person.setEmail(email);
         person.setTelephone(telephone);
         person.setReference(reference);
-        person.setOutstanding(0);
+
 
         return person.save();
     }
@@ -162,7 +162,8 @@ public class PersonController {
         }
         if(telephone.trim().isEmpty()){
             return false;
-        }if(reference.trim().isEmpty()){
+        }
+        if(reference.trim().isEmpty()){
             return false;
         }
 

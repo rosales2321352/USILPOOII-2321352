@@ -1,5 +1,6 @@
 package views.core.panel.menu;
 
+import models.user.User;
 import views.admin.EmployeeAdminView;
 import views.category.CategoryView;
 import views.documents.DocumentsView;
@@ -8,6 +9,7 @@ import views.product.ProductView;
 import views.tax.TaxView;
 import views.typeAffectation.TypeAffectationView;
 import views.unity.UnityView;
+import views.user.UserView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -76,6 +78,12 @@ public class Menu extends JMenuBar {
         documentType.addActionListener((e) -> {
             SwingUtilities.invokeLater(() -> {
                 run(new DocumentsView(), "Tipo de Documentos", 500, 576, false);
+            });
+        });
+
+        user.addActionListener((e) -> {
+            SwingUtilities.invokeLater(() -> {
+                run(new UserView(),"Administración de Usuarios",700,576,false);
             });
         });
 

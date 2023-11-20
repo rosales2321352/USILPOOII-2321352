@@ -97,7 +97,7 @@ public class Person  {
                 while (result.next()){
                     var person = new Person();
                     person.setEmployeeId(result.getInt("employee_id"));
-                    person.setTypeDniId(result.getString("document_type_id"));
+                    //person.setTypeDniId(result.getString("document_type_id"));
                     person.setDocument(result.getString("document"));
                     person.setName(result.getString("full_name"));
                     person.setAddress(result.getString("address"));
@@ -122,7 +122,7 @@ public class Person  {
             Person person = new Person();
             while (result.next()){
                 person.setEmployeeId(result.getInt("employee_id"));
-                person.setTypeDniId(result.getString("document_type_id"));
+                //person.setTypeDniId(result.getString("document_type_id"));
                 person.setDocument(result.getString("document"));
                 person.setName(result.getString("full_name"));
                 person.setAddress(result.getString("address"));
@@ -147,8 +147,8 @@ public class Person  {
             parameters.add(new Parameter<>(4,this.email));
             parameters.add(new Parameter<>(5,this.telephone));
             parameters.add(new Parameter<>(6,this.reference));
-            parameters.add(new Parameter<>(7,this.outstanding));
-            if(this.employee_id !=0) parameters.add(new Parameter<>(8,this.employee_id));
+
+            if(this.employee_id !=0) parameters.add(new Parameter<>(7,this.employee_id));
             return Db.executeUpdate(query,parameters);
         }catch (Exception e){
             Logger.getLogger(Person.class.getName()).log(Level.SEVERE,null,e);
