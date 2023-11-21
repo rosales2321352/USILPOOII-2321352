@@ -65,6 +65,7 @@ public class PersonController {
         person.setTelephone(telephone);
         person.setReference(reference);
 
+
         return person.save();
     }
 
@@ -156,7 +157,8 @@ public class PersonController {
         }
         if(telephone.trim().isEmpty()){
             return false;
-        }if(reference.trim().isEmpty()){
+        }
+        if(reference.trim().isEmpty()){
             return false;
         }
 

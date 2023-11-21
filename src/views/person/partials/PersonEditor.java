@@ -170,7 +170,7 @@ public class PersonEditor extends JPanel {
                 if(textField.getText().trim().isEmpty()){
                     JOptionPane.showMessageDialog(
                             null,
-                            "El nombre del producto no puede ser nulo o vacio.",
+                            "El nombre del empleado no puede ser nulo o vacio.",
                             "Atención",
                             JOptionPane.INFORMATION_MESSAGE);
                     textField.requestFocus();
