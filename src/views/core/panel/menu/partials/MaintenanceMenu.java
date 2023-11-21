@@ -1,10 +1,9 @@
 package views.core.panel.menu.partials;
 
-<<<<<<< HEAD
-=======
+
 import views.Currency.CurrencyView;
 import views.CurrencyConversion.CurrencyConversionView;
->>>>>>> feature/VentanaTipoDeCambio-1911054
+
 import views.category.JPCategoryView;
 import views.core.panel.menu.CustomMenu;
 import views.core.panel.menu.CustomMenuItem;
@@ -16,10 +15,7 @@ import views.typeAffectation.JPTypeAffectationView;
 import views.unity.JPUnityView;
 
 import javax.swing.*;
-<<<<<<< HEAD
-=======
-import java.util.Currency;
->>>>>>> feature/VentanaTipoDeCambio-1911054
+
 
 public class MaintenanceMenu extends CustomMenu {
     private JMenu personUserMenu;
@@ -38,12 +34,9 @@ public class MaintenanceMenu extends CustomMenu {
     private JMenu othersMenuItem;
     private JMenuItem movementTypeMenuItem;
     private JMenuItem taxMenuItem;
-<<<<<<< HEAD
-=======
      private JMenuItem currencyMenuItem;
     private JMenuItem currencyConversionMenuItem;
 
->>>>>>> feature/VentanaTipoDeCambio-1911054
     public MaintenanceMenu(String title, JFrame main) {
         super(title);
         this.main = main;
@@ -92,15 +85,12 @@ public class MaintenanceMenu extends CustomMenu {
 
         taxMenuItem = new CustomMenuItem("Impuestos");
         othersMenuItem.add(taxMenuItem);
-<<<<<<< HEAD
-=======
 
         currencyMenuItem = new CustomMenuItem("Divisas");
         othersMenuItem.add(currencyMenuItem);
 
         currencyConversionMenuItem = new CustomMenuItem("Tipo de cambio");
         othersMenuItem.add(currencyConversionMenuItem);
->>>>>>> feature/VentanaTipoDeCambio-1911054
     }
 
     public void makeActions(){
@@ -145,8 +135,6 @@ public class MaintenanceMenu extends CustomMenu {
                 run(new JPTypeAffectationView(),"Administración de tipos de afectación",500,576,false);
             });
         });
-<<<<<<< HEAD
-=======
 
         currencyMenuItem.addActionListener((e) -> {
             SwingUtilities.invokeLater(() -> {
@@ -159,6 +147,6 @@ public class MaintenanceMenu extends CustomMenu {
                 run(new CurrencyConversionView(),"Tipo de Cambio",500, 576,false);
             });
         });
->>>>>>> feature/VentanaTipoDeCambio-1911054
+
     }
 }

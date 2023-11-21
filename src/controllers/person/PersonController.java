@@ -1,21 +1,10 @@
 package controllers.person;
 
-<<<<<<< HEAD
-=======
-import models.documents.DocumentType;
->>>>>>> feature/VentanaTipoDeCambio-1911054
-import models.person.Person;
-import views.core.combobox.CustomComboBox;
-import views.person.PersonView;
-import views.person.partials.PersonList;
 
-<<<<<<< HEAD
-import javax.swing.*;
-=======
-import javax.print.Doc;
+import models.person.Person;
+import views.person.PersonView;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
->>>>>>> feature/VentanaTipoDeCambio-1911054
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Stream;
@@ -75,7 +64,6 @@ public class PersonController {
         person.setEmail(email);
         person.setTelephone(telephone);
         person.setReference(reference);
-        person.setOutstanding(0);
 
         return person.save();
     }

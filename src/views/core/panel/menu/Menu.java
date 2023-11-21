@@ -23,10 +23,5 @@ public class Menu extends JMenuBar {
         add(new FileMenu("Archivo"));
         add(new MaintenanceMenu("Mantenimiento",main));
     }
-
-<<<<<<< HEAD
-=======
-
-
->>>>>>> feature/VentanaTipoDeCambio-1911054
+    
 }

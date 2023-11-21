@@ -1,10 +1,6 @@
 package views.person.partials;
 
 import controllers.person.PersonController;
-import models.documents.DocumentType;
->>>>>>> feature/VentanaTipoDeCambio-1911054
-import models.person.Person;
-import views.core.combobox.CustomComboBox;
 
 import javax.swing.*;
 import java.awt.*;

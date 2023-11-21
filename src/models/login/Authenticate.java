@@ -29,8 +29,5 @@ public class Authenticate {
         }
         return false;
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> feature/VentanaTipoDeCambio-1911054
+
