@@ -3,6 +3,7 @@ package views.core.panel.menu;
 import views.category.JPCategoryView;
 import views.core.panel.menu.partials.FileMenu;
 import views.core.panel.menu.partials.MaintenanceMenu;
+import views.core.panel.menu.partials.SaleMenu;
 import views.documents.DocumentsView;
 import views.person.PersonView;
 import views.product.JPProductView;
@@ -21,6 +22,7 @@ public class Menu extends JMenuBar {
     }
     public void createMenu(){
         add(new FileMenu("Archivo"));
+        add(new SaleMenu("Ventas",main));
         add(new MaintenanceMenu("Mantenimiento",main));
     }
     

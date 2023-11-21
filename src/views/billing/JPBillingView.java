@@ -13,10 +13,10 @@ public class JPBillingView extends JPBaseView {
         BillingController controller = new BillingController(this);
         panelList = new JPBillingList(controller);
         panelEditor = new JPBillingEditor(controller);
-        tabContent.add(panelList,"List");
         tabContent.add(panelEditor,"Action");
+        tabContent.add(panelList,"List");
         add(tabContent, BorderLayout.CENTER);
-        //controller.init();
+        controller.init();
     }
 
 }

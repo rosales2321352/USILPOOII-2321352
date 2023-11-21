@@ -24,7 +24,7 @@ public abstract class JPBaseList extends JPanel{
         lblTitle.setFont(new Font("Arial", Font.BOLD,24));
         titlePanel.add(lblTitle);
     }
-    public void makeTableHeader(String[] titles, int len){
+    public void makeTableHeader( String[] titles, int len){
         Object[][] objects = new Object[len][];
         for (int i = 0; i < objects.length; i++) {
             objects[i] = new Object[]{""};
