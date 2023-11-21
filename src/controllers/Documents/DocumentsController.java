@@ -139,7 +139,7 @@ public class DocumentsController {
             if(new DocumentType().delete(documents_id) < 1){
                 message = "Ha ocurrido un error en el proceso";
             }else{
-                message = "Unidad eliminada correctamente.";
+                message = "Documento eliminado correctamente.";
             }
             JOptionPane.showMessageDialog(null,
                     message,

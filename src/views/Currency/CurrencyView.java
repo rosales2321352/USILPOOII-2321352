@@ -1,26 +1,27 @@
-package views.person;
+package views.Currency;
 
-import controllers.person.PersonController;
-import views.person.partials.PersonEditor;
-import views.person.partials.PersonList;
+import controllers.Currency.CurrencyController;
+import views.Currency.partials.CurrencyList;
+import views.Currency.partials.CurrencyEditor;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
-public class PersonView extends JPanel {
+public class CurrencyView extends JPanel{
 
-    PersonController controller;
+    public CurrencyController controller;
     public CardLayout cardLayout;
-    public PersonList personList;
-    public PersonEditor personEditor;
     public JPanel tabContent;
+    public CurrencyList CurrencyList;
+    public CurrencyEditor CurrencyEditor;
 
-    public PersonView(){
+
+    public CurrencyView(){
         this.setBackground(Color.WHITE);
-        this.controller = new PersonController(this);
-        this.personList = new PersonList(this.controller);
-        this.personEditor = new PersonEditor(this.controller);
+        this.controller = new CurrencyController(this);
+        this.CurrencyList = new CurrencyList(this.controller);
+        this.CurrencyEditor = new CurrencyEditor(this.controller);
         this.setLayout(new BorderLayout());
         this.cardLayout = new CardLayout();
         this.tabContent = new JPanel(cardLayout);
@@ -29,10 +30,11 @@ public class PersonView extends JPanel {
         EmptyBorder paddingBorder = new EmptyBorder(paddingSize, paddingSize, paddingSize, paddingSize);
         this.setBorder(paddingBorder);
 
-        tabContent.add(this.personList,"List");
-        tabContent.add(this.personEditor,"Action");
+        tabContent.add(this.CurrencyList, "List");
+        tabContent.add(this.CurrencyEditor, "Action");
 
         this.add(tabContent, BorderLayout.CENTER);
+
         this.controller.renderObjects();
         this.controller.loadDataTableAsync("");
     }

@@ -57,7 +57,9 @@ public class PersonList extends  JPanel{
         btnSearch.setBackground(new Color(0,123,255));
         btnSearch.setBorder((BorderFactory.createMatteBorder(6,20,6,20,new java.awt.Color(0,123,255))));
         btnSearch.setForeground(Color.WHITE);
-        //btnSearch.addActionListener(controller::onClickSearchProduct);
+
+        btnSearch.addActionListener(controller::onClickSearchPerson);
+
         flowPanel.add(btnSearch);
 
         JButton addNew = new JButton("Nuevo");
@@ -65,7 +67,9 @@ public class PersonList extends  JPanel{
         addNew.setBackground(new Color(0,123,255));
         addNew.setBorder((BorderFactory.createMatteBorder(6,20,6,20,new java.awt.Color(0,123,255))));
         addNew.setForeground(Color.WHITE);
-        //addNew.addActionListener(controller::onClickBtnNew);
+
+        addNew.addActionListener(controller::onClickBtnNew);
+
         flowPanel.add(addNew);
 
         GridBagConstraints gbc = new GridBagConstraints();

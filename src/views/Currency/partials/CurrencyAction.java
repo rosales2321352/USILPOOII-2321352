@@ -1,6 +1,6 @@
-package views.person.partials;
+package views.Currency.partials;
 
-import controllers.person.PersonController;
+import controllers.Currency.CurrencyController;
 import views.core.panel.IActionPanel;
 
 import javax.imageio.ImageIO;
@@ -9,17 +9,17 @@ import java.awt.*;
 import java.io.IOException;
 import java.util.Objects;
 
-public class PersonAction extends JPanel implements IActionPanel{
+public class CurrencyAction extends JPanel implements IActionPanel {
 
-    public PersonController controller;
-    private int id_employee;
-    public  JButton btnEdit;
+    public CurrencyController controller;
+    private int currency_id;
+    public JButton btnEdit;
     public JButton btnDelete;
 
-    public PersonAction(PersonController controller){
+    public CurrencyAction(CurrencyController controller){
 
         this.controller = controller;
-        this.setLayout(new FlowLayout(FlowLayout.CENTER,0,0));
+        this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
         this.setBackground(Color.WHITE);
 
         btnEdit = new JButton();
@@ -40,29 +40,27 @@ public class PersonAction extends JPanel implements IActionPanel{
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        this.add(btnEdit);
-        this.add(btnDelete);
 
         btnEdit.addActionListener((e) -> {
-            controller.onClickEditAction(e, id_employee);
+            controller.onClickBtnEdit(e,currency_id);
         });
         btnDelete.addActionListener((e) -> {
-            controller.onClickDeleteAction(e,id_employee);
+            controller.onClickBtnDelete(e,currency_id);
         });
 
         this.add(btnEdit);
         this.add(btnDelete);
-
     }
 
-
     @Override
-    public JPanel getPanel() { return this;}
-
+    public JPanel getPanel() {
+        return this;
+    }
 
     @Override
     public void setId(Object id) {
+        this.currency_id= Integer.parseInt(id.toString());
 
-        this.id_employee = Integer.parseInt(id.toString());
     }
+
 }

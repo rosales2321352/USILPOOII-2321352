@@ -4,7 +4,10 @@ import models.ModelSQL;
 import models.db.Db;
 import models.db.classes.Parameter;
 
+<<<<<<< HEAD
 import javax.swing.text.Document;
+=======
+>>>>>>> feature/VentanaTipoDeCambio-1911054
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Arrays;

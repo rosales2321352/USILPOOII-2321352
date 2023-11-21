@@ -10,6 +10,11 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+<<<<<<< HEAD
+=======
+import java.util.logging.Level;
+import java.util.logging.Logger;
+>>>>>>> feature/VentanaTipoDeCambio-1911054
 
 public class Person  {
 
@@ -21,6 +26,10 @@ public class Person  {
     private String address;
     private String reference;
     private String email;
+<<<<<<< HEAD
+=======
+    private Integer outstanding;
+>>>>>>> feature/VentanaTipoDeCambio-1911054
 
     public Person() {}
         public Integer getEmployeeId () {
@@ -47,6 +56,10 @@ public class Person  {
         public String getEmail() {
             return this.email;
         }
+<<<<<<< HEAD
+=======
+        public Integer getOutstanding() { return this.outstanding; }
+>>>>>>> feature/VentanaTipoDeCambio-1911054
 
         public void setEmployeeId (Integer employee_id){  this.employee_id = employee_id; }
         public void setTypeDniId(int type_dni_id){
@@ -69,6 +82,13 @@ public class Person  {
             this.email = email;
         }
 
+<<<<<<< HEAD
+=======
+    public void setOutstanding(Integer outstanding) {
+        this.outstanding = outstanding;
+    }
+
+>>>>>>> feature/VentanaTipoDeCambio-1911054
         public List<Person> getListPersons(String query){
             try {
                 String sql = query.trim().isEmpty()? ModelSQL.SQL_STMT_GET_EMPLOYEE:ModelSQL.SQL_STMT_GET_EMPLOYEE_BY_LIKE;
@@ -108,7 +128,11 @@ public class Person  {
 
         public Person getPerson(int employee_id){
         try{
+<<<<<<< HEAD
             var result = Db.executeQuery(ModelSQL.SQL_STMT_GET_EMPLOYEE, List.of(
+=======
+            var result = Db.executeQuery(ModelSQL.SQL_STMT_GET_EMPLOYEE_ID, List.of(
+>>>>>>> feature/VentanaTipoDeCambio-1911054
                     new Parameter<>(1, employee_id)
             ));
             Person person = new Person();
@@ -128,6 +152,7 @@ public class Person  {
         }
     }
 
+<<<<<<< HEAD
     /*
     public int save(){
         try{
@@ -139,3 +164,39 @@ public class Person  {
 
 
 }
+=======
+
+    public int save(){
+        try{
+            String query = this.employee_id==0? ModelSQL.SQL_STMT_INSERT_EMPLOYEE:ModelSQL.SQL_STMT_UPDATE_EMPLOYEE;
+            List<Parameter> parameters = new ArrayList<>();
+            parameters.add(new Parameter<>(1,this.document));
+            parameters.add(new Parameter<>(2,this.name));
+            parameters.add(new Parameter<>(3,this.address));
+            parameters.add(new Parameter<>(4,this.email));
+            parameters.add(new Parameter<>(5,this.telephone));
+            parameters.add(new Parameter<>(6,this.reference));
+            parameters.add(new Parameter<>(7,this.outstanding));
+            if(this.employee_id !=0) parameters.add(new Parameter<>(8,this.employee_id));
+            return Db.executeUpdate(query,parameters);
+        }catch (Exception e){
+            Logger.getLogger(Person.class.getName()).log(Level.SEVERE,null,e);
+            return 0;
+        }
+    }
+
+    public int delete(){
+        try{
+            List<Parameter> parameters = List.of(
+                    new Parameter<>(1,this.employee_id)
+            );
+            return Db.executeUpdate(ModelSQL.SQL_STMT_DELETE_EMPLOYEE,parameters);
+        }catch (Exception e){
+            Logger.getLogger(Person.class.getName()).log(Level.SEVERE,null,e);
+            return 0;
+        }
+    }
+
+
+}
+>>>>>>> feature/VentanaTipoDeCambio-1911054

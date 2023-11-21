@@ -28,8 +28,11 @@ public class ManageCellsActionButtons extends AbstractCellEditor implements Tabl
         columnModel.getColumn(column).setCellRenderer( this );
         columnModel.getColumn(column).setCellEditor( this );
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> feature/VentanaTipoDeCambio-1911054
     }
 
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column)
