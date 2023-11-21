@@ -11,8 +11,10 @@ import views.customer.JPCustomerView;
 import views.documents.DocumentsView;
 import views.person.PersonView;
 import views.product.JPProductView;
+import views.tax.JPTaxView;
 import views.typeAffectation.JPTypeAffectationView;
 import views.unity.JPUnityView;
+import views.user.UserView;
 
 import javax.swing.*;
 
@@ -145,6 +147,17 @@ public class MaintenanceMenu extends CustomMenu {
         currencyConversionMenuItem.addActionListener((e) -> {
             SwingUtilities.invokeLater(() -> {
                 run(new CurrencyConversionView(),"Tipo de Cambio",500, 576,false);
+            });
+        });
+
+        userMenuItem.addActionListener((e) -> {
+            SwingUtilities.invokeLater(() -> {
+                run(new UserView(), "Administración de usuarios",500, 576,false);
+            });
+        });
+        taxMenuItem.addActionListener((e) -> {
+            SwingUtilities.invokeLater(() -> {
+                run(new JPTaxView(), "Administración de impuestos", 500 , 576, false);
             });
         });
 

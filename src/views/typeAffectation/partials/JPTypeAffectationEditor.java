@@ -25,7 +25,7 @@ public class JPTypeAffectationEditor extends JPBaseEditor {
     }
 
     public void drawControls(){
-        makeTitle("Agregar nuevo tipo de afeactación");
+        makeTitle("Agregar nuevo tipo de afectación");
         JPanel panelControls = new JPanel();
         panelControls.setBackground(Color.WHITE);
         GroupLayout layout = new GroupLayout(panelControls);

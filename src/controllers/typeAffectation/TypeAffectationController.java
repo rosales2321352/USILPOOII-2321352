@@ -25,12 +25,12 @@ public class TypeAffectationController extends BaseController<TypeAffectation> {
         this.baseView=baseView;
         COLUMN_NAMES= new String[]{"Id", "Nombre", "Aciones"};
         messages = new HashMap<>();
-        messages.put("AddConfirm","");
-        messages.put("EditConfirm","");
-        messages.put("DeleteConfirm","");
-        messages.put("SaveError","");
-        messages.put("SaveSuccess","");
-        messages.put("DeleteSuccess","");
+        messages.put("AddConfirm","¿Estas seguro de agregar el tipo de afectacion?");
+        messages.put("EditConfirm","¿Estas seguro de editar el tipo de afectacion?");
+        messages.put("DeleteConfirm","¿Estas seguro de eliminar el tipo de afectacion?");
+        messages.put("SaveError","Se encontro un error");
+        messages.put("SaveSuccess","Se guardo el tipo de afectacion correctamente");
+        messages.put("DeleteSuccess","Se elimino el tipo de afectacion correctamente");
     }
     public void init(){
         typeAffectationEditor = (JPTypeAffectationEditor) baseView.panelEditor;
@@ -60,7 +60,7 @@ public class TypeAffectationController extends BaseController<TypeAffectation> {
         typeAffectationEditor.txtId.setText("");
         typeAffectationEditor.txtId.setEditable(true);
         typeAffectationEditor.txtName.setText("");
-        typeAffectationEditor.cmbTax.setSelectedIndex(0);
+        //typeAffectationEditor.cmbTax.setSelectedIndex(0);
         typeAffectationEditor.chkFree.setSelected(false);
         typeAffectationEditor.chkOnerous.setSelected(false);
     }

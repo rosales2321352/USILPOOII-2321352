@@ -21,12 +21,12 @@ public class TaxController extends BaseController<Tax>{
         this.baseView = baseView;
         COLUMN_NAMES = new String[]{ "Id", "Nombre", "%","Acciones"};
         messages = new HashMap<>();
-        messages.put("AddConfirm","");
-        messages.put("EditConfirm","");
-        messages.put("DeleteConfirm","");
-        messages.put("SaveError","");
-        messages.put("SaveSuccess","");
-        messages.put("DeleteSuccess","");
+        messages.put("AddConfirm","¿Estas seguro de guardar el tipo de impuesto?");
+        messages.put("EditConfirm","¿Estas seguro de editar el tipo de impuesto?");
+        messages.put("DeleteConfirm","¿Estas seguro de eliminar el tipo de impuesto?");
+        messages.put("SaveError","Se encontro un error");
+        messages.put("SaveSuccess","El tipo de impuesto fue guardado correctamente");
+        messages.put("DeleteSuccess","El tipo de impuesto fue eliminado correctamente");
     }
     public void init(){
         taxEditor = (JPTaxEditor) baseView.panelEditor;

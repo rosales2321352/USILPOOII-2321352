@@ -30,12 +30,12 @@ public class ProductController extends BaseController<Product> {
         this.baseView=baseView;
         COLUMN_NAMES=new String[]{ "Id", "SUNAT", "Referencia", "TA", "Descripción", "Aciones"};
         messages = new HashMap<>();
-        messages.put("AddConfirm","");
-        messages.put("EditConfirm","");
-        messages.put("DeleteConfirm","");
-        messages.put("SaveError","");
-        messages.put("SaveSuccess","");
-        messages.put("DeleteSuccess","");
+        messages.put("AddConfirm","¿Estas seguro de guardar el producto?");
+        messages.put("EditConfirm","¿Estas seguro de editar el producto?");
+        messages.put("DeleteConfirm","Estas seguro de eliminar el producto");
+        messages.put("SaveError","Sucedio un problema al guardar el producto");
+        messages.put("SaveSuccess","Se guardo correctamente el producto");
+        messages.put("DeleteSuccess","Se elimino correctamente en producto");
     }
     public void init(){
         productEditor = (JPProductEditor) baseView.panelEditor;

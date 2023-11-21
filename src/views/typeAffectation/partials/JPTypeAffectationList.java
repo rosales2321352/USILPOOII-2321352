@@ -26,7 +26,7 @@ public class JPTypeAffectationList extends JPBaseList {
         JPanel titlePanel = new JPanel();
         titlePanel.setBackground(Color.WHITE);
         titlePanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-        JLabel lblTitle = new JLabel("Listado de Impuestos");
+        JLabel lblTitle = new JLabel("Listado de Afectación");
         lblTitle.setFont(new Font("Arial", Font.BOLD,24));
         titlePanel.add(lblTitle);
 

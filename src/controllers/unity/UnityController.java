@@ -21,12 +21,12 @@ public class UnityController extends BaseController<Unity> {
         this.baseView=baseView;
         COLUMN_NAMES= new String[]{"Id", "Nombre", "Símbolo", "Aciones"};
         messages = new HashMap<>();
-        messages.put("AddConfirm","");
-        messages.put("EditConfirm","");
-        messages.put("DeleteConfirm","");
-        messages.put("SaveError","");
-        messages.put("SaveSuccess","");
-        messages.put("DeleteSuccess","");
+        messages.put("AddConfirm","¿Estas seguro de agregar la unidad de medida?");
+        messages.put("EditConfirm","¿Estas seguro de editar la unidad de medida?");
+        messages.put("DeleteConfirm","¿Estas seguro de eliminar la unidad de medida?");
+        messages.put("SaveError","Se encontro un error");
+        messages.put("SaveSuccess","Se guardo correctamente la unidad de medida");
+        messages.put("DeleteSuccess","Se elimino correctamente la unidad de medida");
     }
     public void init(){
         unityEditor = (JPUnityEditor) baseView.panelEditor;

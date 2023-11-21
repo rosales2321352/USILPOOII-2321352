@@ -19,12 +19,12 @@ public class CategoryController extends BaseController<Category> {
         this.baseView=baseView;
         COLUMN_NAMES= new String[]{ "Id", "Nombre", "Color", "Aciones"};
         messages = new HashMap<>();
-        messages.put("AddConfirm","");
-        messages.put("EditConfirm","");
-        messages.put("DeleteConfirm","");
-        messages.put("SaveError","");
-        messages.put("SaveSuccess","");
-        messages.put("DeleteSuccess","");
+        messages.put("AddConfirm","¿Estas seguro de agregar la categoria?");
+        messages.put("EditConfirm","¿Estas seguro de editar la categoria?");
+        messages.put("DeleteConfirm","¿Estas seguro de eliminar la categoria?");
+        messages.put("SaveError","Ocurrio un error");
+        messages.put("SaveSuccess","Se guardo la categoria correctamente");
+        messages.put("DeleteSuccess","Se elimino la categoria correctamente");
     }
     public void init(){
         categoryEditor = (JPCategoryEditor) baseView.panelEditor;
