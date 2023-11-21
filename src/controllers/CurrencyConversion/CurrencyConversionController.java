@@ -1,22 +1,29 @@
 package controllers.CurrencyConversion;
 import models.CurrencyConversion.CurrencyConversion;
-import views.CurrencyConversion.partials.CurrencyConversionEditor;
-import models.ModelSQL;
+import models.combobox.CurrencyComboBox;
 import views.CurrencyConversion.CurrencyConversionView;
+import views.core.combobox.CustomComboBox;
+import views.core.combobox.CustomComboBoxModel;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
+import java.sql.Date;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class CurrencyConversionController {
 
-    final String[] COLUMN_NAMES = { "Id","Currency","Conversion","Sale","Buy", "Acciones" };
+    final String[] COLUMN_NAMES = { "Id","Currency","Sale","Buy","Date", "Acciones" };
     private final CurrencyConversionView panel;
-    private String conversion="";
+    private final String conversion="";
 
-    private int currency_id = 0;
+    private int conversion_id = 0;
+    private int currency_id;
 
+    //private  int currency_id=0;
     public CurrencyConversionController(CurrencyConversionView panel){
         this.panel = panel;
     }
@@ -26,33 +33,55 @@ public class CurrencyConversionController {
     }
 
     public void resetControls(){
-        this.currency_id=0;
-        this.panel.CurrencyConversionEditor.txtcurrency.setText("");
+        //this.currency_id=0;
+        this.conversion_id=0;
+        this.panel.CurrencyConversionEditor.txtcurrency.setSelectedIndex(0);
         this.panel.CurrencyConversionEditor.lblTitle.setText("Agregar tipo de cambio");
-        this.panel.CurrencyConversionEditor.txtconversion.setText("");
         this.panel.CurrencyConversionEditor.txtsale.setText("");
         this.panel.CurrencyConversionEditor.txtbuy.setText("");
     }
-
     public void loadDataTableAsync(String query){
+        CompletableFuture<List<CurrencyConversion>> futureCurrencyConversion = CompletableFuture.supplyAsync(() -> {
+            return new CurrencyConversion().getCurrencyConversions(query);
+        });
+        futureCurrencyConversion.thenAcceptAsync(unities -> {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+            Object[][] information = unities.stream()
+                    .map(currencyConversion -> new Object[]{
+                            String.valueOf(currencyConversion.getConversion_id()),
+                            currencyConversion.getName(),
+                            String.valueOf(currencyConversion.getSale()),
+                            String.valueOf(currencyConversion.getBuy()),
+                            dateFormat.format(currencyConversion.getDate())})
+                    .toArray(Object[][]::new);
+            SwingUtilities.invokeLater(() -> panel.CurrencyConversionList.makeTable(information, COLUMN_NAMES));
+        });
+    }
+
+
+    /*public void loadDataTableAsync(String query){
         CompletableFuture<List<CurrencyConversion>> futureCurrencyConversion = CompletableFuture.supplyAsync(() -> {
             return new CurrencyConversion().getCurrencyConversions(query);
         });
         futureCurrencyConversion.thenAcceptAsync(unities -> {
             Object[][] information = unities.stream()
                     .map(currencyConversion -> new Object[]{
-                            String.valueOf(currencyConversion.getCurrency_id()),
-                            currencyConversion.getConversion_id(),currencyConversion.getCurrency_id()})
+                            String.valueOf(currencyConversion.getConversion_id()),
+                            String.valueOf(currencyConversion.getConversion_id()),
+                            String.valueOf(currencyConversion.getSale()),
+                            String.valueOf(currencyConversion.getBuy()),
+                            String.valueOf(currencyConversion.getDate())})
                     .toArray(Object[][]::new);
             SwingUtilities.invokeLater(() -> panel.CurrencyConversionList.makeTable(information, COLUMN_NAMES));
         });
-    }
+    }*/
 
-    public boolean validate(){
+    /*public boolean validate(){
         if(panel.CurrencyConversionEditor.txtcurrency.getText().trim().isEmpty()){
             return false;
         }
-        if(panel.CurrencyConversionEditor.txtconversion.getText().trim().isEmpty()){
+        if(panel.CurrencyConversionEditor.txtdate.getText().trim().isEmpty()){
             return false;}
 
         if(panel.CurrencyConversionEditor.txtsale.getText().trim().isEmpty()){
@@ -62,21 +91,55 @@ public class CurrencyConversionController {
         if(panel.CurrencyConversionEditor.txtbuy.getText().trim().isEmpty()){
             return false;}
         return true;
+    }*/
+    public boolean validate() {
+        //if (panel.CurrencyConversionEditor.txtcurrency.getText().trim().isEmpty()) {
+          //  return false;
+        //}
+
+
+        if (panel.CurrencyConversionEditor.txtdate.getModel().getValue() == null) {
+            return false;
+        }
+
+        if (panel.CurrencyConversionEditor.txtsale.getText().trim().isEmpty()) {
+            return false;
+        }
+
+        if (panel.CurrencyConversionEditor.txtbuy.getText().trim().isEmpty()) {
+            return false;
+        }
+
+        return true;
     }
 
+
+    /*public int save(){
+        CurrencyConversion currencyConversion  = new CurrencyConversion();
+        currencyConversion.setCurrency_id(this.currency_id);
+        //currencyConversion.setConversion_id(this.conversion_id);
+        currencyConversion.setDate((Date)panel.CurrencyConversionEditor.txtdate.getModel().getValue());
+        currencyConversion.setBuy(Double.parseDouble(panel.CurrencyConversionEditor.txtbuy.getText()));
+        currencyConversion.setSale(Double.parseDouble(panel.CurrencyConversionEditor.txtsale.getText()));
+
+
+
+        return currencyConversion.save();
+    }*/
     public int save(){
-        Currency currency  = new Currency();
-        currency.setCurrency_id(this.currency_id);
-        currency.setName(panel.CurrencyEditor.txtName.getText());
-        currency.setSymbol(panel.CurrencyEditor.txtsymbol.getText());
-        currency.setIso_code(panel.CurrencyEditor.txtiso_code.getText());
-        currency.setLocation(panel.CurrencyEditor.txtlocation.getText());
-        currency.setPredeterminanted(panel.CurrencyEditor.txtpredetermined.isSelected()?1:0);
+        CurrencyComboBox currency = (CurrencyComboBox) panel.CurrencyConversionEditor.txtcurrency.getSelectedItem();
+        CurrencyConversion currencyConversion  = new CurrencyConversion();
+        currencyConversion.setCurrency_id((int) currency.getId());
+        currencyConversion.setConversion_id(this.conversion_id);
+        java.util.Date utilDate = (java.util.Date) panel.CurrencyConversionEditor.txtdate.getModel().getValue();
+        java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+        currencyConversion.setDate(sqlDate);
+        currencyConversion.setBuy(Double.parseDouble(panel.CurrencyConversionEditor.txtbuy.getText()));
+        currencyConversion.setSale(Double.parseDouble(panel.CurrencyConversionEditor.txtsale.getText()));
 
-
-
-        return currency.save();
+        return currencyConversion.save();
     }
+
 
     public void onClickBtnCancel(ActionEvent e){
         int response = JOptionPane.showConfirmDialog(null,
@@ -88,30 +151,54 @@ public class CurrencyConversionController {
         }
     }
 
+    /*public void onClickBtnEdit(ActionEvent e, int currencyId){
+        this.panel.CurrencyConversionEditor.lblTitle.setText("Editar Tipo de Cambio");
+        CompletableFuture<CurrencyConversion> futureCurrencyConversion = CompletableFuture.supplyAsync(() -> new CurrencyConversion().getCurrencyConversion(currencyId));
+        futureCurrencyConversion.thenAcceptAsync(currencyConversion -> SwingUtilities.invokeLater(() -> {
+            this.currency_id=currencyConversion.getCurrency_id();
+            this.panel.CurrencyConversionEditor.txtcurrency.setText(String.valueOf(currencyConversion.getCurrency_id()));
+            this.panel.CurrencyConversionEditor.txtconversion.setText(String.valueOf(currencyConversion.getConversion_id()));
+            this.panel.CurrencyConversionEditor.txtdate.getModel().setDate(currencyConversion.getDate().getYear(),currencyConversion.getDate().getMonth(),currencyConversion.getDate().getDay());
+            this.panel.CurrencyConversionEditor.txtsale.setText(String.valueOf(currencyConversion.getBuy()));
+            this.panel.CurrencyConversionEditor.txtbuy.setText(String.valueOf(currencyConversion.getSale()));
+
+        }));
+        this.switchTab((JButton) e.getSource());
+    }*/
     public void onClickBtnEdit(ActionEvent e, int currencyId){
-        this.panel.CurrencyEditor.lblTitle.setText("Editar Moneda");
-        CompletableFuture<Currency> futureCurrency = CompletableFuture.supplyAsync(() -> new Currency().getCurrency(currencyId));
-        futureCurrency.thenAcceptAsync(currency -> SwingUtilities.invokeLater(() -> {
-            this.currency_id=currency.getCurrency_id();
-            this.panel.CurrencyEditor.txtName.setText(currency.getName());
-            this.panel.CurrencyEditor.txtsymbol.setText(currency.getSymbol());
-            this.panel.CurrencyEditor.txtlocation.setText(currency.getLocation());
-            this.panel.CurrencyEditor.txtpredetermined.setSelected(currency.getPredeterminanted()==1);
-            this.panel.CurrencyEditor.txtiso_code.setText(currency.getIso_code());
+        this.panel.CurrencyConversionEditor.lblTitle.setText("Editar Tipo de Cambio");
+        CompletableFuture<CurrencyConversion> futureCurrencyConversion = CompletableFuture.supplyAsync(() -> new CurrencyConversion().getCurrencyConversion(currencyId));
+        futureCurrencyConversion.thenAcceptAsync(currencyConversion -> SwingUtilities.invokeLater(() -> {
+            this.currency_id = currencyConversion.getCurrency_id();
+            this.panel.CurrencyConversionEditor.txtcurrency.setSelectedItemById(currencyConversion.getCurrency_id());
+            this.panel.CurrencyConversionEditor.txtconversion.setText(String.valueOf(currencyConversion.getConversion_id()));
+
+            java.util.Date date = currencyConversion.getDate();
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(date);
+            this.panel.CurrencyConversionEditor.txtdate.getModel().setDate(
+                    calendar.get(Calendar.YEAR),
+                    calendar.get(Calendar.MONTH),
+                    calendar.get(Calendar.DAY_OF_MONTH)
+            );
+
+            this.panel.CurrencyConversionEditor.txtsale.setText(String.valueOf(currencyConversion.getBuy()));
+            this.panel.CurrencyConversionEditor.txtbuy.setText(String.valueOf(currencyConversion.getSale()));
 
         }));
         this.switchTab((JButton) e.getSource());
     }
 
+
     public void onClickBtnSave(ActionEvent e){
         if(validate()){
             String message="";
-            if (this.name.trim().isEmpty()) {
+            if (this.conversion_id !=0) {
 
-                message ="¿Está seguro de crear la moneda?" ;
+                message ="¿Está seguro de agregar el tipo de cambio?" ;
             }
             else {
-                message = "¿Está seguro de actualizar la moneda?";
+                message = "¿Está seguro de actualizar el tipo de cambio?";
             }
             int response = JOptionPane.showConfirmDialog(null,
                     message,
@@ -121,12 +208,12 @@ public class CurrencyConversionController {
                 if(rowsAffected < 1){
                     JOptionPane.showMessageDialog(
                             null,
-                            "No se pudo guardar la moneda.",
+                            "No se pudo guardar el tipo de cambio.",
                             "Atención", JOptionPane.INFORMATION_MESSAGE);
                 }else{
                     JOptionPane.showMessageDialog(
                             null,
-                            "Moneda guardada correctamente.",
+                            "Tipo de cambio guardado correctamente.",
                             "Atención", JOptionPane.INFORMATION_MESSAGE);
                 }
                 this.loadDataTableAsync("");
@@ -167,4 +254,15 @@ public class CurrencyConversionController {
         String command = button.getName();
         panel.cardLayout.show(panel.tabContent, command);
     }
+
+    public void loadDataComboBox(){
+        CompletableFuture<List<CurrencyComboBox>> futureCurency=CompletableFuture.supplyAsync(()->new CurrencyComboBox().getCurrenciesCmb());
+        futureCurency.thenAcceptAsync(currency->SwingUtilities.invokeLater(()->{
+            CustomComboBoxModel<CurrencyComboBox> model=new CustomComboBoxModel<>(currency);
+            panel.CurrencyConversionEditor.txtcurrency.setModel(model);
+            panel.CurrencyConversionEditor.txtcurrency.setSelectedIndex(0);
+        }));
+    }
+
 }
+

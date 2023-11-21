@@ -37,5 +37,6 @@ public class CurrencyConversionView extends JPanel{
 
         this.controller.renderObjects();
         this.controller.loadDataTableAsync("");
+        this.controller.loadDataComboBox();
     }
 }

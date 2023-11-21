@@ -1,9 +1,17 @@
 package views.CurrencyConversion.partials;
 
 import controllers.CurrencyConversion.CurrencyConversionController;
+import controllers.CurrencyConversion.DateLabelFormatter;
+import models.Currency.Currency;
+import models.combobox.CurrencyComboBox;
+import org.jdatepicker.impl.JDatePanelImpl;
+import org.jdatepicker.impl.JDatePickerImpl;
+import org.jdatepicker.impl.UtilDateModel;
+import views.core.combobox.CustomComboBox;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Properties;
 
 public class CurrencyConversionEditor extends JPanel {
 
@@ -11,14 +19,16 @@ public class CurrencyConversionEditor extends JPanel {
     public JLabel lblTitle;
     public JButton btnSave;
     public JButton btnCancel;
+     public UtilDateModel model;
 
-    public JTextField txtcurrency;
-    public JTextField txtdate;
+    public CustomComboBox <CurrencyComboBox> txtcurrency;
+    public JDatePickerImpl txtdate;
     public JTextField txtconversion;
 
     public JTextField txtbuy;
 
     public JTextField txtsale;
+
 
 
     public CurrencyConversionEditor(CurrencyConversionController controller){
@@ -42,11 +52,17 @@ public class CurrencyConversionEditor extends JPanel {
         panelControls.setLayout(layout);
 
         JLabel lblcurrency = new JLabel("Moneda:");
-        this.txtcurrency = new JTextField();
-        JLabel lblconversion = new JLabel("Tipo de cambio:");
-        this.txtconversion = new JTextField();
+        this.txtcurrency = new CustomComboBox<>();
+        //JLabel lblconversion = new JLabel("Tipo de cambio:");
+        //this.txtconversion = new JTextField();
         JLabel lbldate = new JLabel("Fecha:");
-        this.txtdate = new JTextField();
+        Properties p = new Properties();
+        p.put("text.year", "año");
+        p.put("text.month", "Mes");
+        p.put("text.today", "Hoy");
+         model = new UtilDateModel();
+        JDatePanelImpl datePanel = new JDatePanelImpl(model,p);
+         txtdate = new JDatePickerImpl(datePanel,new DateLabelFormatter());
         JLabel lblbuy = new JLabel("Venta:");
         this.txtbuy = new JTextField();
         JLabel lblisale = new JLabel("Compra:");
@@ -60,11 +76,6 @@ public class CurrencyConversionEditor extends JPanel {
                                         .addComponent(lblcurrency)
                                         .addGap(10)
                                         .addComponent(txtcurrency, GroupLayout.DEFAULT_SIZE, 250, GroupLayout.PREFERRED_SIZE)
-                                )
-                                .addGroup(layout.createSequentialGroup()
-                                        .addComponent(lblconversion)
-                                        .addGap(10)
-                                        .addComponent(txtconversion, GroupLayout.DEFAULT_SIZE, 250, GroupLayout.PREFERRED_SIZE)
                                 )
                                 .addGroup(layout.createSequentialGroup()
                                         .addComponent(lbldate)
@@ -94,11 +105,6 @@ public class CurrencyConversionEditor extends JPanel {
                         )
                         .addGap(20)
 
-                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.CENTER)
-                                .addComponent(lblconversion)
-                                .addComponent(txtconversion, GroupLayout.DEFAULT_SIZE, 35, GroupLayout.PREFERRED_SIZE)
-                        )
-                        .addGap(20)
 
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.CENTER)
                                 .addComponent(lbldate)

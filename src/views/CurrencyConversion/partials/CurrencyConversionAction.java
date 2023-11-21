@@ -44,12 +44,12 @@ public class CurrencyConversionAction extends JPanel implements IActionPanel {
         btnEdit.addActionListener((e) -> {
             controller.onClickBtnEdit(e,currency_id);
         });
-        btnDelete.addActionListener((e) -> {
+       /* btnDelete.addActionListener((e) -> {
             controller.onClickBtnDelete(e,currency_id);
-        });
+        });*/
 
         this.add(btnEdit);
-        this.add(btnDelete);
+        //this.add(btnDelete);
     }
 
     @Override

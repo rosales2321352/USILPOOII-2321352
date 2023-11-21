@@ -15,6 +15,8 @@ public class CurrencyController {
     private final CurrencyView panel;
     private String name="";
 
+
+
     private int currency_id = 0;
 
     public CurrencyController(CurrencyView panel){

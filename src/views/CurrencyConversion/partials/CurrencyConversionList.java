@@ -117,12 +117,12 @@ public class CurrencyConversionList extends JPanel {
 
         ManageCellsActionButtons actionsButtons =
                 new ManageCellsActionButtons(table,
-                        3,
+                        5,
                         new views.CurrencyConversion.partials.CurrencyConversionAction(this.controller),
                         new views.CurrencyConversion.partials.CurrencyConversionAction(this.controller));
 
-        table.getColumnModel().getColumn(3).setMaxWidth(100);
-        table.getColumnModel().getColumn(3).setMinWidth(100);
+        table.getColumnModel().getColumn(5).setMaxWidth(100);
+        table.getColumnModel().getColumn(5).setMinWidth(100);
 
         JTableHeader jTableHeader = table.getTableHeader();
         jTableHeader.setDefaultRenderer(new ManageTableHeader());

@@ -3,13 +3,14 @@ package models.Currency;
 import models.ModelSQL;
 import models.db.Db;
 import models.db.classes.Parameter;
+import views.core.combobox.IComboBox;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Currency  {
+public class Currency {
     private int currency_id;
     private String name;
 

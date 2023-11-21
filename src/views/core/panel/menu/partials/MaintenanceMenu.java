@@ -1,5 +1,7 @@
 package views.core.panel.menu.partials;
 
+import views.Currency.CurrencyView;
+import views.CurrencyConversion.CurrencyConversionView;
 import views.category.JPCategoryView;
 import views.core.panel.menu.CustomMenu;
 import views.core.panel.menu.CustomMenuItem;
@@ -11,6 +13,7 @@ import views.typeAffectation.JPTypeAffectationView;
 import views.unity.JPUnityView;
 
 import javax.swing.*;
+import java.util.Currency;
 
 public class MaintenanceMenu extends CustomMenu {
     private JMenu personUserMenu;
@@ -29,6 +32,9 @@ public class MaintenanceMenu extends CustomMenu {
     private JMenu othersMenuItem;
     private JMenuItem movementTypeMenuItem;
     private JMenuItem taxMenuItem;
+     private JMenuItem currencyMenuItem;
+    private JMenuItem currencyConversionMenuItem;
+
     public MaintenanceMenu(String title, JFrame main) {
         super(title);
         this.main = main;
@@ -77,6 +83,12 @@ public class MaintenanceMenu extends CustomMenu {
 
         taxMenuItem = new CustomMenuItem("Impuestos");
         othersMenuItem.add(taxMenuItem);
+
+        currencyMenuItem = new CustomMenuItem("Divisas");
+        othersMenuItem.add(currencyMenuItem);
+
+        currencyConversionMenuItem = new CustomMenuItem("Tipo de cambio");
+        othersMenuItem.add(currencyConversionMenuItem);
     }
 
     public void makeActions(){
@@ -119,6 +131,18 @@ public class MaintenanceMenu extends CustomMenu {
         typeAffectationMenuItem.addActionListener((e) -> {
             SwingUtilities.invokeLater(() -> {
                 run(new JPTypeAffectationView(),"Administración de tipos de afectación",500,576,false);
+            });
+        });
+
+        currencyMenuItem.addActionListener((e) -> {
+            SwingUtilities.invokeLater(() -> {
+                run(new CurrencyView(),"Monedas",500, 576,false);
+            });
+        });
+
+        currencyConversionMenuItem.addActionListener((e) -> {
+            SwingUtilities.invokeLater(() -> {
+                run(new CurrencyConversionView(),"Tipo de Cambio",500, 576,false);
             });
         });
     }

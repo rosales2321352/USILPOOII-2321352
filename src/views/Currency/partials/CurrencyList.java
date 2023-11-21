@@ -109,7 +109,7 @@ public class CurrencyList extends JPanel {
         }
         table.getTableHeader().setReorderingAllowed(false);
         table.setRowHeight(25);
-        table.setGridColor(new java.awt.Color(216,216,216));
+        table.setGridColor(new java.awt.Color(216, 216, 216));
         table.getColumnModel().getColumn(0).setMaxWidth(50);
         table.getColumnModel().getColumn(0).setResizable(false);
         table.getColumnModel().getColumn(1).setResizable(false);
