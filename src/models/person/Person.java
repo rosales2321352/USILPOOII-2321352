@@ -15,7 +15,7 @@ import java.util.List;
 public class Person  {
 
     private Integer employee_id;
-    private int type_dni_id;
+    private Integer type_dni_id;
     private String document;
     private String telephone;
     private String name;
@@ -27,7 +27,7 @@ public class Person  {
         public Integer getEmployeeId () {
             return this.employee_id;
         }
-        public int getTypeDniId () {
+        public Integer getTypeDniId () {
             return this.type_dni_id;
         }
         public String getDocument(){
@@ -50,7 +50,7 @@ public class Person  {
         }
 
         public void setEmployeeId (Integer employee_id){  this.employee_id = employee_id; }
-        public void setTypeDniId(int type_dni_id){
+        public void setTypeDniId(Integer type_dni_id){
             this.type_dni_id = type_dni_id;
         }
         public void setDocument(String document){ this.document = document;}
@@ -118,7 +118,6 @@ public class Person  {
             while (result.next()){
                 person.setEmployeeId(result.getInt("employee_id"));
                 person.setTypeDniId(result.getInt("document_type_id"));
-
                 person.setDocument(result.getString("document"));
                 person.setName(result.getString("full_name"));
                 person.setAddress(result.getString("address"));
@@ -137,14 +136,15 @@ public class Person  {
         try{
             String query = this.employee_id==0? ModelSQL.SQL_STMT_INSERT_EMPLOYEE:ModelSQL.SQL_STMT_UPDATE_EMPLOYEE;
             List<Parameter> parameters = new ArrayList<>();
-            parameters.add(new Parameter<>(1,this.document));
-            parameters.add(new Parameter<>(2,this.name));
-            parameters.add(new Parameter<>(3,this.address));
-            parameters.add(new Parameter<>(4,this.email));
-            parameters.add(new Parameter<>(5,this.telephone));
-            parameters.add(new Parameter<>(6,this.reference));
+            parameters.add(new Parameter<>(1,this.type_dni_id));
+            parameters.add(new Parameter<>(2,this.document));
+            parameters.add(new Parameter<>(3,this.name));
+            parameters.add(new Parameter<>(4,this.address));
+            parameters.add(new Parameter<>(5,this.email));
+            parameters.add(new Parameter<>(6,this.telephone));
+            parameters.add(new Parameter<>(7,this.reference));
 
-            if(this.employee_id !=0) parameters.add(new Parameter<>(7,this.employee_id));
+            if(this.employee_id !=0) parameters.add(new Parameter<>(8,this.employee_id));
             return Db.executeUpdate(query,parameters);
         }catch (Exception e){
             return 0;

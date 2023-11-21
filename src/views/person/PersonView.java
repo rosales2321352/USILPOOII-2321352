@@ -35,5 +35,6 @@ public class PersonView extends JPanel {
         this.add(tabContent, BorderLayout.CENTER);
         this.controller.renderObjects();
         this.controller.loadDataTableAsync("");
+        this.controller.loadDataComboBoxAsync();
     }
 }

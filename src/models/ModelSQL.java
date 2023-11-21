@@ -6,8 +6,8 @@ public class ModelSQL {
     public static final String SQL_STMT_GET_EMPLOYEE = "SELECT * from employee e limit 50  ";
     public static final String SQL_STMT_GET_EMPLOYEE_ID = "SELECT * from employee e WHERE e.employee_id = ?";
     public static final String SQL_STMT_GET_EMPLOYEE_BY_LIKE = "SELECT * from employee e WHERE e.employee_id LIKE ? or e.document LIKE  ? or e.full_name like ? or e.email LIKE ? limit 50  ";
-    public static final String SQL_STMT_INSERT_EMPLOYEE = "insert into employee (document,full_name,address,email,telephone_number,reference) values (?,?,?,?,?,?)";
-    public static final String SQL_STMT_UPDATE_EMPLOYEE = "update employee set document = ? ,full_name = ? ,address = ? ,email = ? ,telephone_number = ? ,reference = ?  where employee_id = ?";
+    public static final String SQL_STMT_INSERT_EMPLOYEE = "insert into employee (document_type_id,document,full_name,address,email,telephone_number,reference) values (?,?,?,?,?,?,?)";
+    public static final String SQL_STMT_UPDATE_EMPLOYEE = "update employee set document_type_id=?, document = ? ,full_name = ? ,address = ? ,email = ? ,telephone_number = ? ,reference = ?  where employee_id = ?";
     public static final String SQL_STMT_DELETE_EMPLOYEE = "delete from employee where employee_id = ?";
 
     //USERS

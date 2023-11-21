@@ -1,6 +1,8 @@
 package views.person.partials;
 
 import controllers.person.PersonController;
+import models.combobox.DocumentTypeComboBox;
+import views.core.combobox.CustomComboBox;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,13 +15,15 @@ public class PersonEditor extends JPanel {
     private PersonController controller;
 
 
-    //public CustomComboBox<DocumentType> cmbDocumentType;
+    public CustomComboBox<DocumentTypeComboBox> cmbDocumentType;
     public JTextField txtName;
     public JTextField txtDocument;
     public JTextField txtAddress;
     public JTextField txtEmail;
     public JTextField txtTelephone;
     public JTextField txtReferences;
+
+    public JLabel lblTitle;
 
     public PersonEditor(PersonController controller){
         this.setBackground(Color.WHITE);
@@ -35,7 +39,7 @@ public class PersonEditor extends JPanel {
         JPanel titlePanel = new JPanel();
         titlePanel.setBackground(Color.WHITE);
         titlePanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-        JLabel lblTitle = new JLabel("Editar Empleado");
+        lblTitle = new JLabel("Agregar Empleado");
         lblTitle.setFont(new Font("Arial", Font.BOLD,24));
         titlePanel.add(lblTitle);
 
@@ -43,12 +47,16 @@ public class PersonEditor extends JPanel {
 
         JPanel controlsPanel = new JPanel();
         controlsPanel.setBackground(Color.WHITE);
+        JLabel lblTypeDocument = new JLabel("Tipo de documento");
         JLabel lblDocument = new JLabel("Documento");
         JLabel lblName = new JLabel("Nombre");
         JLabel lbladdress = new JLabel("Direccion");
         JLabel lblemail = new JLabel("Correo");
         JLabel lbltelephone = new JLabel("Telefono");
         JLabel lblreference = new JLabel("Referencias");
+
+
+        cmbDocumentType = new CustomComboBox<>();
 
         txtDocument = new JTextField();
         txtDocument.setPreferredSize(new Dimension(200,30));
@@ -83,6 +91,15 @@ public class PersonEditor extends JPanel {
         layout.setHorizontalGroup(
                 layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addComponent(lblTypeDocument)
+                                                .addComponent(cmbDocumentType)
+
+                                        )
+                                )
+
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
                                         .addGroup(layout.createSequentialGroup()
                                                 .addComponent(lblDocument)
@@ -112,6 +129,12 @@ public class PersonEditor extends JPanel {
 
         layout.setVerticalGroup(
                 layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                .addComponent(lblTypeDocument)
+                                .addComponent(cmbDocumentType)
+                        )
+
+
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                 .addComponent(lblDocument)
                                 .addComponent(txtDocument)

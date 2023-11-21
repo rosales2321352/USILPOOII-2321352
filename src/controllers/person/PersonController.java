@@ -1,13 +1,15 @@
 package controllers.person;
 
 
+import models.combobox.DocumentTypeComboBox;
 import models.person.Person;
+import views.core.combobox.CustomComboBoxModel;
 import views.person.PersonView;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.stream.Stream;
+import models.documents.DocumentType;
 
 public class PersonController {
 
@@ -15,7 +17,7 @@ public class PersonController {
 
     private int employee_id=0;
 
-    final String[] COLUMN_NAMES = { "Id","Tipo_Documento","Documento","Nombre","Direccion","Email","Telefono","Referencias","Acciones"};
+    final String[] COLUMN_NAMES = { "Id","Tipo_Documento","Documento","Nombre","Email","Acciones"};
 
     public PersonController(PersonView panel) { this.panel = panel; }
 
@@ -27,7 +29,12 @@ public class PersonController {
         });
         futureTablePerson.thenAcceptAsync(persons -> {
             Object[][] information = persons.stream()
-                .map(person -> new Object[] { String.valueOf(person.getEmployeeId()),person.getTypeDniId(),person.getDocument(), person.getName(), person.getAddress(), person.getEmail() , person.getTelephone(), person.getReference()})
+                .map(person -> new Object[] { String.valueOf(
+                        person.getEmployeeId()),
+                        String.valueOf(person.getTypeDniId()),
+                        person.getDocument(),
+                        person.getName(),
+                        person.getEmail()})
                 .toArray(Object[][]::new);
             SwingUtilities.invokeLater(() -> panel.personList.makeTable(information,COLUMN_NAMES));
 
@@ -35,19 +42,17 @@ public class PersonController {
     }
 
 
-    /*public void loadDataComboBoxAsync(){
-        CompletableFuture<List<DocumentType>> futurePerson = CompletableFuture.supplyAsync(new DocumentType()::getDocuments);
-
-
-        futurePerson.thenAcceptAsync(documentTypes -> SwingUtilities.invokeLater(() -> {
-            CustomComboBox<DocumentType> comboBoxModel = new CustomComboBox<>(documentTypes);
-            panel.personEditor.cmbDocumentType.setModel((ComboBoxModel<DocumentType>) comboBoxModel);
+    public void loadDataComboBoxAsync(){
+        CompletableFuture<List<DocumentTypeComboBox>> documentTypeFuture = CompletableFuture.supplyAsync(() -> new DocumentTypeComboBox().getDocumentTypeCmb(""));
+        documentTypeFuture.thenAcceptAsync(documentType -> SwingUtilities.invokeLater(() -> {
+            CustomComboBoxModel<DocumentTypeComboBox> model = new CustomComboBoxModel<>(documentType);
+            panel.personEditor.cmbDocumentType.setModel(model);
+            panel.personEditor.cmbDocumentType.setSelectedIndex(0);
         }));
-    }*/
-
+    }
     public Integer savePerson(){
 
-        //DocumentType documentType = (DocumentType) panel.personEditor.cmbDocumentType.getSelectedItem();
+        DocumentTypeComboBox documentType= (DocumentTypeComboBox) panel.personEditor.cmbDocumentType.getSelectedItem();
         String document = panel.personEditor.txtDocument.getText();
         String name = panel.personEditor.txtName.getText();
         String address = panel.personEditor.txtAddress.getText();
@@ -57,7 +62,7 @@ public class PersonController {
 
         Person person = new Person();
         person.setEmployeeId(this.employee_id);
-        //person.setTypeDniId(this.DocumentType);
+        person.setTypeDniId((int) documentType.getId());
         person.setDocument(document);
         person.setName(name);
         person.setAddress(address);
@@ -77,6 +82,8 @@ public class PersonController {
 
     private void resetControls(){
         this.employee_id=0;
+        panel.personEditor.lblTitle.setText("Agregar nuevo empleado");
+        panel.personEditor.cmbDocumentType.setSelectedIndex(0);
         panel.personEditor.txtDocument.setText("");
         panel.personEditor.txtName.setText("");
         panel.personEditor.txtAddress.setText("");
@@ -121,21 +128,24 @@ public class PersonController {
 
 
     public void onClickEditAction(ActionEvent e, Object id){
+        panel.personEditor.lblTitle.setText("Actualizar Empleado");
         CompletableFuture<Person> futurePerson = CompletableFuture.supplyAsync(() -> new Person().getPerson((int) id));
         futurePerson.thenAcceptAsync(person -> SwingUtilities.invokeLater(() -> {
             this.employee_id = person.getEmployeeId();
+            panel.personEditor.cmbDocumentType.setSelectedIndex(person.getTypeDniId());
             panel.personEditor.txtDocument.setText(person.getDocument());
             panel.personEditor.txtName.setText(person.getName());
-            panel.personEditor.txtName.setText(person.getAddress());
-            panel.personEditor.txtName.setText(person.getEmail());
-            panel.personEditor.txtName.setText(person.getTelephone());
-            panel.personEditor.txtName.setText(person.getReference());
+            panel.personEditor.txtAddress.setText(person.getAddress());
+            panel.personEditor.txtEmail.setText(person.getEmail());
+            panel.personEditor.txtTelephone.setText(person.getTelephone());
+            panel.personEditor.txtReferences.setText(person.getReference());
 
         }));
         this.switchTab((JButton) e.getSource());
     }
 
     public boolean validateControlsValue(){
+        DocumentTypeComboBox documentType= (DocumentTypeComboBox) panel.personEditor.cmbDocumentType.getSelectedItem();
         String document = panel.personEditor.txtDocument.getText();
         String name = panel.personEditor.txtDocument.getText();
         String address = panel.personEditor.txtDocument.getText();
@@ -143,6 +153,9 @@ public class PersonController {
         String telephone = panel.personEditor.txtDocument.getText();
         String reference = panel.personEditor.txtDocument.getText();
 
+       if (documentType.getClass()==null){
+           return false;
+       }
         if(document.trim().isEmpty()){
             return false;
         }

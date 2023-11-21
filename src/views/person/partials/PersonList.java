@@ -113,23 +113,14 @@ public class PersonList extends  JPanel{
         table.setGridColor(new java.awt.Color(216,216,216));
         table.getColumnModel().getColumn(0).setMaxWidth(50);
         table.getColumnModel().getColumn(0).setResizable(false);
-        table.getColumnModel().getColumn(1).setMaxWidth(60);
-        table.getColumnModel().getColumn(1).setResizable(false);
-        table.getColumnModel().getColumn(2).setMaxWidth(80);
-        table.getColumnModel().getColumn(2).setResizable(false);
-        table.getColumnModel().getColumn(3).setMaxWidth(40);
-        table.getColumnModel().getColumn(3).setResizable(false);
-        table.getColumnModel().getColumn(3).setMaxWidth(40);
-        table.getColumnModel().getColumn(3).setResizable(false);
-
 
         ManageCellsActionButtons actionButtons =
                 new ManageCellsActionButtons(table,
-                        8,
+                        5,
                         new PersonAction(this.controller),
                         new PersonAction(this.controller));
-        table.getColumnModel().getColumn(8).setMaxWidth(100);
-        table.getColumnModel().getColumn(8).setMinWidth(100);
+        table.getColumnModel().getColumn(5).setMaxWidth(100);
+        table.getColumnModel().getColumn(5).setMinWidth(100);
 
         JTableHeader jTableHeader = table.getTableHeader();
         jTableHeader.setDefaultRenderer(new ManageTableHeader());
